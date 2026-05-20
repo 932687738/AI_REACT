@@ -4,12 +4,8 @@ import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
 import brandYxy from '@/assets/brand-yxy.png'
 
-function createAttachment(label) {
-  return {
-    type: 'image',
-    label: label || 'preview.png',
-    image: brandYxy,
-  }
+function createConversationId() {
+  return String(Date.now())
 }
 
 function HomePage({ language, onLanguageChange }) {
@@ -18,6 +14,7 @@ function HomePage({ language, onLanguageChange }) {
   const [inputValue, setInputValue] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
+  const [conversationId, setConversationId] = useState(() => createConversationId())
   const t = messages[language]
   const listRef = useRef(null)
   const endRef = useRef(null)
@@ -25,6 +22,7 @@ function HomePage({ language, onLanguageChange }) {
   useEffect(() => {
     setChatMessages([])
     setInputValue('')
+    setConversationId(createConversationId())
   }, [language])
 
   useEffect(() => {
@@ -74,6 +72,7 @@ function HomePage({ language, onLanguageChange }) {
     try {
       await sendChatMessage(
         {
+          conversationId,
           message,
           language,
         },
@@ -133,6 +132,7 @@ function HomePage({ language, onLanguageChange }) {
   function handleNewChat() {
     setChatMessages([])
     setInputValue('')
+    setConversationId(createConversationId())
     setMenuOpen(false)
   }
 
@@ -230,28 +230,14 @@ function HomePage({ language, onLanguageChange }) {
                 key={item.id}
                 className={`message-row ${item.role === 'user' ? 'message-row--user' : ''}`}
               >
-                {item.kind === 'attachment' ? (
-                  <div className="bubble bubble--attachment">
-                    <div className="bubble__attachments">
-                      {item.attachment?.type === 'image' ? (
-                        <img
-                          className="bubble__image"
-                          src={item.attachment.image}
-                          alt={item.attachment.label}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className={`bubble ${
-                      item.role === 'user' ? 'bubble--user' : 'bubble--assistant'
-                    } ${item.error ? 'bubble--error' : ''}`}
-                  >
-                    {item.text ? <div className="bubble__text">{item.text}</div> : null}
-                    {item.pending ? <span className="stream-cursor" /> : null}
-                  </div>
-                )}
+                <div
+                  className={`bubble ${
+                    item.role === 'user' ? 'bubble--user' : 'bubble--assistant'
+                  } ${item.error ? 'bubble--error' : ''}`}
+                >
+                  {item.text ? <div className="bubble__text">{item.text}</div> : null}
+                  {item.pending ? <span className="stream-cursor" /> : null}
+                </div>
               </article>
             ))}
             <div ref={endRef} />

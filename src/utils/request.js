@@ -1,7 +1,13 @@
 import { API_BASE_URL } from '@/api'
 
+function buildUrl(path) {
+  const base = API_BASE_URL.replace(/\/+$/, '')
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${normalizedPath}`
+}
+
 async function request(path, options = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildUrl(path), {
     headers: {
       'Content-Type': 'application/json',
       ...(options.headers || {}),
@@ -32,7 +38,7 @@ export function post(path, data) {
 }
 
 export async function postStream(path, data, handlers = {}) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(buildUrl(path), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

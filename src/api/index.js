@@ -2,9 +2,8 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
 export const API = {
   health: '/health',
-  chat: {
-    list: '/chat/list',
-    send: '/chat/send',
+  agentHub: {
+    chat: '/api/agent-hub/chat',
   },
   user: {
     profile: '/user/profile',

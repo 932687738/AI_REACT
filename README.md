@@ -9,6 +9,16 @@ npm.cmd install
 npm.cmd run dev
 ```
 
+## 环境变量
+
+当前开发环境默认通过 Vite 代理转发到本地后端：
+
+```bash
+VITE_API_BASE_URL=
+VITE_API_PROXY_TARGET=http://localhost:8080
+VITE_USE_MOCK_CHAT=false
+```
+
 ## 目录结构
 
 ```text

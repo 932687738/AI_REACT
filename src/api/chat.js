@@ -3,16 +3,16 @@ import { postStream } from '@/utils/request'
 
 const STREAM_DELAY = 32
 
-function createMockReply(message, language) {
+function createMockReply(message, conversationId, language) {
   if (language === 'en') {
-    return `Mock stream connected. Your message was: "${message}". This response is streaming token by token now, and you can replace it with a real backend later without changing the page structure.`
+    return `Mock stream connected. conversationId=${conversationId}. Your message was: "${message}". This response is streaming token by token now, and you can replace it with the real backend later without changing the page structure.`
   }
 
-  return `Mock 流式通道已接入。你刚刚发送的是：“${message}”。当前回复会以逐段流式输出的方式展示，后续替换成真实后端时不需要改动页面结构。`
+  return `Mock 流式通道已接入。conversationId=${conversationId}。你刚刚发送的是：“${message}”。当前回复会以逐段流式输出的方式展示，后续替换成真实后端时不需要改动页面结构。`
 }
 
-async function mockStream(message, language, handlers = {}) {
-  const reply = createMockReply(message, language)
+async function mockStream(payload, handlers = {}) {
+  const reply = createMockReply(payload.message, payload.conversationId, payload.language)
   const chunks = reply.match(/.{1,8}/g) || []
   let fullText = ''
 
@@ -27,11 +27,11 @@ async function mockStream(message, language, handlers = {}) {
 }
 
 export async function sendChatMessage(payload, handlers = {}) {
-  const useMock = import.meta.env.VITE_USE_MOCK_CHAT !== 'false'
+  const useMock = import.meta.env.VITE_USE_MOCK_CHAT !== 'true'
 
-  if (useMock) {
-    return mockStream(payload.message, payload.language, handlers)
-  }
+  // if (useMock) {
+  //   return mockStream(payload, handlers)
+  // }
 
-  return postStream(API.chat.send, payload, handlers)
+  return postStream(API.agentHub.chat, payload, handlers)
 }
