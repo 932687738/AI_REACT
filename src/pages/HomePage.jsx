@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { fetchAgentHubStatus } from '@/api/agentHub'
 import { sendChatMessage } from '@/api/chat'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
@@ -11,10 +12,13 @@ function createConversationId() {
 function HomePage({ language, onLanguageChange }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('chat')
+  const [sidebarView, setSidebarView] = useState('skills')
   const [inputValue, setInputValue] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
   const [conversationId, setConversationId] = useState(() => createConversationId())
+  const [skillStatus, setSkillStatus] = useState(null)
+  const [skillLoading, setSkillLoading] = useState(false)
   const t = messages[language]
   const listRef = useRef(null)
   const endRef = useRef(null)
@@ -34,6 +38,39 @@ function HomePage({ language, onLanguageChange }) {
       endRef.current?.scrollIntoView({ block: 'end' })
     })
   }, [chatMessages])
+
+  useEffect(() => {
+    if (!['skills', 'agents', 'tools', 'mcpCallbacks'].includes(sidebarView)) {
+      return
+    }
+
+    let alive = true
+
+    async function loadStatus() {
+      setSkillLoading(true)
+
+      try {
+        const data = await fetchAgentHubStatus()
+        if (alive) {
+          setSkillStatus(data)
+        }
+      } catch {
+        if (alive) {
+          setSkillStatus({ skills: [], subAgents: [], tools: [], mcpCallbacks: [] })
+        }
+      } finally {
+        if (alive) {
+          setSkillLoading(false)
+        }
+      }
+    }
+
+    loadStatus()
+
+    return () => {
+      alive = false
+    }
+  }, [sidebarView])
 
   const quickActions = useMemo(
     () => [
@@ -60,32 +97,19 @@ function HomePage({ language, onLanguageChange }) {
     setIsSending(true)
     setChatMessages((current) => [
       ...current,
-      {
-        id: userMessageId,
-        role: 'user',
-        kind: 'text',
-        text: message,
-      },
+      { id: userMessageId, role: 'user', kind: 'text', text: message },
       { id: assistantMessageId, role: 'assistant', kind: 'text', text: '', pending: true },
     ])
 
     try {
       await sendChatMessage(
-        {
-          conversationId,
-          message,
-          language,
-        },
+        { conversationId, message, language },
         {
           onChunk: (chunk) => {
             setChatMessages((current) =>
               current.map((item) =>
                 item.id === assistantMessageId
-                  ? {
-                      ...item,
-                      text: `${item.text}${chunk}`,
-                      pending: false,
-                    }
+                  ? { ...item, text: `${item.text}${chunk}`, pending: false }
                   : item,
               ),
             )
@@ -99,16 +123,11 @@ function HomePage({ language, onLanguageChange }) {
           },
         },
       )
-    } catch (error) {
+    } catch {
       setChatMessages((current) =>
         current.map((item) =>
           item.id === assistantMessageId
-            ? {
-                ...item,
-                text: t.errorMessage,
-                pending: false,
-                error: true,
-              }
+            ? { ...item, text: t.errorMessage, pending: false, error: true }
             : item,
         ),
       )
@@ -130,10 +149,92 @@ function HomePage({ language, onLanguageChange }) {
   }
 
   function handleNewChat() {
+    setSidebarView('chat')
     setChatMessages([])
     setInputValue('')
     setConversationId(createConversationId())
     setMenuOpen(false)
+  }
+
+  function renderInstalledCard(item, typeLabel, extraLabel) {
+    return (
+      <article key={`${typeLabel}-${item.name}`} className="skill-card skill-card--installed">
+        <div className="skill-card__icon">◎</div>
+        <div className="skill-card__body">
+          <strong>{item.name}</strong>
+          <p>{item.description || item.promptAugmentation || t.skillEmpty}</p>
+          <small>{extraLabel}</small>
+        </div>
+        <span className="skill-card__status">✓</span>
+      </article>
+    )
+  }
+
+  function renderSkillsPage() {
+    const skillList = skillStatus?.skills ?? []
+
+    return (
+      <section className="skills-screen">
+        <header className="skills-screen__topbar">
+          <button type="button" className="skills-refresh">
+            {t.skillRefresh}
+          </button>
+          <label className="skills-search">
+            <span>⌕</span>
+            <input type="text" placeholder={t.skillSearchPlaceholder} />
+          </label>
+        </header>
+
+        <div className="skills-screen__header">
+          <h1>{t.skillsPageTitle}</h1>
+          <p>{t.skillsPageSubtitle}</p>
+        </div>
+
+        <section className="skills-section">
+          <h2>{t.skillTitle}</h2>
+          <div className="skills-grid">
+            {skillLoading ? (
+              <div className="skills-empty">{t.streamingLabel}</div>
+            ) : skillList.length > 0 ? (
+              skillList.map((item) =>
+                renderInstalledCard(item, 'skill', `${t.skillTools}: ${item.toolCount}`),
+              )
+            ) : (
+              <div className="skills-empty">{t.skillsPageEmpty}</div>
+            )}
+          </div>
+        </section>
+      </section>
+    )
+  }
+
+  function renderNodeList(title, subtitle, emptyText, items, typeLabel) {
+    return (
+      <section className="skills-screen">
+        <div className="skills-screen__header">
+          <h1>{title}</h1>
+          <p>{subtitle}</p>
+        </div>
+
+        <section className="skills-section">
+          <div className="skills-grid">
+            {skillLoading ? (
+              <div className="skills-empty">{t.streamingLabel}</div>
+            ) : items.length > 0 ? (
+              items.map((item) =>
+                renderInstalledCard(
+                  item,
+                  typeLabel,
+                  item.description || item.promptAugmentation || emptyText,
+                ),
+              )
+            ) : (
+              <div className="skills-empty">{emptyText}</div>
+            )}
+          </div>
+        </section>
+      </section>
+    )
   }
 
   if (currentView === 'settings') {
@@ -150,30 +251,58 @@ function HomePage({ language, onLanguageChange }) {
     <main className="chat-shell">
       <aside className="sidebar">
         <div className="sidebar__brand">
-          <img className="brand-mark" src={brandYxy} alt="YXY brand logo" />
+          <img className="brand-mark" src={brandYxy} alt="Nebula Desk" />
           <div>
             <strong>{t.appName}</strong>
             <p>{t.brand}</p>
           </div>
         </div>
 
-        <button className="sidebar__newchat" type="button" onClick={handleNewChat}>
-          + {t.newChat}
-        </button>
+        <div className="sidebar__menu">
+          <button
+            className={`sidebar__menu-button ${sidebarView === 'chat' ? 'is-active' : ''}`}
+            type="button"
+            onClick={handleNewChat}
+          >
+            <span className="sidebar__item-icon">◎</span>
+            <span className="sidebar__item-label">{t.newChat}</span>
+          </button>
 
-        <div className="sidebar__section">
-          <div className="sidebar__section-head">
-            <span className="sidebar__label">{t.recentChats}</span>
-          </div>
-          <ul className="sidebar__list">
-            {t.history.map((item, index) => (
-              <li key={item}>
-                <button className={index === 0 ? 'is-active' : ''} type="button">
-                  {item}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
+            onClick={() => setSidebarView('skills')}
+          >
+            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-label">{t.sidebarSkills}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
+            onClick={() => setSidebarView('agents')}
+          >
+            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-label">{t.sidebarAgents}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
+            onClick={() => setSidebarView('tools')}
+          >
+            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-label">{t.sidebarTools}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
+            onClick={() => setSidebarView('mcpCallbacks')}
+          >
+            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-label">{t.sidebarMcp}</span>
+          </button>
         </div>
 
         <div className="sidebar__account">
@@ -210,69 +339,99 @@ function HomePage({ language, onLanguageChange }) {
       </aside>
 
       <section className="chat-main">
-        <header className="chat-topbar chat-topbar--center">
-          <div>
-            <h1>{t.chatTitle}</h1>
-            <p>{t.chatSubtitle}</p>
-          </div>
-        </header>
-
-        {chatMessages.length === 0 ? (
-          <section className="welcome-panel">
-            <img className="welcome-panel__image" src={brandYxy} alt="YXY preview" />
-            <h2>{t.welcomeTitle}</h2>
-            <p>{t.welcomeBody}</p>
-          </section>
+        {sidebarView === 'skills' ? (
+          renderSkillsPage()
+        ) : sidebarView === 'agents' ? (
+          renderNodeList(
+            t.agentsPageTitle,
+            t.agentsPageSubtitle,
+            t.agentsPageEmpty,
+            skillStatus?.subAgents ?? [],
+            'agent',
+          )
+        ) : sidebarView === 'tools' ? (
+          renderNodeList(
+            t.toolsPageTitle,
+            t.toolsPageSubtitle,
+            t.toolsPageEmpty,
+            skillStatus?.tools ?? [],
+            'tool',
+          )
+        ) : sidebarView === 'mcpCallbacks' ? (
+          renderNodeList(
+            t.mcpPageTitle,
+            t.mcpPageSubtitle,
+            t.mcpPageEmpty,
+            skillStatus?.mcpCallbacks ?? [],
+            'mcp',
+          )
         ) : (
-          <div className="chat-area chat-area--thread" ref={listRef}>
-            {chatMessages.map((item) => (
-              <article
-                key={item.id}
-                className={`message-row ${item.role === 'user' ? 'message-row--user' : ''}`}
-              >
-                <div
-                  className={`bubble ${
-                    item.role === 'user' ? 'bubble--user' : 'bubble--assistant'
-                  } ${item.error ? 'bubble--error' : ''}`}
-                >
-                  {item.text ? <div className="bubble__text">{item.text}</div> : null}
-                  {item.pending ? <span className="stream-cursor" /> : null}
+          <>
+            <header className="chat-topbar chat-topbar--center">
+              <div>
+                <h1>{t.chatTitle}</h1>
+                <p>{t.chatSubtitle}</p>
+              </div>
+            </header>
+
+            {chatMessages.length === 0 ? (
+              <section className="welcome-panel">
+                <img className="welcome-panel__image" src={brandYxy} alt="Nebula preview" />
+                <h2>{t.welcomeTitle}</h2>
+                <p>{t.welcomeBody}</p>
+              </section>
+            ) : (
+              <div className="chat-area chat-area--thread" ref={listRef}>
+                {chatMessages.map((item) => (
+                  <article
+                    key={item.id}
+                    className={`message-row ${item.role === 'user' ? 'message-row--user' : ''}`}
+                  >
+                    <div
+                      className={`bubble ${
+                        item.role === 'user' ? 'bubble--user' : 'bubble--assistant'
+                      } ${item.error ? 'bubble--error' : ''}`}
+                    >
+                      {item.text ? <div className="bubble__text">{item.text}</div> : null}
+                      {item.pending ? <span className="stream-cursor" /> : null}
+                    </div>
+                  </article>
+                ))}
+                <div ref={endRef} />
+              </div>
+            )}
+
+            <form className="composer composer--rich" onSubmit={handleSubmit}>
+              <textarea
+                className="composer__input"
+                rows="3"
+                placeholder={t.placeholder}
+                value={inputValue}
+                onChange={(event) => setInputValue(event.target.value)}
+                onKeyDown={handleComposerKeyDown}
+              />
+
+              <div className="composer__toolbar">
+                <div className="composer__shortcuts">
+                  {quickActions.map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className="composer-shortcut"
+                      onClick={() => submitMessage(item.label)}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
                 </div>
-              </article>
-            ))}
-            <div ref={endRef} />
-          </div>
-        )}
 
-        <form className="composer composer--rich" onSubmit={handleSubmit}>
-          <textarea
-            className="composer__input"
-            rows="3"
-            placeholder={t.placeholder}
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-            onKeyDown={handleComposerKeyDown}
-          />
-
-          <div className="composer__toolbar">
-            <div className="composer__shortcuts">
-              {quickActions.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className="composer-shortcut"
-                  onClick={() => submitMessage(item.label)}
-                >
-                  {item.label}
+                <button type="submit" className="composer__send" disabled={isSending}>
+                  {isSending ? t.sending : t.send}
                 </button>
-              ))}
-            </div>
-
-            <button type="submit" className="composer__send" disabled={isSending}>
-              {isSending ? t.sending : t.send}
-            </button>
-          </div>
-        </form>
+              </div>
+            </form>
+          </>
+        )}
       </section>
     </main>
   )

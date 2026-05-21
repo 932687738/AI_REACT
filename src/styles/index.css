@@ -98,8 +98,7 @@ button {
   font-size: 0.92rem;
 }
 
-.sidebar__newchat,
-.sidebar__list button,
+.sidebar__menu-button,
 .composer__send,
 .account-menu button,
 .account-trigger,
@@ -115,13 +114,29 @@ button {
     opacity 0.2s ease;
 }
 
-.sidebar__newchat {
+.sidebar__menu {
+  display: grid;
+  gap: 8px;
+}
+
+.sidebar__menu-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
   padding: 12px 14px;
-  border-radius: 14px;
-  background: rgba(59, 130, 246, 0.18);
+  min-height: 46px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.72);
   color: #dbeafe;
   font-weight: 600;
   text-align: left;
+  border: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.sidebar__menu-button.is-active {
+  background: rgba(37, 99, 235, 0.28);
+  border: 1px solid rgba(96, 165, 250, 0.25);
 }
 
 .sidebar__section {
@@ -145,25 +160,23 @@ button {
   text-transform: uppercase;
 }
 
-.sidebar__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 8px;
+.sidebar__item-icon {
+  display: inline-flex;
+  width: 18px;
+  flex: 0 0 18px;
+  color: #93c5fd;
 }
 
-.sidebar__list button {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  text-align: left;
-  color: #dbeafe;
-  background: rgba(15, 23, 42, 0.72);
-  border: 1px solid rgba(148, 163, 184, 0.08);
+.sidebar__item-label {
+  flex: 1;
+  min-width: 0;
 }
 
-.sidebar__list button.is-active,
+.sidebar__item-icon--skills {
+  color: #93c5fd;
+}
+
+.sidebar__menu-button.is-active,
 .account-menu button.is-highlighted {
   background: rgba(37, 99, 235, 0.2);
   border-color: rgba(96, 165, 250, 0.25);
@@ -244,6 +257,157 @@ button {
   height: 100vh;
   padding: 0 24px 24px;
   overflow: hidden;
+}
+
+.skills-screen {
+  min-width: 0;
+  height: 100%;
+  padding: 24px 8px 8px 12px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 24px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.skills-screen::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.skills-screen__topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.skills-refresh,
+.skills-new,
+.skills-search {
+  border-radius: 999px;
+}
+
+.skills-refresh,
+.skills-new {
+  padding: 11px 16px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #dbeafe;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.skills-search {
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+}
+
+.skills-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+}
+
+.skills-screen__header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+}
+
+.skills-screen__header p {
+  margin: 6px 0 0;
+  color: #94a3b8;
+}
+
+.skills-section {
+  display: grid;
+  gap: 16px;
+}
+
+.skills-section h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #cbd5e1;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.skill-card,
+.skills-empty {
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #111827;
+  border: 1px solid rgba(229, 231, 235, 0.86);
+}
+
+.skill-card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 18px;
+}
+
+.skill-card__icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: #fff;
+  font-weight: 700;
+}
+
+.skill-card__icon--accent {
+  background: linear-gradient(135deg, #111827, #334155);
+}
+
+.skill-card__body strong,
+.skill-card__body p,
+.skill-card__body small {
+  display: block;
+}
+
+.skill-card__body strong {
+  font-size: 1.02rem;
+}
+
+.skill-card__body p,
+.skill-card__body small {
+  margin-top: 6px;
+  color: #6b7280;
+}
+
+.skill-card__status,
+.skill-card__action {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.skill-card--installed {
+  grid-template-columns: 52px minmax(0, 1fr) 38px;
+}
+
+.skills-empty {
+  padding: 22px;
+  color: #6b7280;
 }
 
 .chat-topbar {
@@ -446,8 +610,7 @@ button {
 
 .composer-shortcut:hover,
 .composer__send:hover,
-.sidebar__newchat:hover,
-.sidebar__list button:hover,
+.sidebar__menu-button:hover,
 .account-trigger:hover,
 .account-menu button:hover,
 .settings-language-trigger:hover,
@@ -539,6 +702,11 @@ button {
 
 .settings-row__content strong {
   font-size: 1.05rem;
+}
+
+.settings-row__content p {
+  margin: 6px 0 0;
+  color: #6b7280;
 }
 
 .settings-language-picker {
@@ -648,5 +816,9 @@ button {
   .settings-language-picker {
     grid-column: 1 / -1;
     width: 100%;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
 }

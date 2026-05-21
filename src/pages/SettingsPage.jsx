@@ -27,6 +27,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
             <div className="settings-row__icon settings-row__icon--blue">{activeLanguage.icon}</div>
             <div className="settings-row__content">
               <strong>{t.language}</strong>
+              <p>{t.languageDesc}</p>
             </div>
             <div className="settings-language-picker">
               <button
@@ -35,7 +36,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
                 onClick={() => setLanguageOpen((open) => !open)}
               >
                 <span>{activeLanguage.label}</span>
-                <span>{languageOpen ? '^' : 'v'}</span>
+                <span>{languageOpen ? '˄' : '˅'}</span>
               </button>
 
               {languageOpen ? (
@@ -54,7 +55,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
                         <strong>{item.label}</strong>
                         <small>{t[item.nativeLabelKey]}</small>
                       </div>
-                      <span>{item.code === language ? 'OK' : ''}</span>
+                      <span>{item.code === language ? '✓' : ''}</span>
                     </button>
                   ))}
                 </div>
@@ -66,6 +67,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
             <div className="settings-row__icon settings-row__icon--purple">VO</div>
             <div className="settings-row__content">
               <strong>{t.voice}</strong>
+              <p>{t.appearanceDesc}</p>
             </div>
           </section>
 
@@ -73,6 +75,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
             <div className="settings-row__icon settings-row__icon--purple">ME</div>
             <div className="settings-row__content">
               <strong>{t.memory}</strong>
+              <p>{t.notificationsDesc}</p>
             </div>
           </section>
 
@@ -80,6 +83,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
             <div className="settings-row__icon settings-row__icon--violet">FB</div>
             <div className="settings-row__content">
               <strong>{t.help}</strong>
+              <p>{t.accountDesc}</p>
             </div>
           </section>
         </div>

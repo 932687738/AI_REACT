@@ -4,6 +4,7 @@ export const API = {
   health: '/health',
   agentHub: {
     chat: '/api/agent-hub/chat',
+    status: '/api/agent-hub/status',
   },
   user: {
     profile: '/user/profile',
