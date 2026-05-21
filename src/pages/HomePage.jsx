@@ -4,29 +4,75 @@ import { sendChatMessage } from '@/api/chat'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
 import brandYxy from '@/assets/brand-yxy.png'
+import {
+  deriveConversationTitle,
+  deleteConversationHistory,
+  deleteConversationMessages,
+  loadConversationHistory,
+  loadConversationMessages,
+  saveConversationHistory,
+  saveConversationMessages,
+  truncateTitle,
+  updateConversationHistory,
+  upsertConversationHistory,
+} from '@/services/conversationHistory'
 
 function createConversationId() {
-  return String(Date.now())
+  const now = Date.now()
+
+  if (createConversationId.lastNow === now) {
+    createConversationId.sequence += 1
+  } else {
+    createConversationId.lastNow = now
+    createConversationId.sequence = 0
+  }
+
+  return createConversationId.sequence === 0 ? String(now) : `${now}-${createConversationId.sequence}`
+}
+
+createConversationId.lastNow = 0
+createConversationId.sequence = 0
+
+function normalizeHistoryItems(items) {
+  return items
+    .map((item) => ({
+      ...item,
+      id: String(item.id || '').trim(),
+      title: String(item.title || item.preview || '暂无聊天内容').trim(),
+      preview: String(item.preview || '').trim(),
+      updatedAt: Number(item.updatedAt) || Date.now(),
+    }))
+    .filter((item) => item.id)
 }
 
 function HomePage({ language, onLanguageChange }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('chat')
-  const [sidebarView, setSidebarView] = useState('skills')
+  const [sidebarView, setSidebarView] = useState('chat')
   const [inputValue, setInputValue] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
   const [conversationId, setConversationId] = useState(() => createConversationId())
+  const [historyItems, setHistoryItems] = useState(() => normalizeHistoryItems(loadConversationHistory()))
+  const [renamingId, setRenamingId] = useState(null)
+  const [renameValue, setRenameValue] = useState('')
+  const [historyMenuId, setHistoryMenuId] = useState(null)
+  const [historyMenuPosition, setHistoryMenuPosition] = useState(null)
   const [skillStatus, setSkillStatus] = useState(null)
   const [skillLoading, setSkillLoading] = useState(false)
   const t = messages[language]
+  const sidebarRef = useRef(null)
   const listRef = useRef(null)
   const endRef = useRef(null)
+  const renameInputRef = useRef(null)
 
   useEffect(() => {
     setChatMessages([])
     setInputValue('')
     setConversationId(createConversationId())
+    setSidebarView('chat')
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
   }, [language])
 
   useEffect(() => {
@@ -38,6 +84,10 @@ function HomePage({ language, onLanguageChange }) {
       endRef.current?.scrollIntoView({ block: 'end' })
     })
   }, [chatMessages])
+
+  useEffect(() => {
+    saveConversationHistory(historyItems)
+  }, [historyItems])
 
   useEffect(() => {
     if (!['skills', 'agents', 'tools', 'mcpCallbacks'].includes(sidebarView)) {
@@ -72,6 +122,25 @@ function HomePage({ language, onLanguageChange }) {
     }
   }, [sidebarView])
 
+  useEffect(() => {
+    if (renamingId) {
+      renameInputRef.current?.focus()
+      renameInputRef.current?.select()
+    }
+  }, [renamingId])
+
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (!event.target.closest('.sidebar__history-menu') && !event.target.closest('.sidebar__history-more')) {
+        setHistoryMenuId(null)
+        setHistoryMenuPosition(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
+  }, [])
+
   const quickActions = useMemo(
     () => [
       { id: 'fast', label: t.quickFast },
@@ -83,6 +152,76 @@ function HomePage({ language, onLanguageChange }) {
     [t],
   )
 
+  function openHistoryMenu(event, id) {
+    const buttonRect = event.currentTarget.getBoundingClientRect()
+    const menuWidth = 132
+    const menuHeight = 96
+    const showAbove = window.innerHeight - buttonRect.bottom < menuHeight + 16
+    const preferredLeft = buttonRect.left
+    const left = Math.max(12, Math.min(preferredLeft, window.innerWidth - menuWidth - 12))
+    const top = showAbove ? buttonRect.top - menuHeight - 6 : buttonRect.bottom + 6
+
+    setHistoryMenuId((current) => (current === id ? null : id))
+    setHistoryMenuPosition(
+      historyMenuId === id
+        ? null
+        : {
+            left,
+            top: Math.max(12, top),
+          },
+    )
+  }
+
+  function handleStartNewChat() {
+    setSidebarView('chat')
+    setChatMessages([])
+    setInputValue('')
+    setConversationId(createConversationId())
+    setMenuOpen(false)
+    setRenamingId(null)
+    setRenameValue('')
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+  }
+
+  function handleHistoryChat(item) {
+    setSidebarView('chat')
+    setInputValue('')
+    setConversationId(item.id)
+    setChatMessages(loadConversationMessages(item.id))
+    setRenamingId(null)
+    setRenameValue('')
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+  }
+
+  function handleRenameStart(item) {
+    setRenamingId(item.id)
+    setRenameValue(item.title)
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+  }
+
+  function handleRenameCommit(id) {
+    const nextTitle = truncateTitle(renameValue, 24) || t.newChat
+    setHistoryItems((current) => updateConversationHistory(current, id, { title: nextTitle }))
+    setRenamingId(null)
+    setRenameValue('')
+  }
+
+  function handleDeleteHistory(id) {
+    setHistoryItems((current) => deleteConversationHistory(current, id))
+    deleteConversationMessages(id)
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+    setRenamingId(null)
+    setRenameValue('')
+
+    if (conversationId === id) {
+      handleStartNewChat()
+    }
+  }
+
   async function submitMessage(rawMessage) {
     const message = rawMessage.trim()
 
@@ -92,45 +231,67 @@ function HomePage({ language, onLanguageChange }) {
 
     const userMessageId = `user-${Date.now()}`
     const assistantMessageId = `assistant-${Date.now()}`
+    const nextMessages = [
+      ...chatMessages,
+      { id: userMessageId, role: 'user', kind: 'text', text: message },
+      { id: assistantMessageId, role: 'assistant', kind: 'text', text: '', pending: true },
+    ]
 
     setInputValue('')
     setIsSending(true)
-    setChatMessages((current) => [
-      ...current,
-      { id: userMessageId, role: 'user', kind: 'text', text: message },
-      { id: assistantMessageId, role: 'assistant', kind: 'text', text: '', pending: true },
-    ])
+    setChatMessages(nextMessages)
+    saveConversationMessages(conversationId, nextMessages)
+
+    setHistoryItems((current) => {
+      const existing = current.find((item) => item.id === conversationId)
+      const nextItem = existing
+        ? { ...existing, preview: message, updatedAt: Date.now() }
+        : {
+            id: conversationId,
+            title: deriveConversationTitle(message, t.newChat),
+            preview: message,
+            updatedAt: Date.now(),
+          }
+
+      return upsertConversationHistory(current.slice(0, 10), nextItem)
+    })
 
     try {
       await sendChatMessage(
         { conversationId, message, language },
         {
           onChunk: (chunk) => {
-            setChatMessages((current) =>
-              current.map((item) =>
+            setChatMessages((current) => {
+              const updated = current.map((item) =>
                 item.id === assistantMessageId
                   ? { ...item, text: `${item.text}${chunk}`, pending: false }
                   : item,
-              ),
-            )
+              )
+              saveConversationMessages(conversationId, updated)
+              return updated
+            })
           },
           onComplete: () => {
-            setChatMessages((current) =>
-              current.map((item) =>
+            setChatMessages((current) => {
+              const updated = current.map((item) =>
                 item.id === assistantMessageId ? { ...item, pending: false } : item,
-              ),
-            )
+              )
+              saveConversationMessages(conversationId, updated)
+              return updated
+            })
           },
         },
       )
     } catch {
-      setChatMessages((current) =>
-        current.map((item) =>
+      setChatMessages((current) => {
+        const updated = current.map((item) =>
           item.id === assistantMessageId
             ? { ...item, text: t.errorMessage, pending: false, error: true }
             : item,
-        ),
-      )
+        )
+        saveConversationMessages(conversationId, updated)
+        return updated
+      })
     } finally {
       setIsSending(false)
     }
@@ -148,24 +309,16 @@ function HomePage({ language, onLanguageChange }) {
     }
   }
 
-  function handleNewChat() {
-    setSidebarView('chat')
-    setChatMessages([])
-    setInputValue('')
-    setConversationId(createConversationId())
-    setMenuOpen(false)
-  }
-
   function renderInstalledCard(item, typeLabel, extraLabel) {
     return (
       <article key={`${typeLabel}-${item.name}`} className="skill-card skill-card--installed">
-        <div className="skill-card__icon">◎</div>
+        <div className="skill-card__icon">*</div>
         <div className="skill-card__body">
           <strong>{item.name}</strong>
           <p>{item.description || item.promptAugmentation || t.skillEmpty}</p>
           <small>{extraLabel}</small>
         </div>
-        <span className="skill-card__status">✓</span>
+        <span className="skill-card__status">+</span>
       </article>
     )
   }
@@ -180,7 +333,7 @@ function HomePage({ language, onLanguageChange }) {
             {t.skillRefresh}
           </button>
           <label className="skills-search">
-            <span>⌕</span>
+            <span>*</span>
             <input type="text" placeholder={t.skillSearchPlaceholder} />
           </label>
         </header>
@@ -196,9 +349,7 @@ function HomePage({ language, onLanguageChange }) {
             {skillLoading ? (
               <div className="skills-empty">{t.streamingLabel}</div>
             ) : skillList.length > 0 ? (
-              skillList.map((item) =>
-                renderInstalledCard(item, 'skill', `${t.skillTools}: ${item.toolCount}`),
-              )
+              skillList.map((item) => renderInstalledCard(item, 'skill', `${t.skillTools}: ${item.toolCount}`))
             ) : (
               <div className="skills-empty">{t.skillsPageEmpty}</div>
             )}
@@ -249,7 +400,7 @@ function HomePage({ language, onLanguageChange }) {
 
   return (
     <main className="chat-shell">
-      <aside className="sidebar">
+      <aside className="sidebar" ref={sidebarRef}>
         <div className="sidebar__brand">
           <img className="brand-mark" src={brandYxy} alt="Nebula Desk" />
           <div>
@@ -262,9 +413,9 @@ function HomePage({ language, onLanguageChange }) {
           <button
             className={`sidebar__menu-button ${sidebarView === 'chat' ? 'is-active' : ''}`}
             type="button"
-            onClick={handleNewChat}
+            onClick={handleStartNewChat}
           >
-            <span className="sidebar__item-icon">◎</span>
+            <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.newChat}</span>
           </button>
 
@@ -273,7 +424,7 @@ function HomePage({ language, onLanguageChange }) {
             className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
             onClick={() => setSidebarView('skills')}
           >
-            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.sidebarSkills}</span>
           </button>
 
@@ -282,7 +433,7 @@ function HomePage({ language, onLanguageChange }) {
             className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
             onClick={() => setSidebarView('agents')}
           >
-            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.sidebarAgents}</span>
           </button>
 
@@ -291,7 +442,7 @@ function HomePage({ language, onLanguageChange }) {
             className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
             onClick={() => setSidebarView('tools')}
           >
-            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.sidebarTools}</span>
           </button>
 
@@ -300,9 +451,62 @@ function HomePage({ language, onLanguageChange }) {
             className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
             onClick={() => setSidebarView('mcpCallbacks')}
           >
-            <span className="sidebar__item-icon">◌</span>
+            <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.sidebarMcp}</span>
           </button>
+        </div>
+
+        <div className="sidebar__module sidebar__module--history">
+          <div className="sidebar__module-title">{t.recentChats}</div>
+          <div className="sidebar__history">
+            {historyItems.length > 0 ? (
+              historyItems.map((item) => (
+                <div key={item.id} className="sidebar__history-row">
+                  {renamingId === item.id ? (
+                    <input
+                      ref={renameInputRef}
+                      className="sidebar__history-input"
+                      value={renameValue}
+                      onChange={(event) => setRenameValue(event.target.value)}
+                      onBlur={() => handleRenameCommit(item.id)}
+                      onKeyDown={(event) => {
+                        if (event.key === 'Enter') {
+                          event.preventDefault()
+                          handleRenameCommit(item.id)
+                        }
+                        if (event.key === 'Escape') {
+                          setRenamingId(null)
+                          setRenameValue('')
+                        }
+                      }}
+                    />
+                  ) : (
+                    <div className="sidebar__history-item-wrap">
+                      <button
+                        type="button"
+                        className={`sidebar__history-item ${
+                          sidebarView === 'chat' && conversationId === item.id ? 'is-active' : ''
+                        }`}
+                        onClick={() => handleHistoryChat(item)}
+                      >
+                        <span className="sidebar__item-label">{item.title || t.noChatContent}</span>
+                      </button>
+                      <button
+                        type="button"
+                        className="sidebar__history-more"
+                        aria-label="更多"
+                        onClick={(event) => openHistoryMenu(event, item.id)}
+                      >
+                        ⋯
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <div className="sidebar__history-empty">{t.noChatContent}</div>
+            )}
+          </div>
         </div>
 
         <div className="sidebar__account">
@@ -337,6 +541,36 @@ function HomePage({ language, onLanguageChange }) {
           </button>
         </div>
       </aside>
+
+      {historyMenuId && historyMenuPosition ? (
+        <div
+          className="sidebar__history-menu sidebar__history-menu--floating"
+          style={{
+            left: `${historyMenuPosition.left}px`,
+            top: `${historyMenuPosition.top}px`,
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => {
+              const item = historyItems.find((entry) => entry.id === historyMenuId)
+              if (item) {
+                handleRenameStart(item)
+              }
+            }}
+          >
+            {language === 'zh' ? '修改' : 'Rename'}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              handleDeleteHistory(historyMenuId)
+            }}
+          >
+            {language === 'zh' ? '删除' : 'Delete'}
+          </button>
+        </div>
+      ) : null}
 
       <section className="chat-main">
         {sidebarView === 'skills' ? (
