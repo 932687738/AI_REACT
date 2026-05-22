@@ -1,50 +1,40 @@
 # Nebula Desk
 
-一个基于 React + Vite 的智能对话工作台前端项目，统一了聊天页、设置页和 Skills 页面结构。
+🤖 AI 留痕规范：本项目所有变更和结构均记录在 `PROJECT_OVERVIEW.md`、`HISTORY.md` 等文档中。任何新 AI 会话请先阅读 `DOCUMENTATION_GUIDE.md` 和上述文档，再修改代码。
 
-## 启动
+Nebula Desk 是一个基于 React + Vite 的智能对话工作台，包含聊天页、设置页、技能/智能体/工具/MCP 页面，以及本地历史对话管理。
+
+## 快速启动
 
 ```bash
 npm.cmd install
 npm.cmd run dev
+npm.cmd run build
+npm.cmd run lint
 ```
 
 ## 环境变量
 
-把下面配置写到项目根目录的 `.env` 中：
+把下面内容写入项目根目录的 `.env`：
 
 ```bash
 VITE_API_BASE_URL=
 VITE_API_PROXY_TARGET=http://localhost:8080
-VITE_USE_MOCK_CHAT=false
+VITE_USE_MOCK_CHAT=true
 ```
 
 ## 说明
 
-- `VITE_API_BASE_URL`：后端基础地址，留空时走 Vite 代理。
-- `VITE_API_PROXY_TARGET`：开发环境代理到的后端地址。
-- `VITE_USE_MOCK_CHAT`：`true` 时使用前端 mock，`false` 时调用后端接口。
+- `VITE_API_BASE_URL`：后端基础地址，留空时走 Vite 代理
+- `VITE_API_PROXY_TARGET`：开发环境代理目标
+- `VITE_USE_MOCK_CHAT`：`true` 使用前端 mock，`false` 调用后端流式接口
 
-## 目录
+## 文档入口
 
-```text
-src/
-  api/       后端接口定义
-  app/       应用入口
-  assets/    静态资源
-  hooks/     自定义 Hook
-  i18n/      多语言文案
-  pages/     页面
-  styles/    全局样式
-  utils/     请求工具
-```
+- `PROJECT_OVERVIEW.md`
+- `ARCHITECTURE.md`
+- `FILE_STRUCTURE.md`
+- `CHANGELOG.md`
+- `PROBLEM_MAPPING.md`
+- `DOCUMENTATION_GUIDE.md`
 
-## 接口
-
-- `src/api/index.js`：统一接口地址
-- `src/utils/request.js`：统一 `get / post / put / del / postStream`
-
-## 备注
-
-- 聊天流接口参考后端 `POST /api/agent-hub/chat`
-- Skills 数据来自 `GET /api/agent-hub/status`
