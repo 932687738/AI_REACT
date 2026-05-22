@@ -37,11 +37,70 @@ export function post(path, data) {
   })
 }
 
+function normalizeSseBuffer(buffer) {
+  return buffer.replace(/\r\n/g, '\n')
+}
+
+function splitSseEvents(buffer, final = false) {
+  const normalized = normalizeSseBuffer(buffer)
+  const events = []
+  let remaining = normalized
+
+  let boundary = remaining.indexOf('\n\n')
+  while (boundary !== -1) {
+    events.push(remaining.slice(0, boundary))
+    remaining = remaining.slice(boundary + 2)
+    boundary = remaining.indexOf('\n\n')
+  }
+
+  if (final && remaining.trim()) {
+    events.push(remaining)
+    remaining = ''
+  }
+
+  return { events, remaining }
+}
+
+function parseSseEvent(eventBlock) {
+  const dataLines = []
+
+  for (const line of eventBlock.split('\n')) {
+    if (!line || line.startsWith(':')) {
+      continue
+    }
+
+    if (line.startsWith('data:')) {
+      dataLines.push(line.slice(5).replace(/^\s/, ''))
+    }
+  }
+
+  if (dataLines.length === 0) {
+    return null
+  }
+
+  const data = dataLines.join('\n')
+  return data === '[DONE]' ? null : data
+}
+
+function consumeSseBuffer(buffer, onData, final = false) {
+  const { events, remaining } = splitSseEvents(buffer, final)
+
+  for (const event of events) {
+    const data = parseSseEvent(event)
+    if (data !== null) {
+      onData(data)
+    }
+  }
+
+  return remaining
+}
+
 export async function postStream(path, data, handlers = {}) {
   const response = await fetch(buildUrl(path), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'text/event-stream, text/plain, application/json',
       ...(handlers.headers || {}),
     },
     body: JSON.stringify(data ?? {}),
@@ -51,8 +110,21 @@ export async function postStream(path, data, handlers = {}) {
     throw new Error(`Request failed: ${response.status}`)
   }
 
+  const contentType = response.headers.get('content-type') || ''
+  const isEventStream = contentType.includes('text/event-stream')
+
   if (!response.body) {
     const text = await response.text()
+    if (isEventStream) {
+      let fullText = ''
+      consumeSseBuffer(text, (payload) => {
+        fullText += payload
+        handlers.onChunk?.(payload)
+      }, true)
+      handlers.onComplete?.(fullText)
+      return fullText
+    }
+
     handlers.onChunk?.(text)
     handlers.onComplete?.(text)
     return text
@@ -61,6 +133,7 @@ export async function postStream(path, data, handlers = {}) {
   const reader = response.body.getReader()
   const decoder = new TextDecoder()
   let fullText = ''
+  let sseBuffer = ''
 
   while (true) {
     const { done, value } = await reader.read()
@@ -70,8 +143,25 @@ export async function postStream(path, data, handlers = {}) {
     }
 
     const chunk = decoder.decode(value, { stream: true })
+
+    if (isEventStream) {
+      sseBuffer += chunk
+      sseBuffer = consumeSseBuffer(sseBuffer, (payload) => {
+        fullText += payload
+        handlers.onChunk?.(payload)
+      })
+      continue
+    }
+
     fullText += chunk
     handlers.onChunk?.(chunk)
+  }
+
+  if (isEventStream) {
+    consumeSseBuffer(sseBuffer, (payload) => {
+      fullText += payload
+      handlers.onChunk?.(payload)
+    }, true)
   }
 
   handlers.onComplete?.(fullText)
