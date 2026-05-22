@@ -100,13 +100,13 @@ function HomePage({ language, onLanguageChange }) {
       setSkillLoading(true)
 
       try {
-        const data = await fetchAgentHubStatus()
+        const data = await fetchAgentHubStatus(language)
         if (alive) {
           setSkillStatus(data)
         }
       } catch {
         if (alive) {
-          setSkillStatus({ skills: [], subAgents: [], tools: [], mcpCallbacks: [] })
+          setSkillStatus({ modules: [], skills: [], subAgents: [], tools: [], mcpCallbacks: [] })
         }
       } finally {
         if (alive) {
@@ -120,7 +120,7 @@ function HomePage({ language, onLanguageChange }) {
     return () => {
       alive = false
     }
-  }, [sidebarView])
+  }, [language, sidebarView])
 
   useEffect(() => {
     if (renamingId) {
@@ -309,14 +309,29 @@ function HomePage({ language, onLanguageChange }) {
     }
   }
 
+  function formatExampleMeta(examples = []) {
+    if (examples.length === 0) {
+      return ''
+    }
+
+    const [firstExample] = examples
+    const firstLabel = firstExample?.title || firstExample?.description
+
+    if (firstLabel) {
+      return `${t.skillExamples}: ${firstLabel}`
+    }
+
+    return `${t.skillExamples}: ${examples.length}`
+  }
+
   function renderInstalledCard(item, typeLabel, extraLabel) {
     return (
       <article key={`${typeLabel}-${item.name}`} className="skill-card skill-card--installed">
         <div className="skill-card__icon">*</div>
         <div className="skill-card__body">
           <strong>{item.name}</strong>
-          <p>{item.description || item.promptAugmentation || t.skillEmpty}</p>
-          <small>{extraLabel}</small>
+          <p>{item.description || t.skillEmpty}</p>
+          {extraLabel ? <small>{extraLabel}</small> : null}
         </div>
         <span className="skill-card__status">+</span>
       </article>
@@ -349,7 +364,15 @@ function HomePage({ language, onLanguageChange }) {
             {skillLoading ? (
               <div className="skills-empty">{t.streamingLabel}</div>
             ) : skillList.length > 0 ? (
-              skillList.map((item) => renderInstalledCard(item, 'skill', `${t.skillTools}: ${item.toolCount}`))
+              skillList.map((item) =>
+                renderInstalledCard(
+                  item,
+                  'skill',
+                  [`${t.skillTools}: ${item.toolCount}`, formatExampleMeta(item.examples)]
+                    .filter(Boolean)
+                    .join(' · '),
+                ),
+              )
             ) : (
               <div className="skills-empty">{t.skillsPageEmpty}</div>
             )}
@@ -376,7 +399,7 @@ function HomePage({ language, onLanguageChange }) {
                 renderInstalledCard(
                   item,
                   typeLabel,
-                  item.description || item.promptAugmentation || emptyText,
+                  formatExampleMeta(item.examples),
                 ),
               )
             ) : (

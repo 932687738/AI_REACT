@@ -34,8 +34,9 @@ src/main.jsx
 
 ## 外部 API
 
-- `GET /api/agent-hub/status`
-  - 用于读取 skills、agents、tools、mcpCallbacks
+- `GET /api/agent-hub/status?locale=zh|en`
+  - 用于读取 modules、skills、agents、tools、mcpCallbacks
+  - 返回中的多语言字段由前端按当前界面语言解析
 - `POST /api/agent-hub/chat`
   - 流式聊天接口
   - `conversationId` 和 `message` 由前端构造
@@ -53,4 +54,3 @@ src/main.jsx
 - `/api` 可通过 `vite.config.js` 代理到后端
 - 构建命令为 `npm.cmd run build`
 - 生产部署产物位于 `dist/`
-

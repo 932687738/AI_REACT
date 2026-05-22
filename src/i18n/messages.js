@@ -72,6 +72,7 @@
     noChatContent: '暂无聊天内容',
     skillEmpty: '暂无数据',
     skillTools: '工具数',
+    skillExamples: '示例',
   },
   en: {
     appName: 'Nebula Desk',
@@ -147,6 +148,7 @@
     noChatContent: 'No chat content yet',
     skillEmpty: 'No data available',
     skillTools: 'Tools',
+    skillExamples: 'Examples',
   },
 }
 
