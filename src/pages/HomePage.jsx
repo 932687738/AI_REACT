@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { fetchAgentHubStatus } from '@/api/agentHub'
 import { sendChatMessage } from '@/api/chat'
+import { CHAT_MODE, AGENT_HUB_VIEWS, DEFAULT_CHAT_MODE, SIDEBAR_CHAT_VIEW } from '@/constants/chatMode'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
 import brandYxy from '@/assets/brand-yxy.png'
@@ -33,6 +34,26 @@ function createConversationId() {
 createConversationId.lastNow = 0
 createConversationId.sequence = 0
 
+function resolveChatMode(sidebarView) {
+  if (sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE) {
+    return CHAT_MODE.KNOWLEDGE
+  }
+
+  if (sidebarView === SIDEBAR_CHAT_VIEW.AGENT || AGENT_HUB_VIEWS.includes(sidebarView)) {
+    return CHAT_MODE.AGENT
+  }
+
+  return DEFAULT_CHAT_MODE
+}
+
+function isChatView(sidebarView) {
+  return sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE || sidebarView === SIDEBAR_CHAT_VIEW.AGENT
+}
+
+function resolveHistoryMode(item) {
+  return item?.mode === CHAT_MODE.AGENT ? CHAT_MODE.AGENT : CHAT_MODE.KNOWLEDGE
+}
+
 function normalizeHistoryItems(items) {
   return items
     .map((item) => ({
@@ -48,7 +69,7 @@ function normalizeHistoryItems(items) {
 function HomePage({ language, onLanguageChange }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('chat')
-  const [sidebarView, setSidebarView] = useState('chat')
+  const [sidebarView, setSidebarView] = useState(SIDEBAR_CHAT_VIEW.KNOWLEDGE)
   const [inputValue, setInputValue] = useState('')
   const [isSending, setIsSending] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
@@ -61,6 +82,15 @@ function HomePage({ language, onLanguageChange }) {
   const [skillStatus, setSkillStatus] = useState(null)
   const [skillLoading, setSkillLoading] = useState(false)
   const t = messages[language]
+  const chatMode = useMemo(() => resolveChatMode(sidebarView), [sidebarView])
+  const visibleHistoryItems = useMemo(
+    () =>
+      historyItems.filter((item) => {
+        const itemMode = item.mode || CHAT_MODE.KNOWLEDGE
+        return itemMode === chatMode
+      }),
+    [historyItems, chatMode],
+  )
   const sidebarRef = useRef(null)
   const listRef = useRef(null)
   const endRef = useRef(null)
@@ -70,7 +100,7 @@ function HomePage({ language, onLanguageChange }) {
     setChatMessages([])
     setInputValue('')
     setConversationId(createConversationId())
-    setSidebarView('chat')
+    setSidebarView(SIDEBAR_CHAT_VIEW.KNOWLEDGE)
     setHistoryMenuId(null)
     setHistoryMenuPosition(null)
   }, [language])
@@ -90,7 +120,7 @@ function HomePage({ language, onLanguageChange }) {
   }, [historyItems])
 
   useEffect(() => {
-    if (!['skills', 'agents', 'tools', 'mcpCallbacks'].includes(sidebarView)) {
+    if (!AGENT_HUB_VIEWS.includes(sidebarView)) {
       return
     }
 
@@ -100,7 +130,7 @@ function HomePage({ language, onLanguageChange }) {
       setSkillLoading(true)
 
       try {
-        const data = await fetchAgentHubStatus(language)
+        const data = await fetchAgentHubStatus(language, CHAT_MODE.AGENT)
         if (alive) {
           setSkillStatus(data)
         }
@@ -141,6 +171,27 @@ function HomePage({ language, onLanguageChange }) {
     return () => document.removeEventListener('mousedown', handleOutsideClick)
   }, [])
 
+  const composerPlaceholder = useMemo(
+    () => (chatMode === CHAT_MODE.KNOWLEDGE ? t.placeholderKnowledge : t.placeholderAgent),
+    [chatMode, t],
+  )
+
+  const chatHeader = useMemo(
+    () =>
+      chatMode === CHAT_MODE.KNOWLEDGE
+        ? { title: t.chatTitleKnowledge, subtitle: t.chatSubtitleKnowledge }
+        : { title: t.chatTitleAgent, subtitle: t.chatSubtitleAgent },
+    [chatMode, t],
+  )
+
+  const welcomeContent = useMemo(
+    () =>
+      chatMode === CHAT_MODE.KNOWLEDGE
+        ? { title: t.welcomeTitleKnowledge, body: t.welcomeBodyKnowledge }
+        : { title: t.welcomeTitleAgent, body: t.welcomeBodyAgent },
+    [chatMode, t],
+  )
+
   const quickActions = useMemo(
     () => [
       { id: 'fast', label: t.quickFast },
@@ -172,8 +223,8 @@ function HomePage({ language, onLanguageChange }) {
     )
   }
 
-  function handleStartNewChat() {
-    setSidebarView('chat')
+  function handleStartKnowledgeChat() {
+    setSidebarView(SIDEBAR_CHAT_VIEW.KNOWLEDGE)
     setChatMessages([])
     setInputValue('')
     setConversationId(createConversationId())
@@ -184,8 +235,30 @@ function HomePage({ language, onLanguageChange }) {
     setHistoryMenuPosition(null)
   }
 
+  function handleStartAgentChat() {
+    setSidebarView(SIDEBAR_CHAT_VIEW.AGENT)
+    setChatMessages([])
+    setInputValue('')
+    setConversationId(createConversationId())
+    setMenuOpen(false)
+    setRenamingId(null)
+    setRenameValue('')
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+  }
+
+  function handleStartNewChat() {
+    if (chatMode === CHAT_MODE.AGENT) {
+      handleStartAgentChat()
+      return
+    }
+
+    handleStartKnowledgeChat()
+  }
+
   function handleHistoryChat(item) {
-    setSidebarView('chat')
+    const itemMode = item.mode || CHAT_MODE.KNOWLEDGE
+    setSidebarView(itemMode === CHAT_MODE.AGENT ? SIDEBAR_CHAT_VIEW.AGENT : SIDEBAR_CHAT_VIEW.KNOWLEDGE)
     setInputValue('')
     setConversationId(item.id)
     setChatMessages(loadConversationMessages(item.id))
@@ -203,7 +276,7 @@ function HomePage({ language, onLanguageChange }) {
   }
 
   function handleRenameCommit(id) {
-    const nextTitle = truncateTitle(renameValue, 24) || t.newChat
+    const nextTitle = truncateTitle(renameValue, 24) || (chatMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat)
     setHistoryItems((current) => updateConversationHistory(current, id, { title: nextTitle }))
     setRenamingId(null)
     setRenameValue('')
@@ -248,9 +321,13 @@ function HomePage({ language, onLanguageChange }) {
         ? { ...existing, preview: message, updatedAt: Date.now() }
         : {
             id: conversationId,
-            title: deriveConversationTitle(message, t.newChat),
+            title: deriveConversationTitle(
+              message,
+              chatMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat,
+            ),
             preview: message,
             updatedAt: Date.now(),
+            mode: chatMode,
           }
 
       return upsertConversationHistory(current.slice(0, 10), nextItem)
@@ -258,7 +335,7 @@ function HomePage({ language, onLanguageChange }) {
 
     try {
       await sendChatMessage(
-        { conversationId, message, language },
+        { conversationId, message, language, mode: chatMode },
         {
           onChunk: (chunk) => {
             setChatMessages((current) => {
@@ -322,6 +399,21 @@ function HomePage({ language, onLanguageChange }) {
     }
 
     return `${t.skillExamples}: ${examples.length}`
+  }
+
+  function renderHistoryModeBadge(item) {
+    const itemMode = resolveHistoryMode(item)
+    const label = itemMode === CHAT_MODE.AGENT ? t.historyModeAgent : t.historyModeKnowledge
+
+    return (
+      <span
+        className={`sidebar__history-mode sidebar__history-mode--${itemMode}`}
+        aria-label={itemMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat}
+        title={itemMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat}
+      >
+        {label}
+      </span>
+    )
   }
 
   function renderInstalledCard(item, typeLabel, extraLabel) {
@@ -434,17 +526,28 @@ function HomePage({ language, onLanguageChange }) {
 
         <div className="sidebar__menu">
           <button
-            className={`sidebar__menu-button ${sidebarView === 'chat' ? 'is-active' : ''}`}
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ? 'is-active' : ''}`}
             type="button"
-            onClick={handleStartNewChat}
+            onClick={handleStartKnowledgeChat}
           >
             <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.newChat}</span>
+            <span className="sidebar__item-label">{t.knowledgeChat}</span>
+          </button>
+
+          <button
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.AGENT ? 'is-active' : ''}`}
+            type="button"
+            onClick={handleStartAgentChat}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.agentChat}</span>
           </button>
 
           <button
             type="button"
-            className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
+            className={`sidebar__menu-button sidebar__menu-button--nested ${
+              sidebarView === 'skills' ? 'is-active' : ''
+            }`}
             onClick={() => setSidebarView('skills')}
           >
             <span className="sidebar__item-icon">*</span>
@@ -453,7 +556,9 @@ function HomePage({ language, onLanguageChange }) {
 
           <button
             type="button"
-            className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
+            className={`sidebar__menu-button sidebar__menu-button--nested ${
+              sidebarView === 'agents' ? 'is-active' : ''
+            }`}
             onClick={() => setSidebarView('agents')}
           >
             <span className="sidebar__item-icon">*</span>
@@ -462,7 +567,9 @@ function HomePage({ language, onLanguageChange }) {
 
           <button
             type="button"
-            className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
+            className={`sidebar__menu-button sidebar__menu-button--nested ${
+              sidebarView === 'tools' ? 'is-active' : ''
+            }`}
             onClick={() => setSidebarView('tools')}
           >
             <span className="sidebar__item-icon">*</span>
@@ -471,7 +578,9 @@ function HomePage({ language, onLanguageChange }) {
 
           <button
             type="button"
-            className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
+            className={`sidebar__menu-button sidebar__menu-button--nested ${
+              sidebarView === 'mcpCallbacks' ? 'is-active' : ''
+            }`}
             onClick={() => setSidebarView('mcpCallbacks')}
           >
             <span className="sidebar__item-icon">*</span>
@@ -482,8 +591,8 @@ function HomePage({ language, onLanguageChange }) {
         <div className="sidebar__module sidebar__module--history">
           <div className="sidebar__module-title">{t.recentChats}</div>
           <div className="sidebar__history">
-            {historyItems.length > 0 ? (
-              historyItems.map((item) => (
+            {visibleHistoryItems.length > 0 ? (
+              visibleHistoryItems.map((item) => (
                 <div key={item.id} className="sidebar__history-row">
                   {renamingId === item.id ? (
                     <input
@@ -508,11 +617,14 @@ function HomePage({ language, onLanguageChange }) {
                       <button
                         type="button"
                         className={`sidebar__history-item ${
-                          sidebarView === 'chat' && conversationId === item.id ? 'is-active' : ''
+                          isChatView(sidebarView) && conversationId === item.id ? 'is-active' : ''
                         }`}
                         onClick={() => handleHistoryChat(item)}
                       >
-                        <span className="sidebar__item-label">{item.title || t.noChatContent}</span>
+                        {renderHistoryModeBadge(item)}
+                        <span className="sidebar__item-label sidebar__history-title">
+                          {item.title || t.noChatContent}
+                        </span>
                       </button>
                       <button
                         type="button"
@@ -622,20 +734,20 @@ function HomePage({ language, onLanguageChange }) {
             skillStatus?.mcpCallbacks ?? [],
             'mcp',
           )
-        ) : (
+        ) : isChatView(sidebarView) ? (
           <>
             <header className="chat-topbar chat-topbar--center">
               <div>
-                <h1>{t.chatTitle}</h1>
-                <p>{t.chatSubtitle}</p>
+                <h1>{chatHeader.title}</h1>
+                <p>{chatHeader.subtitle}</p>
               </div>
             </header>
 
             {chatMessages.length === 0 ? (
               <section className="welcome-panel">
                 <img className="welcome-panel__image" src={brandYxy} alt="Nebula preview" />
-                <h2>{t.welcomeTitle}</h2>
-                <p>{t.welcomeBody}</p>
+                <h2>{welcomeContent.title}</h2>
+                <p>{welcomeContent.body}</p>
               </section>
             ) : (
               <div className="chat-area chat-area--thread" ref={listRef}>
@@ -662,7 +774,7 @@ function HomePage({ language, onLanguageChange }) {
               <textarea
                 className="composer__input"
                 rows="3"
-                placeholder={t.placeholder}
+                placeholder={composerPlaceholder}
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
                 onKeyDown={handleComposerKeyDown}
@@ -688,7 +800,7 @@ function HomePage({ language, onLanguageChange }) {
               </div>
             </form>
           </>
-        )}
+        ) : null}
       </section>
     </main>
   )

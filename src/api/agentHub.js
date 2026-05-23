@@ -78,7 +78,12 @@ function normalizeStatusResponse(data, locale) {
   }
 }
 
-export async function fetchAgentHubStatus(locale = 'zh') {
-  const data = await get('/api/agent-hub/status', { locale })
+export async function fetchAgentHubStatus(locale = 'zh', mode) {
+  const params = { locale }
+  if (mode) {
+    params.mode = mode
+  }
+
+  const data = await get('/api/agent-hub/status', params)
   return normalizeStatusResponse(data, locale)
 }
