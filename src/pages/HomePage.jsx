@@ -524,68 +524,68 @@ function HomePage({ language, onLanguageChange }) {
           </div>
         </div>
 
-        <div className="sidebar__menu">
-          <button
-            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ? 'is-active' : ''}`}
-            type="button"
-            onClick={handleStartKnowledgeChat}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.knowledgeChat}</span>
-          </button>
+        <div className="sidebar__module sidebar__module--menu">
+          <div className="sidebar__module-title">{t.sidebarChatGroup}</div>
+          <div className="sidebar__menu">
+            <button
+              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ? 'is-active' : ''}`}
+              type="button"
+              onClick={handleStartKnowledgeChat}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.knowledgeChat}</span>
+            </button>
 
-          <button
-            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.AGENT ? 'is-active' : ''}`}
-            type="button"
-            onClick={handleStartAgentChat}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.agentChat}</span>
-          </button>
+            <button
+              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.AGENT ? 'is-active' : ''}`}
+              type="button"
+              onClick={handleStartAgentChat}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.agentChat}</span>
+            </button>
+          </div>
+        </div>
 
-          <button
-            type="button"
-            className={`sidebar__menu-button sidebar__menu-button--nested ${
-              sidebarView === 'skills' ? 'is-active' : ''
-            }`}
-            onClick={() => setSidebarView('skills')}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.sidebarSkills}</span>
-          </button>
+        <div className="sidebar__module sidebar__module--menu">
+          <div className="sidebar__module-title">{t.sidebarAgentHubGroup}</div>
+          <div className="sidebar__menu">
+            <button
+              type="button"
+              className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
+              onClick={() => setSidebarView('skills')}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.sidebarSkills}</span>
+            </button>
 
-          <button
-            type="button"
-            className={`sidebar__menu-button sidebar__menu-button--nested ${
-              sidebarView === 'agents' ? 'is-active' : ''
-            }`}
-            onClick={() => setSidebarView('agents')}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.sidebarAgents}</span>
-          </button>
+            <button
+              type="button"
+              className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
+              onClick={() => setSidebarView('agents')}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.sidebarAgents}</span>
+            </button>
 
-          <button
-            type="button"
-            className={`sidebar__menu-button sidebar__menu-button--nested ${
-              sidebarView === 'tools' ? 'is-active' : ''
-            }`}
-            onClick={() => setSidebarView('tools')}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.sidebarTools}</span>
-          </button>
+            <button
+              type="button"
+              className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
+              onClick={() => setSidebarView('tools')}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.sidebarTools}</span>
+            </button>
 
-          <button
-            type="button"
-            className={`sidebar__menu-button sidebar__menu-button--nested ${
-              sidebarView === 'mcpCallbacks' ? 'is-active' : ''
-            }`}
-            onClick={() => setSidebarView('mcpCallbacks')}
-          >
-            <span className="sidebar__item-icon">*</span>
-            <span className="sidebar__item-label">{t.sidebarMcp}</span>
-          </button>
+            <button
+              type="button"
+              className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
+              onClick={() => setSidebarView('mcpCallbacks')}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.sidebarMcp}</span>
+            </button>
+          </div>
         </div>
 
         <div className="sidebar__module sidebar__module--history">
