@@ -7,6 +7,8 @@ export const CHAT_MODE = {
   KNOWLEDGE: 'knowledge',
   /** 意图路由 + 子智能体 + 工具，不检索知识库 */
   AGENT: 'agent',
+  /** 项目经理编排：先规划再调度产品、UI、前后端与测试子 Agent */
+  REQUIREMENT_DEV: 'requirementDev',
 }
 
 /** 默认走知识库对话 */
@@ -16,6 +18,7 @@ export const DEFAULT_CHAT_MODE = CHAT_MODE.KNOWLEDGE
 export const SIDEBAR_CHAT_VIEW = {
   KNOWLEDGE: 'knowledgeChat',
   AGENT: 'agentChat',
+  PROJECT_MANAGER: 'projectManagerChat',
 }
 
 /** 智能体对话下可浏览的运行时菜单视图 */

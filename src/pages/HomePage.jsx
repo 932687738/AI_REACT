@@ -39,6 +39,10 @@ function resolveChatMode(sidebarView) {
     return CHAT_MODE.KNOWLEDGE
   }
 
+  if (sidebarView === SIDEBAR_CHAT_VIEW.PROJECT_MANAGER) {
+    return CHAT_MODE.REQUIREMENT_DEV
+  }
+
   if (sidebarView === SIDEBAR_CHAT_VIEW.AGENT || AGENT_HUB_VIEWS.includes(sidebarView)) {
     return CHAT_MODE.AGENT
   }
@@ -47,11 +51,41 @@ function resolveChatMode(sidebarView) {
 }
 
 function isChatView(sidebarView) {
-  return sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE || sidebarView === SIDEBAR_CHAT_VIEW.AGENT
+  return (
+    sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ||
+    sidebarView === SIDEBAR_CHAT_VIEW.AGENT ||
+    sidebarView === SIDEBAR_CHAT_VIEW.PROJECT_MANAGER
+  )
 }
 
 function resolveHistoryMode(item) {
-  return item?.mode === CHAT_MODE.AGENT ? CHAT_MODE.AGENT : CHAT_MODE.KNOWLEDGE
+  if (item?.mode === CHAT_MODE.AGENT) {
+    return CHAT_MODE.AGENT
+  }
+  if (item?.mode === CHAT_MODE.REQUIREMENT_DEV) {
+    return CHAT_MODE.REQUIREMENT_DEV
+  }
+  return CHAT_MODE.KNOWLEDGE
+}
+
+function resolveSidebarViewFromMode(mode) {
+  if (mode === CHAT_MODE.AGENT) {
+    return SIDEBAR_CHAT_VIEW.AGENT
+  }
+  if (mode === CHAT_MODE.REQUIREMENT_DEV) {
+    return SIDEBAR_CHAT_VIEW.PROJECT_MANAGER
+  }
+  return SIDEBAR_CHAT_VIEW.KNOWLEDGE
+}
+
+function resolveConversationFallbackTitle(mode, t) {
+  if (mode === CHAT_MODE.AGENT) {
+    return t.agentChat
+  }
+  if (mode === CHAT_MODE.REQUIREMENT_DEV) {
+    return t.projectManagerChat
+  }
+  return t.knowledgeChat
 }
 
 function normalizeHistoryItems(items) {
@@ -171,37 +205,54 @@ function HomePage({ language, onLanguageChange }) {
     return () => document.removeEventListener('mousedown', handleOutsideClick)
   }, [])
 
-  const composerPlaceholder = useMemo(
-    () => (chatMode === CHAT_MODE.KNOWLEDGE ? t.placeholderKnowledge : t.placeholderAgent),
-    [chatMode, t],
-  )
+  const composerPlaceholder = useMemo(() => {
+    if (chatMode === CHAT_MODE.KNOWLEDGE) {
+      return t.placeholderKnowledge
+    }
+    if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+      return t.placeholderProjectManager
+    }
+    return t.placeholderAgent
+  }, [chatMode, t])
 
-  const chatHeader = useMemo(
-    () =>
-      chatMode === CHAT_MODE.KNOWLEDGE
-        ? { title: t.chatTitleKnowledge, subtitle: t.chatSubtitleKnowledge }
-        : { title: t.chatTitleAgent, subtitle: t.chatSubtitleAgent },
-    [chatMode, t],
-  )
+  const chatHeader = useMemo(() => {
+    if (chatMode === CHAT_MODE.KNOWLEDGE) {
+      return { title: t.chatTitleKnowledge, subtitle: t.chatSubtitleKnowledge }
+    }
+    if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+      return { title: t.chatTitleProjectManager, subtitle: t.chatSubtitleProjectManager }
+    }
+    return { title: t.chatTitleAgent, subtitle: t.chatSubtitleAgent }
+  }, [chatMode, t])
 
-  const welcomeContent = useMemo(
-    () =>
-      chatMode === CHAT_MODE.KNOWLEDGE
-        ? { title: t.welcomeTitleKnowledge, body: t.welcomeBodyKnowledge }
-        : { title: t.welcomeTitleAgent, body: t.welcomeBodyAgent },
-    [chatMode, t],
-  )
+  const welcomeContent = useMemo(() => {
+    if (chatMode === CHAT_MODE.KNOWLEDGE) {
+      return { title: t.welcomeTitleKnowledge, body: t.welcomeBodyKnowledge }
+    }
+    if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+      return { title: t.welcomeTitleProjectManager, body: t.welcomeBodyProjectManager }
+    }
+    return { title: t.welcomeTitleAgent, body: t.welcomeBodyAgent }
+  }, [chatMode, t])
 
-  const quickActions = useMemo(
-    () => [
+  const quickActions = useMemo(() => {
+    if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+      return [
+        { id: 'login', label: t.quickPmLogin },
+        { id: 'order', label: t.quickPmOrder },
+        { id: 'dashboard', label: t.quickPmDashboard },
+        { id: 'more', label: t.quickMore },
+      ]
+    }
+
+    return [
       { id: 'fast', label: t.quickFast },
       { id: 'code', label: t.quickCode },
       { id: 'write', label: t.quickWrite },
       { id: 'music', label: t.quickMusic },
       { id: 'more', label: t.quickMore },
-    ],
-    [t],
-  )
+    ]
+  }, [chatMode, t])
 
   function openHistoryMenu(event, id) {
     const buttonRect = event.currentTarget.getBoundingClientRect()
@@ -247,9 +298,26 @@ function HomePage({ language, onLanguageChange }) {
     setHistoryMenuPosition(null)
   }
 
+  function handleStartProjectManagerChat() {
+    setSidebarView(SIDEBAR_CHAT_VIEW.PROJECT_MANAGER)
+    setChatMessages([])
+    setInputValue('')
+    setConversationId(createConversationId())
+    setMenuOpen(false)
+    setRenamingId(null)
+    setRenameValue('')
+    setHistoryMenuId(null)
+    setHistoryMenuPosition(null)
+  }
+
   function handleStartNewChat() {
     if (chatMode === CHAT_MODE.AGENT) {
       handleStartAgentChat()
+      return
+    }
+
+    if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+      handleStartProjectManagerChat()
       return
     }
 
@@ -258,7 +326,7 @@ function HomePage({ language, onLanguageChange }) {
 
   function handleHistoryChat(item) {
     const itemMode = item.mode || CHAT_MODE.KNOWLEDGE
-    setSidebarView(itemMode === CHAT_MODE.AGENT ? SIDEBAR_CHAT_VIEW.AGENT : SIDEBAR_CHAT_VIEW.KNOWLEDGE)
+    setSidebarView(resolveSidebarViewFromMode(itemMode))
     setInputValue('')
     setConversationId(item.id)
     setChatMessages(loadConversationMessages(item.id))
@@ -276,7 +344,8 @@ function HomePage({ language, onLanguageChange }) {
   }
 
   function handleRenameCommit(id) {
-    const nextTitle = truncateTitle(renameValue, 24) || (chatMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat)
+    const nextTitle =
+      truncateTitle(renameValue, 24) || resolveConversationFallbackTitle(chatMode, t)
     setHistoryItems((current) => updateConversationHistory(current, id, { title: nextTitle }))
     setRenamingId(null)
     setRenameValue('')
@@ -321,10 +390,7 @@ function HomePage({ language, onLanguageChange }) {
         ? { ...existing, preview: message, updatedAt: Date.now() }
         : {
             id: conversationId,
-            title: deriveConversationTitle(
-              message,
-              chatMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat,
-            ),
+            title: deriveConversationTitle(message, resolveConversationFallbackTitle(chatMode, t)),
             preview: message,
             updatedAt: Date.now(),
             mode: chatMode,
@@ -403,13 +469,19 @@ function HomePage({ language, onLanguageChange }) {
 
   function renderHistoryModeBadge(item) {
     const itemMode = resolveHistoryMode(item)
-    const label = itemMode === CHAT_MODE.AGENT ? t.historyModeAgent : t.historyModeKnowledge
+    const label =
+      itemMode === CHAT_MODE.AGENT
+        ? t.historyModeAgent
+        : itemMode === CHAT_MODE.REQUIREMENT_DEV
+          ? t.historyModeProjectManager
+          : t.historyModeKnowledge
+    const chatLabel = resolveConversationFallbackTitle(itemMode, t)
 
     return (
       <span
         className={`sidebar__history-mode sidebar__history-mode--${itemMode}`}
-        aria-label={itemMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat}
-        title={itemMode === CHAT_MODE.AGENT ? t.agentChat : t.knowledgeChat}
+        aria-label={chatLabel}
+        title={chatLabel}
       >
         {label}
       </span>
@@ -543,6 +615,15 @@ function HomePage({ language, onLanguageChange }) {
             >
               <span className="sidebar__item-icon">*</span>
               <span className="sidebar__item-label">{t.agentChat}</span>
+            </button>
+
+            <button
+              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.PROJECT_MANAGER ? 'is-active' : ''}`}
+              type="button"
+              onClick={handleStartProjectManagerChat}
+            >
+              <span className="sidebar__item-icon">*</span>
+              <span className="sidebar__item-label">{t.projectManagerChat}</span>
             </button>
           </div>
         </div>

@@ -5,6 +5,7 @@ export const API = {
   agentHub: {
     chatKnowledge: '/api/agent-hub/chat/knowledge',
     chatAgent: '/api/agent-hub/chat/agent',
+    requirementDev: '/api/agent-hub/requirement-dev',
     status: '/api/agent-hub/status',
   },
   user: {

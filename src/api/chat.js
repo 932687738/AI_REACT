@@ -4,8 +4,18 @@ import { postStream } from '@/utils/request'
 
 const STREAM_DELAY = 32
 
+function resolveModeLabel(mode) {
+  if (mode === CHAT_MODE.KNOWLEDGE) {
+    return 'knowledge'
+  }
+  if (mode === CHAT_MODE.REQUIREMENT_DEV) {
+    return 'requirement-dev'
+  }
+  return 'agent'
+}
+
 function createMockReply(message, conversationId, language, mode) {
-  const modeLabel = mode === CHAT_MODE.KNOWLEDGE ? 'knowledge' : 'agent'
+  const modeLabel = resolveModeLabel(mode)
 
   if (language === 'en') {
     return `Mock stream connected. mode=${modeLabel}, conversationId=${conversationId}. Your message was: "${message}". This response is streaming token by token now, and you can replace it with the real backend later without changing the page structure.`
@@ -60,10 +70,28 @@ export async function sendAgentChatMessage(payload, handlers = {}) {
   return postStream(API.agentHub.chatAgent, requestBody, handlers)
 }
 
+/** 需求开发模式：POST /api/agent-hub/requirement-dev */
+export async function sendRequirementDevMessage(payload, handlers = {}) {
+  const useMock = import.meta.env.VITE_USE_MOCK_CHAT === 'true'
+  const requestBody = {
+    conversationId: payload.conversationId,
+    requirement: payload.message,
+  }
+
+  if (useMock) {
+    return mockStream(payload, handlers, CHAT_MODE.REQUIREMENT_DEV)
+  }
+
+  return postStream(API.agentHub.requirementDev, requestBody, handlers)
+}
+
 /** 按 UI 模式选择对应聊天接口（不再传 mode 请求体字段） */
 export async function sendChatMessage(payload, handlers = {}) {
   if (payload.mode === CHAT_MODE.AGENT) {
     return sendAgentChatMessage(payload, handlers)
+  }
+  if (payload.mode === CHAT_MODE.REQUIREMENT_DEV) {
+    return sendRequirementDevMessage(payload, handlers)
   }
   return sendKnowledgeChatMessage(payload, handlers)
 }

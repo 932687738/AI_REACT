@@ -222,6 +222,12 @@ button {
   border: 1px solid rgba(96, 165, 250, 0.2);
 }
 
+.sidebar__history-mode--requirementDev {
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
 .sidebar__history-title {
   flex: 1;
   min-width: 0;
