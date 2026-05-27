@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchAgentHubStatus } from '@/api/agentHub'
 import { sendChatMessage } from '@/api/chat'
+import TypewriterText from '@/components/TypewriterText'
 import { CHAT_MODE, AGENT_HUB_VIEWS, DEFAULT_CHAT_MODE, SIDEBAR_CHAT_VIEW } from '@/constants/chatMode'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
@@ -129,6 +130,12 @@ function HomePage({ language, onLanguageChange }) {
   const listRef = useRef(null)
   const endRef = useRef(null)
   const renameInputRef = useRef(null)
+
+  const scrollToBottom = useCallback(() => {
+    requestAnimationFrame(() => {
+      endRef.current?.scrollIntoView({ block: 'end' })
+    })
+  }, [])
 
   useEffect(() => {
     setChatMessages([])
@@ -407,7 +414,11 @@ function HomePage({ language, onLanguageChange }) {
             setChatMessages((current) => {
               const updated = current.map((item) =>
                 item.id === assistantMessageId
-                  ? { ...item, text: `${item.text}${chunk}`, pending: false }
+                  ? {
+                      ...item,
+                      text: `${item.text}${chunk}`,
+                      pending: true,
+                    }
                   : item,
               )
               saveConversationMessages(conversationId, updated)
@@ -842,8 +853,16 @@ function HomePage({ language, onLanguageChange }) {
                         item.role === 'user' ? 'bubble--user' : 'bubble--assistant'
                       } ${item.error ? 'bubble--error' : ''}`}
                     >
-                      {item.text ? <div className="bubble__text">{item.text}</div> : null}
-                      {item.pending ? <span className="stream-cursor" /> : null}
+                      {item.role === 'assistant' && (item.text || item.pending) ? (
+                        <TypewriterText
+                          key={item.id}
+                          text={item.text}
+                          active={Boolean(item.pending)}
+                          onReveal={scrollToBottom}
+                        />
+                      ) : item.text ? (
+                        <div className="bubble__text">{item.text}</div>
+                      ) : null}
                     </div>
                   </article>
                 ))}

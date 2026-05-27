@@ -32,7 +32,8 @@
 │   │   ├── react.svg
 │   │   └── vite.svg
 │   ├── components/
-│   │   └── LogoMark.jsx
+│   │   ├── LogoMark.jsx
+│   │   └── TypewriterText.jsx
 │   ├── hooks/
 │   │   └── useLanguage.js
 │   ├── i18n/
@@ -51,6 +52,7 @@
 
 ## 核心职责
 
+- `src/components/TypewriterText.jsx`：聊天流式回复打字机展示（知识库 / 智能体 / 项目经理）
 - `src/pages/HomePage.jsx`：聊天首页、侧边栏、历史对话、技能/智能体/工具/MCP 视图
 - `src/pages/SettingsPage.jsx`：设置页与语言选择
 - `src/services/conversationHistory.js`：历史对话与消息本地持久化

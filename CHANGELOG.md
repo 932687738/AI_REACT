@@ -1,5 +1,24 @@
 # Changelog
 
+## [2026-05-27] - 全聊天模式打字机特效
+
+### Changed
+
+- 修改 `src/pages/HomePage.jsx`，智能体对话与项目经理模式同样使用 `TypewriterText` 展示流式回复
+- 三种聊天模式流式期间统一保持 `pending: true`，直至 `onComplete`
+- 更新 `PROBLEM_MAPPING.md`
+
+## [2026-05-27] - 知识库对话打字机特效
+
+### Added
+
+- 新增 `src/components/TypewriterText.jsx`，用于流式回复逐字展示与 backlog 加速补齐
+
+### Changed
+
+- 修改 `src/pages/HomePage.jsx`，知识库模式下助手消息使用打字机组件；流式期间保持 `pending` 直至完成
+- 更新 `FILE_STRUCTURE.md`、`PROBLEM_MAPPING.md`
+
 ## [2026-05-22] - 建立文档留痕系统
 
 ### Added
