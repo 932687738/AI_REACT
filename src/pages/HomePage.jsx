@@ -17,15 +17,13 @@ import SettingsPage from '@/pages/SettingsPage'
 import brandYxy from '@/assets/brand-yxy.png'
 import {
   deriveConversationTitle,
-  deleteConversationHistory,
-  deleteConversationMessages,
-  loadConversationHistory,
-  loadConversationMessages,
-  saveConversationHistory,
-  saveConversationMessages,
+  ensureConversationOnServer,
+  fetchConversationHistory,
+  fetchConversationMessages,
+  persistAgentTurn,
+  removeConversationHistory,
+  renameConversationHistory,
   truncateTitle,
-  updateConversationHistory,
-  upsertConversationHistory,
 } from '@/services/conversationHistory'
 
 function createConversationId() {
@@ -69,13 +67,17 @@ function isChatView(sidebarView) {
 }
 
 function resolveHistoryMode(item) {
-  if (item?.mode === CHAT_MODE.AGENT) {
+  if (item?.mode === CHAT_MODE.AGENT || item?.mode === 'agent') {
     return CHAT_MODE.AGENT
   }
-  if (item?.mode === CHAT_MODE.REQUIREMENT_DEV) {
+  if (item?.mode === CHAT_MODE.REQUIREMENT_DEV || item?.mode === 'requirement-dev') {
     return CHAT_MODE.REQUIREMENT_DEV
   }
   return CHAT_MODE.KNOWLEDGE
+}
+
+function upsertHistoryItem(items, nextItem) {
+  return [nextItem, ...items.filter((entry) => entry.id !== nextItem.id)]
 }
 
 function resolveSidebarViewFromMode(mode) {
@@ -136,7 +138,7 @@ function HomePage({ language, onLanguageChange }) {
   const [isSending, setIsSending] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
   const [conversationId, setConversationId] = useState(() => createConversationId())
-  const [historyItems, setHistoryItems] = useState(() => normalizeHistoryItems(loadConversationHistory()))
+  const [historyItems, setHistoryItems] = useState([])
   const [renamingId, setRenamingId] = useState(null)
   const [renameValue, setRenameValue] = useState('')
   const [historyMenuId, setHistoryMenuId] = useState(null)
@@ -146,6 +148,15 @@ function HomePage({ language, onLanguageChange }) {
   const [expandedModuleId, setExpandedModuleId] = useState(SIDEBAR_MODULE.CHAT)
   const t = messages[language]
   const chatMode = useMemo(() => resolveChatMode(sidebarView), [sidebarView])
+
+  const refreshHistory = useCallback(async () => {
+    try {
+      const items = await fetchConversationHistory(chatMode)
+      setHistoryItems(normalizeHistoryItems(items))
+    } catch {
+      setHistoryItems([])
+    }
+  }, [chatMode])
   const visibleHistoryItems = useMemo(
     () =>
       historyItems.filter((item) => {
@@ -185,8 +196,8 @@ function HomePage({ language, onLanguageChange }) {
   }, [chatMessages])
 
   useEffect(() => {
-    saveConversationHistory(historyItems)
-  }, [historyItems])
+    refreshHistory()
+  }, [refreshHistory])
 
   useEffect(() => {
     setExpandedModuleId(resolveModuleId(sidebarView))
@@ -372,16 +383,23 @@ function HomePage({ language, onLanguageChange }) {
     setExpandedModuleId(resolveModuleId(view))
   }
 
-  function handleHistoryChat(item) {
-    const itemMode = item.mode || CHAT_MODE.KNOWLEDGE
+  async function handleHistoryChat(item) {
+    const itemMode = resolveHistoryMode(item)
     setSidebarView(resolveSidebarViewFromMode(itemMode))
     setInputValue('')
     setConversationId(item.id)
-    setChatMessages(loadConversationMessages(item.id))
+    setChatMessages([])
     setRenamingId(null)
     setRenameValue('')
     setHistoryMenuId(null)
     setHistoryMenuPosition(null)
+
+    try {
+      const messages = await fetchConversationMessages(item.id)
+      setChatMessages(messages)
+    } catch {
+      setChatMessages([])
+    }
   }
 
   function handleRenameStart(item) {
@@ -391,17 +409,28 @@ function HomePage({ language, onLanguageChange }) {
     setHistoryMenuPosition(null)
   }
 
-  function handleRenameCommit(id) {
+  async function handleRenameCommit(id) {
     const nextTitle =
       truncateTitle(renameValue, 24) || resolveConversationFallbackTitle(chatMode, t)
-    setHistoryItems((current) => updateConversationHistory(current, id, { title: nextTitle }))
+    try {
+      await renameConversationHistory(id, nextTitle)
+      await refreshHistory()
+    } catch {
+      setHistoryItems((current) =>
+        current.map((item) => (item.id === id ? { ...item, title: nextTitle } : item)),
+      )
+    }
     setRenamingId(null)
     setRenameValue('')
   }
 
-  function handleDeleteHistory(id) {
-    setHistoryItems((current) => deleteConversationHistory(current, id))
-    deleteConversationMessages(id)
+  async function handleDeleteHistory(id) {
+    try {
+      await removeConversationHistory(id)
+      await refreshHistory()
+    } catch {
+      setHistoryItems((current) => current.filter((item) => item.id !== id))
+    }
     setHistoryMenuId(null)
     setHistoryMenuPosition(null)
     setRenamingId(null)
@@ -430,7 +459,6 @@ function HomePage({ language, onLanguageChange }) {
     setInputValue('')
     setIsSending(true)
     setChatMessages(nextMessages)
-    saveConversationMessages(conversationId, nextMessages)
 
     setHistoryItems((current) => {
       const existing = current.find((item) => item.id === conversationId)
@@ -444,16 +472,23 @@ function HomePage({ language, onLanguageChange }) {
             mode: chatMode,
           }
 
-      return upsertConversationHistory(current.slice(0, 10), nextItem)
+      return upsertHistoryItem(current, nextItem).slice(0, 50)
     })
+
+    void ensureConversationOnServer({
+      conversationId,
+      chatMode,
+      message,
+      fallbackTitle: resolveConversationFallbackTitle(chatMode, t),
+    }).catch(() => {})
 
     try {
       await sendChatMessage(
         { conversationId, message, language, mode: chatMode },
         {
           onChunk: (chunk) => {
-            setChatMessages((current) => {
-              const updated = current.map((item) =>
+            setChatMessages((current) =>
+              current.map((item) =>
                 item.id === assistantMessageId
                   ? {
                       ...item,
@@ -461,30 +496,43 @@ function HomePage({ language, onLanguageChange }) {
                       pending: true,
                     }
                   : item,
-              )
-              saveConversationMessages(conversationId, updated)
-              return updated
-            })
+              ),
+            )
           },
-          onComplete: () => {
-            setChatMessages((current) => {
-              const updated = current.map((item) =>
-                item.id === assistantMessageId ? { ...item, pending: false } : item,
-              )
-              saveConversationMessages(conversationId, updated)
-              return updated
-            })
+          onComplete: async (finalText) => {
+            setChatMessages((current) =>
+              current.map((item) =>
+                item.id === assistantMessageId
+                  ? { ...item, pending: false, text: finalText || item.text }
+                  : item,
+              ),
+            )
+
+            try {
+              if (chatMode === CHAT_MODE.KNOWLEDGE) {
+                await refreshHistory()
+              } else {
+                await persistAgentTurn({
+                  conversationId,
+                  chatMode,
+                  message,
+                  fallbackTitle: resolveConversationFallbackTitle(chatMode, t),
+                  userMessageId,
+                  assistantMessageId,
+                  assistantText: finalText || '',
+                })
+                await refreshHistory()
+              }
+            } catch {
+              // 保持 UI 消息展示；历史列表依赖下次 refresh
+            }
           },
           onMeta: (meta) => {
             if (!meta || meta.event !== 'meta') {
               return
             }
-            if (meta.sessionId && meta.sessionId !== conversationId) {
-              // 后端生成的 sessionId 与本地 conversationId 对齐缓存
-              localStorage.setItem(`knowledge_session_${conversationId}`, meta.sessionId)
-            }
-            setChatMessages((current) => {
-              const updated = current.map((item) =>
+            setChatMessages((current) =>
+              current.map((item) =>
                 item.id === assistantMessageId
                   ? {
                       ...item,
@@ -495,23 +543,19 @@ function HomePage({ language, onLanguageChange }) {
                       },
                     }
                   : item,
-              )
-              saveConversationMessages(conversationId, updated)
-              return updated
-            })
+              ),
+            )
           },
         },
       )
     } catch {
-      setChatMessages((current) => {
-        const updated = current.map((item) =>
+      setChatMessages((current) =>
+        current.map((item) =>
           item.id === assistantMessageId
             ? { ...item, text: t.errorMessage, pending: false, error: true }
             : item,
-        )
-        saveConversationMessages(conversationId, updated)
-        return updated
-      })
+        ),
+      )
     } finally {
       setIsSending(false)
     }

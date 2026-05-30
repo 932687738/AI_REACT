@@ -80,9 +80,9 @@
     settingsMemoryOn: '已开启',
     settingsMemoryOff: '已关闭',
     settingsShare: '分享 Nebula Desk',
-    settingsAutoSaveHistory: '自动保存本地对话历史',
+    settingsAutoSaveHistory: '对话历史云端保存',
     settingsAutoSaveHistoryDesc:
-      '开启后，对话记录会保存在当前浏览器本地，便于下次继续查看。关闭后将不再写入新的历史记录。',
+      '对话历史由服务端 PostgreSQL 永久保存，可在同一部署环境下跨浏览器查看。请在侧边栏重命名或删除会话。',
     settingsClearHistory: '清空历史记录',
     languageNativeZh: '简体中文',
     languageNativeEn: 'English',
@@ -254,9 +254,9 @@
     settingsMemoryOn: 'On',
     settingsMemoryOff: 'Off',
     settingsShare: 'Share Nebula Desk',
-    settingsAutoSaveHistory: 'Auto-save local chat history',
+    settingsAutoSaveHistory: 'Chat history stored on server',
     settingsAutoSaveHistoryDesc:
-      'When enabled, conversations are stored locally in this browser for later review. When disabled, new history will not be saved.',
+      'Conversation history is persisted in PostgreSQL on the server. Use the sidebar to review, rename, or delete sessions.',
     settingsClearHistory: 'Clear history',
     languageNativeZh: 'Simplified Chinese',
     languageNativeEn: 'English',

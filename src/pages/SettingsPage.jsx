@@ -1,20 +1,4 @@
-import { useEffect, useState } from 'react'
 import { languages, messages } from '@/i18n/messages'
-
-const AUTO_SAVE_STORAGE_KEY = 'nebula_desk_auto_save_history'
-
-function readBooleanPreference(key, defaultValue) {
-  if (typeof window === 'undefined') {
-    return defaultValue
-  }
-
-  const raw = localStorage.getItem(key)
-  if (raw === null) {
-    return defaultValue
-  }
-
-  return raw === 'true'
-}
 
 function SettingsIcon({ name }) {
   switch (name) {
@@ -140,30 +124,8 @@ function SettingsRowButton({ icon, tone, label, trailing, onClick }) {
   )
 }
 
-function SettingsToggle({ checked, onChange, label }) {
-  return (
-    <button
-      type="button"
-      className={`settings-toggle ${checked ? 'is-on' : ''}`}
-      role="switch"
-      aria-checked={checked}
-      aria-label={label}
-      onClick={() => onChange(!checked)}
-    >
-      <span className="settings-toggle__thumb" />
-    </button>
-  )
-}
-
 function SettingsPage({ language, onLanguageChange, onBack }) {
-  const [autoSaveEnabled, setAutoSaveEnabled] = useState(() =>
-    readBooleanPreference(AUTO_SAVE_STORAGE_KEY, true),
-  )
   const t = messages[language]
-
-  useEffect(() => {
-    localStorage.setItem(AUTO_SAVE_STORAGE_KEY, String(autoSaveEnabled))
-  }, [autoSaveEnabled])
 
   function handleShare() {
     const shareText = `${t.appName} - ${t.brand}`
@@ -176,8 +138,7 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
   }
 
   function handleClearHistory() {
-    localStorage.removeItem('nebula_desk_conversation_history_v1')
-    localStorage.removeItem('nebula_desk_conversation_messages_v1')
+    window.alert(t.settingsClearHistoryHint || t.settingsAutoSaveHistoryDesc)
   }
 
   return (
@@ -246,11 +207,6 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
             <div className="settings-feature__body">
               <div className="settings-feature__head">
                 <strong>{t.settingsAutoSaveHistory}</strong>
-                <SettingsToggle
-                  checked={autoSaveEnabled}
-                  onChange={setAutoSaveEnabled}
-                  label={t.settingsAutoSaveHistory}
-                />
               </div>
               <p>{t.settingsAutoSaveHistoryDesc}</p>
               <button type="button" className="settings-feature__link" onClick={handleClearHistory}>

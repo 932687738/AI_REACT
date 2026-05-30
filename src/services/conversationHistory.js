@@ -1,13 +1,21 @@
-﻿const STORAGE_KEY = 'nebula_desk_conversation_history_v1'
-const MESSAGE_STORAGE_KEY = 'nebula_desk_conversation_messages_v1'
+﻿import {
+  appendConversationMessage,
+  deleteConversation as deleteConversationApi,
+  listConversations,
+  loadConversationMessages as loadConversationMessagesApi,
+  renameConversation,
+  upsertConversation,
+} from '@/api/conversationHistory'
+import { CHAT_MODE } from '@/constants/chatMode'
 
-function safeParse(raw) {
-  try {
-    const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? parsed : []
-  } catch {
-    return []
+function toApiMode(chatMode) {
+  if (chatMode === CHAT_MODE.AGENT) {
+    return 'agent'
   }
+  if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
+    return 'requirement-dev'
+  }
+  return 'knowledge'
 }
 
 function normalizeItem(item) {
@@ -22,66 +30,16 @@ function normalizeItem(item) {
 
   const preview = String(item.preview || '').trim()
   const title = String(item.title || preview || '暂无聊天内容').trim()
+  const mode = item.mode === 'requirement-dev' ? CHAT_MODE.REQUIREMENT_DEV : item.mode
 
   return {
     ...item,
     id,
     title,
     preview,
+    mode: mode || CHAT_MODE.KNOWLEDGE,
     updatedAt: Number(item.updatedAt) || Date.now(),
   }
-}
-
-export function loadConversationHistory() {
-  if (typeof window === 'undefined') {
-    return []
-  }
-
-  // TODO: replace with backend query when conversation history API is ready.
-  return safeParse(localStorage.getItem(STORAGE_KEY)).map(normalizeItem).filter(Boolean)
-}
-
-export function saveConversationHistory(items) {
-  if (typeof window === 'undefined') {
-    return items
-  }
-
-  // TODO: replace with backend persistence when conversation history API is ready.
-  const normalizedItems = Array.isArray(items) ? items.map(normalizeItem).filter(Boolean) : []
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedItems))
-  return normalizedItems
-}
-
-export function upsertConversationHistory(items, nextItem) {
-  const normalizedNext = normalizeItem(nextItem)
-  if (!normalizedNext) {
-    return saveConversationHistory(items)
-  }
-
-  return saveConversationHistory([
-    normalizedNext,
-    ...items.filter((item) => item.id !== normalizedNext.id),
-  ])
-}
-
-export function updateConversationHistory(items, id, patch) {
-  const targetId = String(id || '').trim()
-  if (!targetId) {
-    return saveConversationHistory(items)
-  }
-
-  return saveConversationHistory(
-    items.map((item) => (item.id === targetId ? normalizeItem({ ...item, ...patch }) || item : item)),
-  )
-}
-
-export function deleteConversationHistory(items, id) {
-  const targetId = String(id || '').trim()
-  if (!targetId) {
-    return saveConversationHistory(items)
-  }
-
-  return saveConversationHistory(items.filter((item) => item.id !== targetId))
 }
 
 function normalizeMessage(item) {
@@ -102,77 +60,77 @@ function normalizeMessage(item) {
     text: String(item.text || ''),
     pending: Boolean(item.pending),
     error: Boolean(item.error),
+    meta: item.meta ?? undefined,
   }
 }
 
-function loadMessageMap() {
-  if (typeof window === 'undefined') {
-    return {}
-  }
+export async function fetchConversationHistory(chatMode) {
+  const items = await listConversations({ mode: toApiMode(chatMode), limit: 50 })
+  return (Array.isArray(items) ? items : []).map(normalizeItem).filter(Boolean)
+}
 
+export async function fetchConversationMessages(conversationId) {
   try {
-    const parsed = JSON.parse(localStorage.getItem(MESSAGE_STORAGE_KEY) || '{}')
-    return parsed && typeof parsed === 'object' ? parsed : {}
+    const messages = await loadConversationMessagesApi(conversationId)
+    return (Array.isArray(messages) ? messages : []).map(normalizeMessage).filter(Boolean)
   } catch {
-    return {}
-  }
-}
-
-function saveMessageMap(map) {
-  if (typeof window === 'undefined') {
-    return map
-  }
-
-  localStorage.setItem(MESSAGE_STORAGE_KEY, JSON.stringify(map))
-  return map
-}
-
-export function loadConversationMessages(conversationId) {
-  if (typeof window === 'undefined') {
+    // 会话尚未落库（如刚发送首条消息、流式未结束）时视为空消息列表
     return []
   }
-
-  const id = String(conversationId || '').trim()
-  if (!id) {
-    return []
-  }
-
-  // TODO: replace with backend query when conversation message API is ready.
-  const map = loadMessageMap()
-  const messages = Array.isArray(map[id]) ? map[id] : []
-  return messages.map(normalizeMessage).filter(Boolean)
 }
 
-export function saveConversationMessages(conversationId, messages) {
-  if (typeof window === 'undefined') {
-    return messages
-  }
-
-  const id = String(conversationId || '').trim()
-  if (!id) {
-    return messages
-  }
-
-  // TODO: replace with backend persistence when conversation message API is ready.
-  const map = loadMessageMap()
-  map[id] = Array.isArray(messages) ? messages.map(normalizeMessage).filter(Boolean) : []
-  saveMessageMap(map)
-  return map[id]
+/** 发送首条消息前预创建会话元数据，避免加载消息 404 */
+export async function ensureConversationOnServer({ conversationId, chatMode, message, fallbackTitle }) {
+  const mode = toApiMode(chatMode)
+  const title = deriveConversationTitle(message, fallbackTitle)
+  await upsertConversation({
+    conversationId,
+    title,
+    preview: message || '',
+    mode,
+  })
 }
 
-export function deleteConversationMessages(conversationId) {
-  if (typeof window === 'undefined') {
-    return
-  }
+export async function persistAgentTurn({
+  conversationId,
+  chatMode,
+  message,
+  fallbackTitle,
+  userMessageId,
+  assistantMessageId,
+  assistantText,
+  meta,
+}) {
+  const mode = toApiMode(chatMode)
+  const title = deriveConversationTitle(message, fallbackTitle)
 
-  const id = String(conversationId || '').trim()
-  if (!id) {
-    return
-  }
+  await upsertConversation({
+    conversationId,
+    title,
+    preview: message,
+    mode,
+  })
+  await appendConversationMessage(conversationId, {
+    role: 'user',
+    kind: 'text',
+    text: message,
+    clientMessageId: userMessageId,
+  })
+  await appendConversationMessage(conversationId, {
+    role: 'assistant',
+    kind: 'text',
+    text: assistantText,
+    clientMessageId: assistantMessageId,
+    metadata: meta || undefined,
+  })
+}
 
-  const map = loadMessageMap()
-  delete map[id]
-  saveMessageMap(map)
+export async function renameConversationHistory(conversationId, title) {
+  return renameConversation(conversationId, title)
+}
+
+export async function removeConversationHistory(conversationId) {
+  return deleteConversationApi(conversationId)
 }
 
 export function truncateTitle(text, maxLength = 24) {

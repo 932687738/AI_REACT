@@ -10,6 +10,7 @@ export const API = {
     knowledgeUpload: '/api/agent-hub/knowledge/upload',
     knowledgeBases: '/api/agent-hub/knowledge-bases',
     knowledgeDocumentsBatchDelete: '/api/agent-hub/knowledge/documents/batch-delete',
+    conversations: '/api/agent-hub/conversations',
   },
   user: {
     profile: '/user/profile',
