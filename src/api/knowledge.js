@@ -51,6 +51,30 @@ export function deleteKnowledgeBase(id) {
   })
 }
 
+export function listDocuments(knowledgeBaseId) {
+  return fetch(buildUrl(`${API.agentHub.knowledgeBases}/${knowledgeBaseId}/documents`)).then(
+    async (response) => {
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`)
+      }
+      return response.json()
+    },
+  )
+}
+
+export function batchDeleteDocuments({ knowledgeBaseId, documentIds }) {
+  return fetch(buildUrl(API.agentHub.knowledgeDocumentsBatchDelete), {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ knowledgeBaseId, documentIds }),
+  }).then(async (response) => {
+    if (!response.ok) {
+      throw new Error(`Request failed: ${response.status}`)
+    }
+    return response.json()
+  })
+}
+
 export async function uploadDocument({ file, knowledgeBaseId, replace = false, onProgress }) {
   const formData = new FormData()
   formData.append('file', file)
@@ -68,11 +92,12 @@ export async function uploadDocument({ file, knowledgeBaseId, replace = false, o
 
     xhr.addEventListener('load', () => {
       if (xhr.status >= 200 && xhr.status < 300) {
-        try {
-          resolve(JSON.parse(xhr.responseText))
-        } catch {
+        const payload = parseJsonResponse(xhr.responseText)
+        if (payload == null) {
           reject(new Error('Invalid response'))
+          return
         }
+        resolve(normalizeUploadResponse(payload))
         return
       }
       reject(new Error(`Upload failed: ${xhr.status}`))
@@ -82,4 +107,29 @@ export async function uploadDocument({ file, knowledgeBaseId, replace = false, o
     xhr.open('POST', buildUrl(API.agentHub.knowledgeUpload))
     xhr.send(formData)
   })
+}
+
+function parseJsonResponse(responseText) {
+  if (responseText == null || responseText.trim() === '') {
+    return null
+  }
+  try {
+    return JSON.parse(responseText)
+  } catch {
+    return null
+  }
+}
+
+function normalizeUploadResponse(payload) {
+  if (payload == null || typeof payload !== 'object') {
+    return payload
+  }
+  return {
+    documentId: payload.documentId ?? payload.document_id ?? null,
+    language: payload.language ?? '',
+    chunkCount: payload.chunkCount ?? payload.chunk_count ?? 0,
+    alreadyExists: payload.alreadyExists ?? payload.already_exists ?? false,
+    message: payload.message ?? '',
+    chunksPreview: payload.chunksPreview ?? payload.chunks_preview ?? [],
+  }
 }
