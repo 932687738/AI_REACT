@@ -40,9 +40,30 @@ async function mockStream(payload, handlers = {}, mode) {
 }
 
 function buildRequestBody(payload) {
-  return {
+  const body = {
     conversationId: payload.conversationId,
+    sessionId: payload.sessionId || payload.conversationId,
     message: payload.message,
+  }
+  if (payload.knowledgeBaseIds?.length) {
+    body.knowledgeBaseIds = payload.knowledgeBaseIds
+  }
+  return body
+}
+
+function isKnowledgeMetaChunk(chunk) {
+  if (!chunk || typeof chunk !== 'string') {
+    return false
+  }
+  const trimmed = chunk.trim()
+  return trimmed.startsWith('{') && trimmed.includes('"event":"meta"')
+}
+
+function parseKnowledgeMetaChunk(chunk) {
+  try {
+    return JSON.parse(chunk.trim())
+  } catch {
+    return null
   }
 }
 
@@ -55,7 +76,16 @@ export async function sendKnowledgeChatMessage(payload, handlers = {}) {
     return mockStream(payload, handlers, CHAT_MODE.KNOWLEDGE)
   }
 
-  return postStream(API.agentHub.chatKnowledge, requestBody, handlers)
+  return postStream(API.agentHub.chatKnowledge, requestBody, {
+    ...handlers,
+    onChunk: (chunk) => {
+      if (isKnowledgeMetaChunk(chunk)) {
+        handlers.onMeta?.(parseKnowledgeMetaChunk(chunk))
+        return
+      }
+      handlers.onChunk?.(chunk)
+    },
+  })
 }
 
 /** 智能体模式：POST /api/agent-hub/chat/agent */

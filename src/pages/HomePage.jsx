@@ -1,8 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { fetchAgentHubStatus } from '@/api/agentHub'
 import { sendChatMessage } from '@/api/chat'
+import KnowledgeBaseManager from '@/components/KnowledgeBaseManager'
+import SidebarModuleDropdown from '@/components/SidebarModuleDropdown'
 import TypewriterText from '@/components/TypewriterText'
-import { CHAT_MODE, AGENT_HUB_VIEWS, DEFAULT_CHAT_MODE, SIDEBAR_CHAT_VIEW } from '@/constants/chatMode'
+import UploadDocument from '@/components/UploadDocument'
+import {
+  CHAT_MODE,
+  AGENT_HUB_VIEWS,
+  DEFAULT_CHAT_MODE,
+  KNOWLEDGE_VIEWS,
+  SIDEBAR_CHAT_VIEW,
+} from '@/constants/chatMode'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
 import brandYxy from '@/assets/brand-yxy.png'
@@ -101,6 +110,24 @@ function normalizeHistoryItems(items) {
     .filter((item) => item.id)
 }
 
+const SIDEBAR_MODULE = {
+  CHAT: 'chat',
+  KNOWLEDGE: 'knowledge',
+  AGENT_HUB: 'agentHub',
+}
+
+function resolveModuleId(sidebarView) {
+  if (KNOWLEDGE_VIEWS.includes(sidebarView)) {
+    return SIDEBAR_MODULE.KNOWLEDGE
+  }
+
+  if (AGENT_HUB_VIEWS.includes(sidebarView)) {
+    return SIDEBAR_MODULE.AGENT_HUB
+  }
+
+  return SIDEBAR_MODULE.CHAT
+}
+
 function HomePage({ language, onLanguageChange }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('chat')
@@ -116,6 +143,7 @@ function HomePage({ language, onLanguageChange }) {
   const [historyMenuPosition, setHistoryMenuPosition] = useState(null)
   const [skillStatus, setSkillStatus] = useState(null)
   const [skillLoading, setSkillLoading] = useState(false)
+  const [expandedModuleId, setExpandedModuleId] = useState(SIDEBAR_MODULE.CHAT)
   const t = messages[language]
   const chatMode = useMemo(() => resolveChatMode(sidebarView), [sidebarView])
   const visibleHistoryItems = useMemo(
@@ -159,6 +187,10 @@ function HomePage({ language, onLanguageChange }) {
   useEffect(() => {
     saveConversationHistory(historyItems)
   }, [historyItems])
+
+  useEffect(() => {
+    setExpandedModuleId(resolveModuleId(sidebarView))
+  }, [sidebarView])
 
   useEffect(() => {
     if (!AGENT_HUB_VIEWS.includes(sidebarView)) {
@@ -331,6 +363,15 @@ function HomePage({ language, onLanguageChange }) {
     handleStartKnowledgeChat()
   }
 
+  function toggleSidebarModule(moduleId) {
+    setExpandedModuleId((current) => (current === moduleId ? null : moduleId))
+  }
+
+  function handleSidebarViewChange(view) {
+    setSidebarView(view)
+    setExpandedModuleId(resolveModuleId(view))
+  }
+
   function handleHistoryChat(item) {
     const itemMode = item.mode || CHAT_MODE.KNOWLEDGE
     setSidebarView(resolveSidebarViewFromMode(itemMode))
@@ -429,6 +470,31 @@ function HomePage({ language, onLanguageChange }) {
             setChatMessages((current) => {
               const updated = current.map((item) =>
                 item.id === assistantMessageId ? { ...item, pending: false } : item,
+              )
+              saveConversationMessages(conversationId, updated)
+              return updated
+            })
+          },
+          onMeta: (meta) => {
+            if (!meta || meta.event !== 'meta') {
+              return
+            }
+            if (meta.sessionId && meta.sessionId !== conversationId) {
+              // 后端生成的 sessionId 与本地 conversationId 对齐缓存
+              localStorage.setItem(`knowledge_session_${conversationId}`, meta.sessionId)
+            }
+            setChatMessages((current) => {
+              const updated = current.map((item) =>
+                item.id === assistantMessageId
+                  ? {
+                      ...item,
+                      meta: {
+                        knowledgeBaseCount: meta.knowledgeBaseCount,
+                        knowledgeBaseNames: meta.knowledgeBaseNames,
+                        citations: meta.citations,
+                      },
+                    }
+                  : item,
               )
               saveConversationMessages(conversationId, updated)
               return updated
@@ -607,78 +673,106 @@ function HomePage({ language, onLanguageChange }) {
           </div>
         </div>
 
-        <div className="sidebar__module sidebar__module--menu">
-          <div className="sidebar__module-title">{t.sidebarChatGroup}</div>
-          <div className="sidebar__menu">
-            <button
-              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ? 'is-active' : ''}`}
-              type="button"
-              onClick={handleStartKnowledgeChat}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.knowledgeChat}</span>
-            </button>
+        <SidebarModuleDropdown
+          title={t.sidebarChatGroup}
+          expanded={expandedModuleId === SIDEBAR_MODULE.CHAT}
+          onToggle={() => toggleSidebarModule(SIDEBAR_MODULE.CHAT)}
+          hasActiveChild={resolveModuleId(sidebarView) === SIDEBAR_MODULE.CHAT}
+        >
+          <button
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.KNOWLEDGE ? 'is-active' : ''}`}
+            type="button"
+            onClick={handleStartKnowledgeChat}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.knowledgeChat}</span>
+          </button>
 
-            <button
-              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.AGENT ? 'is-active' : ''}`}
-              type="button"
-              onClick={handleStartAgentChat}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.agentChat}</span>
-            </button>
+          <button
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.AGENT ? 'is-active' : ''}`}
+            type="button"
+            onClick={handleStartAgentChat}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.agentChat}</span>
+          </button>
 
-            <button
-              className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.PROJECT_MANAGER ? 'is-active' : ''}`}
-              type="button"
-              onClick={handleStartProjectManagerChat}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.projectManagerChat}</span>
-            </button>
-          </div>
-        </div>
+          <button
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.PROJECT_MANAGER ? 'is-active' : ''}`}
+            type="button"
+            onClick={handleStartProjectManagerChat}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.projectManagerChat}</span>
+          </button>
+        </SidebarModuleDropdown>
 
-        <div className="sidebar__module sidebar__module--menu">
-          <div className="sidebar__module-title">{t.sidebarAgentHubGroup}</div>
-          <div className="sidebar__menu">
-            <button
-              type="button"
-              className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
-              onClick={() => setSidebarView('skills')}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.sidebarSkills}</span>
-            </button>
+        <SidebarModuleDropdown
+          title={t.sidebarKnowledgeGroup}
+          expanded={expandedModuleId === SIDEBAR_MODULE.KNOWLEDGE}
+          onToggle={() => toggleSidebarModule(SIDEBAR_MODULE.KNOWLEDGE)}
+          hasActiveChild={resolveModuleId(sidebarView) === SIDEBAR_MODULE.KNOWLEDGE}
+        >
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'uploadDocument' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('uploadDocument')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarUpload}</span>
+          </button>
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'knowledgeBaseManager' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('knowledgeBaseManager')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarKbManager}</span>
+          </button>
+        </SidebarModuleDropdown>
 
-            <button
-              type="button"
-              className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
-              onClick={() => setSidebarView('agents')}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.sidebarAgents}</span>
-            </button>
+        <SidebarModuleDropdown
+          title={t.sidebarAgentHubGroup}
+          expanded={expandedModuleId === SIDEBAR_MODULE.AGENT_HUB}
+          onToggle={() => toggleSidebarModule(SIDEBAR_MODULE.AGENT_HUB)}
+          hasActiveChild={resolveModuleId(sidebarView) === SIDEBAR_MODULE.AGENT_HUB}
+        >
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'skills' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('skills')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarSkills}</span>
+          </button>
 
-            <button
-              type="button"
-              className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
-              onClick={() => setSidebarView('tools')}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.sidebarTools}</span>
-            </button>
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'agents' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('agents')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarAgents}</span>
+          </button>
 
-            <button
-              type="button"
-              className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
-              onClick={() => setSidebarView('mcpCallbacks')}
-            >
-              <span className="sidebar__item-icon">*</span>
-              <span className="sidebar__item-label">{t.sidebarMcp}</span>
-            </button>
-          </div>
-        </div>
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'tools' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('tools')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarTools}</span>
+          </button>
+
+          <button
+            type="button"
+            className={`sidebar__menu-button ${sidebarView === 'mcpCallbacks' ? 'is-active' : ''}`}
+            onClick={() => handleSidebarViewChange('mcpCallbacks')}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.sidebarMcp}</span>
+          </button>
+        </SidebarModuleDropdown>
 
         <div className="sidebar__module sidebar__module--history">
           <div className="sidebar__module-title">{t.recentChats}</div>
@@ -818,6 +912,10 @@ function HomePage({ language, onLanguageChange }) {
             skillStatus?.tools ?? [],
             'tool',
           )
+        ) : sidebarView === 'uploadDocument' ? (
+          <UploadDocument language={language} />
+        ) : sidebarView === 'knowledgeBaseManager' ? (
+          <KnowledgeBaseManager language={language} />
         ) : sidebarView === 'mcpCallbacks' ? (
           renderNodeList(
             t.mcpPageTitle,
@@ -854,12 +952,38 @@ function HomePage({ language, onLanguageChange }) {
                       } ${item.error ? 'bubble--error' : ''}`}
                     >
                       {item.role === 'assistant' && (item.text || item.pending) ? (
-                        <TypewriterText
-                          key={item.id}
-                          text={item.text}
-                          active={Boolean(item.pending)}
-                          onReveal={scrollToBottom}
-                        />
+                        <>
+                          <TypewriterText
+                            key={item.id}
+                            text={item.text}
+                            active={Boolean(item.pending)}
+                            onReveal={scrollToBottom}
+                          />
+                          {item.meta?.knowledgeBaseCount > 0 ? (
+                            <div className="bubble__meta">
+                              {t.kbSourcesLabel.replace('{count}', item.meta.knowledgeBaseCount)}
+                              {item.meta.knowledgeBaseNames?.length
+                                ? `: ${item.meta.knowledgeBaseNames.join(', ')}`
+                                : ''}
+                            </div>
+                          ) : null}
+                          {item.meta?.citations?.length > 0 ? (
+                            <div className="bubble__citations">
+                              <strong>{t.citationsLabel}</strong>
+                              <ul>
+                                {item.meta.citations.map((citation) => (
+                                  <li key={citation.chunkId}>
+                                    <span className="bubble__citation-kb">[{citation.knowledgeBaseName}]</span>
+                                    {citation.preview}
+                                    <span className="bubble__citation-score">
+                                      {t.citationScore}: {(citation.rerankScore * 100).toFixed(0)}%
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
+                        </>
                       ) : item.text ? (
                         <div className="bubble__text">{item.text}</div>
                       ) : null}

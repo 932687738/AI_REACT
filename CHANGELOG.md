@@ -1,5 +1,16 @@
 # Changelog
 
+## [2026-05-30] - 侧边栏模块下拉导航
+
+### Added
+
+- 新增 `src/components/SidebarModuleDropdown.jsx`，封装侧边栏模块折叠下拉交互
+
+### Changed
+
+- 修改 `src/pages/HomePage.jsx`，对话 / 知识库 / 能力三组菜单改为按模块下拉选择；历史对话区域保持列表展示
+- 修改 `src/styles/index.css`，补充模块下拉触发器与折叠态样式
+
 ## [2026-05-27] - 全聊天模式打字机特效
 
 ### Changed

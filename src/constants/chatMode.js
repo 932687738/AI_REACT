@@ -23,3 +23,6 @@ export const SIDEBAR_CHAT_VIEW = {
 
 /** 智能体对话下可浏览的运行时菜单视图 */
 export const AGENT_HUB_VIEWS = ['skills', 'agents', 'tools', 'mcpCallbacks']
+
+/** 知识库管理相关视图 */
+export const KNOWLEDGE_VIEWS = ['uploadDocument', 'knowledgeBaseManager']

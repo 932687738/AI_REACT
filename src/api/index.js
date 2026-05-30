@@ -7,6 +7,8 @@ export const API = {
     chatAgent: '/api/agent-hub/chat/agent',
     requirementDev: '/api/agent-hub/requirement-dev',
     status: '/api/agent-hub/status',
+    knowledgeUpload: '/api/agent-hub/knowledge/upload',
+    knowledgeBases: '/api/agent-hub/knowledge-bases',
   },
   user: {
     profile: '/user/profile',
