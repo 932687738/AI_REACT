@@ -14,7 +14,8 @@ import {
 } from '@/constants/chatMode'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
-import brandYxy from '@/assets/brand-yxy.png'
+// import brandDzj from '@/assets/brand-yxy.png'
+import brandDzj from '@/assets/brand-dzj.png'
 import {
   deriveConversationTitle,
   deleteConversationHistory,
@@ -666,7 +667,7 @@ function HomePage({ language, onLanguageChange }) {
     <main className="chat-shell">
       <aside className="sidebar" ref={sidebarRef}>
         <div className="sidebar__brand">
-          <img className="brand-mark" src={brandYxy} alt="Nebula Desk" />
+          <img className="brand-mark" src={brandDzj} alt="Nebula Desk" />
           <div>
             <strong>{t.appName}</strong>
             <p>{t.brand}</p>
@@ -935,7 +936,7 @@ function HomePage({ language, onLanguageChange }) {
 
             {chatMessages.length === 0 ? (
               <section className="welcome-panel">
-                <img className="welcome-panel__image" src={brandYxy} alt="Nebula preview" />
+                <img className="welcome-panel__image" src={brandDzj} alt="Nebula preview" />
                 <h2>{welcomeContent.title}</h2>
                 <p>{welcomeContent.body}</p>
               </section>
