@@ -82,6 +82,13 @@ function parseSseEvent(eventBlock) {
   return data === '[DONE]' ? null : data
 }
 
+function shouldIncludePayload(payload, handlers) {
+  if (typeof handlers.includeInFullText === 'function') {
+    return handlers.includeInFullText(payload)
+  }
+  return true
+}
+
 function consumeSseBuffer(buffer, onData, final = false) {
   const { events, remaining } = splitSseEvents(buffer, final)
 
@@ -118,7 +125,9 @@ export async function postStream(path, data, handlers = {}) {
     if (isEventStream) {
       let fullText = ''
       consumeSseBuffer(text, (payload) => {
-        fullText += payload
+        if (shouldIncludePayload(payload, handlers)) {
+          fullText += payload
+        }
         handlers.onChunk?.(payload)
       }, true)
       handlers.onComplete?.(fullText)
@@ -147,19 +156,25 @@ export async function postStream(path, data, handlers = {}) {
     if (isEventStream) {
       sseBuffer += chunk
       sseBuffer = consumeSseBuffer(sseBuffer, (payload) => {
-        fullText += payload
+        if (shouldIncludePayload(payload, handlers)) {
+          fullText += payload
+        }
         handlers.onChunk?.(payload)
       })
       continue
     }
 
-    fullText += chunk
+    if (shouldIncludePayload(chunk, handlers)) {
+      fullText += chunk
+    }
     handlers.onChunk?.(chunk)
   }
 
   if (isEventStream) {
     consumeSseBuffer(sseBuffer, (payload) => {
-      fullText += payload
+      if (shouldIncludePayload(payload, handlers)) {
+        fullText += payload
+      }
       handlers.onChunk?.(payload)
     }, true)
   }

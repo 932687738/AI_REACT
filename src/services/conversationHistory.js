@@ -7,6 +7,7 @@
   upsertConversation,
 } from '@/api/conversationHistory'
 import { CHAT_MODE } from '@/constants/chatMode'
+import { normalizeCitation } from '@/utils/knowledgeCitation'
 
 function toApiMode(chatMode) {
   if (chatMode === CHAT_MODE.AGENT) {
@@ -52,6 +53,9 @@ function normalizeMessage(item) {
     return null
   }
 
+  const rawMeta = item.meta && typeof item.meta === 'object' ? item.meta : undefined
+  const meta = rawMeta ? normalizeHistoryMeta(rawMeta) : undefined
+
   return {
     ...item,
     id,
@@ -60,7 +64,21 @@ function normalizeMessage(item) {
     text: String(item.text || ''),
     pending: Boolean(item.pending),
     error: Boolean(item.error),
-    meta: item.meta ?? undefined,
+    meta,
+  }
+}
+
+function normalizeHistoryMeta(rawMeta) {
+  const citations = Array.isArray(rawMeta.citations)
+    ? rawMeta.citations.map(normalizeCitation).filter(Boolean)
+    : []
+  if (citations.length === 0 && rawMeta.knowledgeBaseCount == null) {
+    return undefined
+  }
+  return {
+    knowledgeBaseCount: rawMeta.knowledgeBaseCount ?? 0,
+    knowledgeBaseNames: Array.isArray(rawMeta.knowledgeBaseNames) ? rawMeta.knowledgeBaseNames : [],
+    citations,
   }
 }
 

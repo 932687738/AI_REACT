@@ -1,5 +1,10 @@
 import { API } from '@/api'
 import { CHAT_MODE } from '@/constants/chatMode'
+import {
+  isKnowledgeMetaPayload,
+  parseKnowledgeMetaPayload,
+  stripKnowledgeMetaFromText,
+} from '@/utils/knowledgeCitation'
 import { postStream } from '@/utils/request'
 
 const STREAM_DELAY = 32
@@ -51,22 +56,6 @@ function buildRequestBody(payload) {
   return body
 }
 
-function isKnowledgeMetaChunk(chunk) {
-  if (!chunk || typeof chunk !== 'string') {
-    return false
-  }
-  const trimmed = chunk.trim()
-  return trimmed.startsWith('{') && trimmed.includes('"event":"meta"')
-}
-
-function parseKnowledgeMetaChunk(chunk) {
-  try {
-    return JSON.parse(chunk.trim())
-  } catch {
-    return null
-  }
-}
-
 /** 知识库模式：POST /api/agent-hub/chat/knowledge */
 export async function sendKnowledgeChatMessage(payload, handlers = {}) {
   const useMock = import.meta.env.VITE_USE_MOCK_CHAT === 'true'
@@ -78,12 +67,16 @@ export async function sendKnowledgeChatMessage(payload, handlers = {}) {
 
   return postStream(API.agentHub.chatKnowledge, requestBody, {
     ...handlers,
+    includeInFullText: (chunk) => !isKnowledgeMetaPayload(chunk),
     onChunk: (chunk) => {
-      if (isKnowledgeMetaChunk(chunk)) {
-        handlers.onMeta?.(parseKnowledgeMetaChunk(chunk))
+      if (isKnowledgeMetaPayload(chunk)) {
+        handlers.onMeta?.(parseKnowledgeMetaPayload(chunk))
         return
       }
       handlers.onChunk?.(chunk)
+    },
+    onComplete: (fullText) => {
+      handlers.onComplete?.(stripKnowledgeMetaFromText(fullText))
     },
   })
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import {
   batchDeleteDocuments,
   listDocuments,
@@ -112,7 +112,12 @@ function buildUploadDetail(response, t) {
   ]
 }
 
-export default function UploadDocument({ language }) {
+export default function UploadDocument({
+  language,
+  initialKnowledgeBaseId,
+  highlightDocumentId,
+  onHighlightConsumed,
+}) {
   const t = messages[language]
   const fileInputId = useId()
   const [knowledgeBases, setKnowledgeBases] = useState([])
@@ -127,8 +132,14 @@ export default function UploadDocument({ language }) {
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState('')
   const [documentsError, setDocumentsError] = useState('')
+  const highlightRowRef = useRef(null)
 
-  const kbReady = knowledgeBases.length > 0 && Boolean(selectedKbId)
+  const resolvedKbId =
+    initialKnowledgeBaseId != null && initialKnowledgeBaseId !== ''
+      ? String(initialKnowledgeBaseId)
+      : selectedKbId
+
+  const kbReady = knowledgeBases.length > 0 && Boolean(resolvedKbId)
   const dropzoneDisabled = !kbReady || uploading || deleting
 
   const closeFeedbackModal = useCallback(() => {
@@ -146,7 +157,7 @@ export default function UploadDocument({ language }) {
   }, [])
 
   const loadDocuments = useCallback(async () => {
-    if (!selectedKbId) {
+    if (!resolvedKbId) {
       setDocuments([])
       setSelectedIds(new Set())
       return true
@@ -154,7 +165,7 @@ export default function UploadDocument({ language }) {
     setDocumentsLoading(true)
     setDocumentsError('')
     try {
-      const data = await listDocuments(Number(selectedKbId))
+      const data = await listDocuments(Number(resolvedKbId))
       setDocuments(data)
       setSelectedIds(new Set())
       return true
@@ -164,7 +175,7 @@ export default function UploadDocument({ language }) {
     } finally {
       setDocumentsLoading(false)
     }
-  }, [selectedKbId, t.uploadLoadDocumentsFailed])
+  }, [resolvedKbId, t.uploadLoadDocumentsFailed])
 
   useEffect(() => {
     listKnowledgeBases()
@@ -180,6 +191,15 @@ export default function UploadDocument({ language }) {
   useEffect(() => {
     loadDocuments()
   }, [loadDocuments])
+
+  useEffect(() => {
+    if (!highlightDocumentId || documentsLoading || !highlightRowRef.current) {
+      return
+    }
+    highlightRowRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    const timer = window.setTimeout(() => onHighlightConsumed?.(), 3200)
+    return () => window.clearTimeout(timer)
+  }, [highlightDocumentId, documents, documentsLoading, onHighlightConsumed])
 
   const allSelected =
     documents.length > 0 && documents.every((document) => selectedIds.has(document.id))
@@ -205,7 +225,7 @@ export default function UploadDocument({ language }) {
   }
 
   async function handleUpload(file, replace = false) {
-    if (!file || !selectedKbId) {
+    if (!file || !resolvedKbId) {
       setError(t.uploadSelectKb)
       return
     }
@@ -223,7 +243,7 @@ export default function UploadDocument({ language }) {
     try {
       const response = await uploadDocument({
         file,
-        knowledgeBaseId: Number(selectedKbId),
+        knowledgeBaseId: Number(resolvedKbId),
         replace,
         onProgress: setProgress,
       })
@@ -261,7 +281,7 @@ export default function UploadDocument({ language }) {
   }
 
   async function handleBatchDelete() {
-    if (selectedIds.size === 0 || !selectedKbId) {
+    if (selectedIds.size === 0 || !resolvedKbId) {
       return
     }
     const count = selectedIds.size
@@ -276,7 +296,7 @@ export default function UploadDocument({ language }) {
 
     try {
       const response = await batchDeleteDocuments({
-        knowledgeBaseId: Number(selectedKbId),
+        knowledgeBaseId: Number(resolvedKbId),
         documentIds: [...selectedIds],
       })
       await loadDocuments()
@@ -338,6 +358,7 @@ export default function UploadDocument({ language }) {
     closeFeedbackModal()
     setDocumentsError('')
     setError('')
+    onHighlightConsumed?.()
   }
 
   const deleteLabel =
@@ -361,7 +382,7 @@ export default function UploadDocument({ language }) {
             <select
               id="kb-select"
               className="knowledge-form__select"
-              value={selectedKbId}
+              value={resolvedKbId}
               onChange={onKnowledgeBaseChange}
               disabled={uploading || deleting}
             >
@@ -454,7 +475,7 @@ export default function UploadDocument({ language }) {
             <button
               type="button"
               className="upload-documents__delete"
-              disabled={selectedIds.size === 0 || deleting || !selectedKbId}
+              disabled={selectedIds.size === 0 || deleting || !resolvedKbId}
               onClick={handleBatchDelete}
             >
               {deleting ? t.uploadDeleting : deleteLabel}
@@ -499,7 +520,21 @@ export default function UploadDocument({ language }) {
                 </thead>
                 <tbody>
                   {documents.map((document) => (
-                    <tr key={document.id} className={selectedIds.has(document.id) ? 'is-selected' : ''}>
+                    <tr
+                      key={document.id}
+                      ref={
+                        Number(highlightDocumentId) === Number(document.id)
+                          ? highlightRowRef
+                          : null
+                      }
+                      data-document-id={document.id}
+                      className={[
+                        selectedIds.has(document.id) ? 'is-selected' : '',
+                        Number(highlightDocumentId) === Number(document.id) ? 'is-highlighted' : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                    >
                       <td>
                         <input
                           type="checkbox"

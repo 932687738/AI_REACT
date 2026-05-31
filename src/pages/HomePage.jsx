@@ -4,6 +4,8 @@ import { sendChatMessage } from '@/api/chat'
 import KnowledgeBaseManager from '@/components/KnowledgeBaseManager'
 import SidebarModuleDropdown from '@/components/SidebarModuleDropdown'
 import TypewriterText from '@/components/TypewriterText'
+import KnowledgeCitationPanel from '@/components/KnowledgeCitationPanel'
+import { stripKnowledgeMetaFromText } from '@/utils/knowledgeCitation'
 import UploadDocument from '@/components/UploadDocument'
 import {
   CHAT_MODE,
@@ -146,6 +148,7 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
   const [skillStatus, setSkillStatus] = useState(null)
   const [skillLoading, setSkillLoading] = useState(false)
   const [expandedModuleId, setExpandedModuleId] = useState(SIDEBAR_MODULE.CHAT)
+  const [documentNav, setDocumentNav] = useState(null)
   const t = messages[language]
   const brandMark = resolveBrandMark(theme)
   const chatMode = useMemo(() => resolveChatMode(sidebarView), [sidebarView])
@@ -384,6 +387,17 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
     setExpandedModuleId(resolveModuleId(view))
   }
 
+  function handleCitationNavigate(citation) {
+    if (!citation?.knowledgeBaseId || !citation?.documentId) {
+      return
+    }
+    setDocumentNav({
+      knowledgeBaseId: String(citation.knowledgeBaseId),
+      documentId: citation.documentId,
+    })
+    handleSidebarViewChange('uploadDocument')
+  }
+
   async function handleHistoryChat(item) {
     const itemMode = resolveHistoryMode(item)
     setSidebarView(resolveSidebarViewFromMode(itemMode))
@@ -493,7 +507,7 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
                 item.id === assistantMessageId
                   ? {
                       ...item,
-                      text: `${item.text}${chunk}`,
+                      text: stripKnowledgeMetaFromText(`${item.text}${chunk}`),
                       pending: true,
                     }
                   : item,
@@ -501,10 +515,11 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
             )
           },
           onComplete: async (finalText) => {
+            const cleanedText = stripKnowledgeMetaFromText(finalText || '')
             setChatMessages((current) =>
               current.map((item) =>
                 item.id === assistantMessageId
-                  ? { ...item, pending: false, text: finalText || item.text }
+                  ? { ...item, pending: false, text: cleanedText || item.text }
                   : item,
               ),
             )
@@ -962,7 +977,16 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
             'tool',
           )
         ) : sidebarView === 'uploadDocument' ? (
-          <UploadDocument language={language} />
+          <UploadDocument
+            language={language}
+            initialKnowledgeBaseId={documentNav?.knowledgeBaseId}
+            highlightDocumentId={documentNav?.documentId}
+            onHighlightConsumed={() =>
+              setDocumentNav((current) =>
+                current ? { ...current, documentId: null } : current,
+              )
+            }
+          />
         ) : sidebarView === 'knowledgeBaseManager' ? (
           <KnowledgeBaseManager language={language} />
         ) : sidebarView === 'mcpCallbacks' ? (
@@ -1017,20 +1041,11 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
                             </div>
                           ) : null}
                           {item.meta?.citations?.length > 0 ? (
-                            <div className="bubble__citations">
-                              <strong>{t.citationsLabel}</strong>
-                              <ul>
-                                {item.meta.citations.map((citation) => (
-                                  <li key={citation.chunkId}>
-                                    <span className="bubble__citation-kb">[{citation.knowledgeBaseName}]</span>
-                                    {citation.preview}
-                                    <span className="bubble__citation-score">
-                                      {t.citationScore}: {(citation.rerankScore * 100).toFixed(0)}%
-                                    </span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                            <KnowledgeCitationPanel
+                              citations={item.meta.citations}
+                              language={language}
+                              onCitationClick={handleCitationNavigate}
+                            />
                           ) : null}
                         </>
                       ) : item.text ? (

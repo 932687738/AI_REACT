@@ -1968,28 +1968,211 @@ button {
   color: rgba(255, 255, 255, 0.6);
 }
 
-.bubble__citations {
-  margin-top: 12px;
+/* 引用溯源（assistant bubble 内，对齐 DESIGN.md Citations） */
+.citation-panel {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
   font-size: 0.8125rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 10px;
 }
 
-.bubble__citations ul {
-  margin: 8px 0 0;
-  padding-left: 18px;
+.citation-panel__summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: #cbd5e1;
+  user-select: none;
 }
 
-.bubble__citation-kb {
-  color: #93c5fd;
-  margin-right: 6px;
+.citation-panel__summary::-webkit-details-marker {
+  display: none;
 }
 
-.bubble__citation-score {
+.citation-panel__summary:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.55);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.citation-panel__chevron {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.citation-panel[open] .citation-panel__chevron {
+  transform: rotate(45deg);
+}
+
+.citation-panel__title {
+  flex: 1;
+  min-width: 0;
+}
+
+.citation-panel__count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #0f172a;
+  background: rgba(134, 239, 172, 0.92);
+  border-radius: 999px;
+  padding: 3px 8px;
+}
+
+.citation-panel__list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.citation-panel__hint {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #94a3b8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .citation-panel__chevron {
+    transition: none;
+  }
+}
+
+.citation-source {
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.28);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.citation-source__hit,
+.citation-source__static {
   display: block;
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  color: inherit;
+  font: inherit;
+}
+
+.citation-source__hit {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: inherit;
+  transition:
+    background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.citation-source__hit:hover {
+  background: rgba(37, 99, 235, 0.12);
+}
+
+.citation-source__hit:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, 0.65);
+  outline-offset: -2px;
+}
+
+.citation-source__row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+}
+
+.citation-source__icon {
   margin-top: 2px;
+  color: #93c5fd;
+  flex-shrink: 0;
+}
+
+.citation-source__main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.citation-source__name {
+  font-weight: 600;
+  font-size: 0.84rem;
+  color: #e2e8f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.citation-source__kb {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.citation-source__score {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #86efac;
+  background: rgba(22, 101, 52, 0.35);
+  border: 1px solid rgba(134, 239, 172, 0.28);
+  border-radius: 999px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.citation-source__preview {
+  margin: 8px 0 0;
+  padding-left: 26px;
+  color: #cbd5e1;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 65ch;
+}
+
+.citation-source__vector {
+  margin: 4px 0 0;
+  padding-left: 26px;
+  font-size: 0.72rem;
+  color: #94a3b8;
+}
+
+.citation-source__cta {
+  display: inline-block;
+  margin-top: 8px;
+  margin-left: 26px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .citation-source__hit {
+    transition: none;
+  }
+}
+
+.upload-documents__table tr.is-highlighted {
+  background: rgba(56, 189, 248, 0.18);
+  outline: 1px solid rgba(56, 189, 248, 0.45);
 }
 
 /* DZJ 浅色主题：浅蓝 + 白色 */
@@ -2177,17 +2360,40 @@ button {
   color: rgba(15, 23, 42, 0.55);
 }
 
-[data-theme='dzj'] .bubble__citations {
-  border-top-color: rgba(125, 211, 252, 0.45);
+[data-theme='dzj'] .citation-panel {
+  border-top-color: rgba(125, 211, 252, 0.35);
 }
 
-[data-theme='dzj'] .bubble__citation-kb {
-  color: #0284c7;
+[data-theme='dzj'] .citation-panel__summary {
+  color: #334155;
 }
 
-[data-theme='dzj'] .bubble__citation-score {
-  color: rgba(15, 23, 42, 0.45);
+[data-theme='dzj'] .citation-panel__count {
+  color: #14532d;
+  background: rgba(134, 239, 172, 0.85);
 }
+
+[data-theme='dzj'] .citation-source {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(125, 211, 252, 0.35);
+}
+
+[data-theme='dzj'] .citation-source__name {
+  color: #0f172a;
+}
+
+[data-theme='dzj'] .citation-source__preview {
+  color: #475569;
+}
+
+[data-theme='dzj'] .citation-source__hit:hover {
+  background: rgba(2, 132, 199, 0.08);
+}
+
+[data-theme='dzj'] .citation-source__cta {
+  color: #0369a1;
+}
+
 
 [data-theme='dzj'] .stream-cursor {
   background: #0284c7;
@@ -2569,16 +2775,38 @@ button {
   color: rgba(15, 23, 42, 0.55);
 }
 
-[data-theme='lv'] .bubble__citations {
+[data-theme='lv'] .citation-panel {
   border-top-color: rgba(134, 239, 172, 0.45);
 }
 
-[data-theme='lv'] .bubble__citation-kb {
-  color: #16a34a;
+[data-theme='lv'] .citation-panel__summary {
+  color: #334155;
 }
 
-[data-theme='lv'] .bubble__citation-score {
-  color: rgba(15, 23, 42, 0.45);
+[data-theme='lv'] .citation-panel__count {
+  color: #14532d;
+  background: rgba(134, 239, 172, 0.85);
+}
+
+[data-theme='lv'] .citation-source {
+  background: rgba(255, 255, 255, 0.72);
+  border-color: rgba(134, 239, 172, 0.4);
+}
+
+[data-theme='lv'] .citation-source__name {
+  color: #0f172a;
+}
+
+[data-theme='lv'] .citation-source__preview {
+  color: #475569;
+}
+
+[data-theme='lv'] .citation-source__hit:hover {
+  background: rgba(22, 163, 74, 0.08);
+}
+
+[data-theme='lv'] .citation-source__cta {
+  color: #15803d;
 }
 
 [data-theme='lv'] .stream-cursor {
