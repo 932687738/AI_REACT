@@ -8,6 +8,7 @@ import KnowledgeCitationPanel from '@/components/KnowledgeCitationPanel'
 import RetrievalThresholdSettings from '@/components/RetrievalThresholdSettings'
 import { stripKnowledgeMetaFromText } from '@/utils/knowledgeCitation'
 import UploadDocument from '@/components/UploadDocument'
+import HumanReviewWorkbench from '@/pages/HumanReviewWorkbench'
 import {
   CHAT_MODE,
   AGENT_HUB_VIEWS,
@@ -768,6 +769,15 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
             <span className="sidebar__item-icon">*</span>
             <span className="sidebar__item-label">{t.projectManagerChat}</span>
           </button>
+
+          <button
+            className={`sidebar__menu-button ${sidebarView === SIDEBAR_CHAT_VIEW.HUMAN_REVIEW ? 'is-active' : ''}`}
+            type="button"
+            onClick={() => handleSidebarViewChange(SIDEBAR_CHAT_VIEW.HUMAN_REVIEW)}
+          >
+            <span className="sidebar__item-icon">*</span>
+            <span className="sidebar__item-label">{t.humanReview}</span>
+          </button>
         </SidebarModuleDropdown>
 
         <SidebarModuleDropdown
@@ -990,6 +1000,8 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
           />
         ) : sidebarView === 'knowledgeBaseManager' ? (
           <KnowledgeBaseManager language={language} />
+        ) : sidebarView === SIDEBAR_CHAT_VIEW.HUMAN_REVIEW ? (
+          <HumanReviewWorkbench language={language} />
         ) : sidebarView === 'mcpCallbacks' ? (
           renderNodeList(
             t.mcpPageTitle,

@@ -19,6 +19,7 @@ export const SIDEBAR_CHAT_VIEW = {
   KNOWLEDGE: 'knowledgeChat',
   AGENT: 'agentChat',
   PROJECT_MANAGER: 'projectManagerChat',
+  HUMAN_REVIEW: 'humanReview',
 }
 
 /** 智能体对话下可浏览的运行时菜单视图 */

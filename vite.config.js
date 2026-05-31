@@ -20,6 +20,11 @@ export default defineConfig(({ mode }) => {
           changeOrigin: true,
           timeout: 600000,
         },
+        '/springai': {
+          target: env.VITE_API_PROXY_TARGET || 'http://localhost:8080',
+          changeOrigin: true,
+          timeout: 600000,
+        },
       },
     },
   }
