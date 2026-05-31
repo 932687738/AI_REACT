@@ -2,6 +2,14 @@
 
 ```text
 .
+├── .cursor/
+│   └── skills/
+│       ├── code-refactor/
+│       │   ├── SKILL.md
+│       │   └── examples.md
+│       └── custom-theme-planner/
+│           ├── SKILL.md
+│           └── reference.md
 ├── .env
 ├── .gitignore
 ├── CLAUDE.md
@@ -27,6 +35,8 @@
 │   ├── app/
 │   │   └── App.jsx
 │   ├── assets/
+│   │   ├── brand-dzj.png
+│   │   ├── brand-lv.png
 │   │   ├── brand-yxy.png
 │   │   ├── hero.png
 │   │   ├── react.svg
@@ -34,8 +44,11 @@
 │   ├── components/
 │   │   ├── LogoMark.jsx
 │   │   └── TypewriterText.jsx
+│   ├── constants/
+│   │   └── theme.js
 │   ├── hooks/
-│   │   └── useLanguage.js
+│   │   ├── useLanguage.js
+│   │   └── useTheme.js
 │   ├── i18n/
 │   │   └── messages.js
 │   ├── pages/
@@ -54,7 +67,7 @@
 
 - `src/components/TypewriterText.jsx`：聊天流式回复打字机展示（知识库 / 智能体 / 项目经理）
 - `src/pages/HomePage.jsx`：聊天首页、侧边栏、历史对话、技能/智能体/工具/MCP 视图
-- `src/pages/SettingsPage.jsx`：设置页与语言选择
+- `src/pages/SettingsPage.jsx`：设置页、语言选择与主题切换
 - `src/services/conversationHistory.js`：历史对话与消息本地持久化
 - `src/utils/request.js`：统一请求封装
 - `src/api/`：后端接口路径定义

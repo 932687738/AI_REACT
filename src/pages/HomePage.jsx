@@ -14,7 +14,7 @@ import {
 } from '@/constants/chatMode'
 import { messages } from '@/i18n/messages'
 import SettingsPage from '@/pages/SettingsPage'
-import brandYxy from '@/assets/brand-yxy.png'
+import { resolveBrandMark } from '@/constants/theme'
 import {
   deriveConversationTitle,
   ensureConversationOnServer,
@@ -130,7 +130,7 @@ function resolveModuleId(sidebarView) {
   return SIDEBAR_MODULE.CHAT
 }
 
-function HomePage({ language, onLanguageChange }) {
+function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentView, setCurrentView] = useState('chat')
   const [sidebarView, setSidebarView] = useState(SIDEBAR_CHAT_VIEW.KNOWLEDGE)
@@ -147,6 +147,7 @@ function HomePage({ language, onLanguageChange }) {
   const [skillLoading, setSkillLoading] = useState(false)
   const [expandedModuleId, setExpandedModuleId] = useState(SIDEBAR_MODULE.CHAT)
   const t = messages[language]
+  const brandMark = resolveBrandMark(theme)
   const chatMode = useMemo(() => resolveChatMode(sidebarView), [sidebarView])
 
   const refreshHistory = useCallback(async () => {
@@ -701,6 +702,8 @@ function HomePage({ language, onLanguageChange }) {
       <SettingsPage
         language={language}
         onLanguageChange={onLanguageChange}
+        theme={theme}
+        onThemeChange={onThemeChange}
         onBack={() => setCurrentView('chat')}
       />
     )
@@ -710,7 +713,7 @@ function HomePage({ language, onLanguageChange }) {
     <main className="chat-shell">
       <aside className="sidebar" ref={sidebarRef}>
         <div className="sidebar__brand">
-          <img className="brand-mark" src={brandYxy} alt="Nebula Desk" />
+          <img className="brand-mark" src={brandMark} alt="Nebula Desk" />
           <div>
             <strong>{t.appName}</strong>
             <p>{t.brand}</p>
@@ -900,7 +903,9 @@ function HomePage({ language, onLanguageChange }) {
             className="account-trigger"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <span className="account-trigger__avatar">N</span>
+            <span className="account-trigger__avatar">
+              <img className="brand-avatar" src={brandMark} alt={t.profileName} />
+            </span>
             <span className="account-trigger__name">{t.profileName}</span>
             <span className="account-trigger__arrow">{'>'}</span>
           </button>
@@ -979,7 +984,7 @@ function HomePage({ language, onLanguageChange }) {
 
             {chatMessages.length === 0 ? (
               <section className="welcome-panel">
-                <img className="welcome-panel__image" src={brandYxy} alt="Nebula preview" />
+                <img className="welcome-panel__image" src={brandMark} alt="Nebula preview" />
                 <h2>{welcomeContent.title}</h2>
                 <p>{welcomeContent.body}</p>
               </section>

@@ -18,6 +18,7 @@ src/main.jsx
 
 - 采用 React `useState`、`useEffect`、`useMemo`、`useRef`
 - 语言状态通过 `src/hooks/useLanguage.js` 持久化到 `localStorage`
+- 主题状态通过 `src/hooks/useTheme.js` 持久化到 `localStorage`，并写入 `document.documentElement.dataset.theme`（`dzj` / `lv` / `yxy`）
 - 历史对话与消息通过 `src/services/conversationHistory.js` 持久化到 `localStorage`
 - 当前会话、侧边栏选项、设置页状态主要集中在 `src/pages/HomePage.jsx`
 

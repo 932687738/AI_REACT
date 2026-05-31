@@ -1,4 +1,5 @@
 import { languages, messages } from '@/i18n/messages'
+import { resolveBrandMark, themeOptions } from '@/constants/theme'
 
 function SettingsIcon({ name }) {
   switch (name) {
@@ -41,6 +42,24 @@ function SettingsIcon({ name }) {
           <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.8" />
           <path
             d="M4 12h16M12 3.5c2.2 2.8 3.4 5.8 3.4 8.5S14.2 17.7 12 20.5M12 3.5C9.8 6.3 8.6 9.3 8.6 12s1.2 5.7 3.4 8.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+          />
+        </svg>
+      )
+    case 'theme':
+      return (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 3.5a8.5 8.5 0 1 0 0 17 8.5 8.5 0 0 0 0-17Z"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+          />
+          <path
+            d="M12 3.5v17M12 3.5C9.2 6.8 8 9.8 8 12.5s1.2 5.7 4 9"
             fill="none"
             stroke="currentColor"
             strokeWidth="1.6"
@@ -124,8 +143,9 @@ function SettingsRowButton({ icon, tone, label, trailing, onClick }) {
   )
 }
 
-function SettingsPage({ language, onLanguageChange, onBack }) {
+function SettingsPage({ language, onLanguageChange, theme, onThemeChange, onBack }) {
   const t = messages[language]
+  const brandMark = resolveBrandMark(theme)
 
   function handleShare() {
     const shareText = `${t.appName} - ${t.brand}`
@@ -149,7 +169,9 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
 
       <div className="settings-screen__content">
         <header className="settings-profile">
-          <div className="settings-profile__avatar">{t.profileName.slice(0, 1)}</div>
+          <div className="settings-profile__avatar">
+            <img className="brand-avatar" src={brandMark} alt={t.appName} />
+          </div>
           <h1>{t.profileName}</h1>
           <p>{t.profileUserId}</p>
           <button type="button" className="settings-profile__manage">
@@ -179,6 +201,27 @@ function SettingsPage({ language, onLanguageChange, onBack }) {
                 {languages.map((item) => (
                   <option key={item.code} value={item.code}>
                     {item.label}
+                  </option>
+                ))}
+              </select>
+            </span>
+          </div>
+
+          <div className="settings-item settings-item--static">
+            <span className="settings-item__icon settings-item__icon--purple">
+              <SettingsIcon name="theme" />
+            </span>
+            <span className="settings-item__label">{t.theme}</span>
+            <span className="settings-item__action">
+              <select
+                className="settings-select"
+                value={theme}
+                onChange={(event) => onThemeChange(event.target.value)}
+                aria-label={t.theme}
+              >
+                {themeOptions.map((item) => (
+                  <option key={item.code} value={item.code}>
+                    {t[item.labelKey]}
                   </option>
                 ))}
               </select>
