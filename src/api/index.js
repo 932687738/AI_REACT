@@ -10,6 +10,8 @@ export const API = {
     knowledgeUpload: '/api/agent-hub/knowledge/upload',
     knowledgeBases: '/api/agent-hub/knowledge-bases',
     knowledgeDocumentsBatchDelete: '/api/agent-hub/knowledge/documents/batch-delete',
+    conversationConfigKnowledgeRetrievalThreshold:
+      '/api/agent-hub/conversation-config/knowledge-retrieval-threshold',
     conversations: '/api/agent-hub/conversations',
   },
   user: {

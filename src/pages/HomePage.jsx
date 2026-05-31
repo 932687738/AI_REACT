@@ -5,6 +5,7 @@ import KnowledgeBaseManager from '@/components/KnowledgeBaseManager'
 import SidebarModuleDropdown from '@/components/SidebarModuleDropdown'
 import TypewriterText from '@/components/TypewriterText'
 import KnowledgeCitationPanel from '@/components/KnowledgeCitationPanel'
+import RetrievalThresholdSettings from '@/components/RetrievalThresholdSettings'
 import { stripKnowledgeMetaFromText } from '@/utils/knowledgeCitation'
 import UploadDocument from '@/components/UploadDocument'
 import {
@@ -999,11 +1000,16 @@ function HomePage({ language, onLanguageChange, theme, onThemeChange }) {
           )
         ) : isChatView(sidebarView) ? (
           <>
-            <header className="chat-topbar chat-topbar--center">
-              <div>
+            <header
+              className={`chat-topbar ${chatMode === CHAT_MODE.KNOWLEDGE ? 'chat-topbar--actions' : 'chat-topbar--center'}`}
+            >
+              <div className="chat-topbar__main">
                 <h1>{chatHeader.title}</h1>
                 <p>{chatHeader.subtitle}</p>
               </div>
+              {chatMode === CHAT_MODE.KNOWLEDGE ? (
+                <RetrievalThresholdSettings language={language} />
+              ) : null}
             </header>
 
             {chatMessages.length === 0 ? (
