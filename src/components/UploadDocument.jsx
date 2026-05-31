@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useId, useState } from 'react'
 import {
   batchDeleteDocuments,
   listDocuments,
@@ -9,6 +9,7 @@ import FeedbackModal from '@/components/FeedbackModal'
 import { messages } from '@/i18n/messages'
 
 const ALLOWED_EXTENSIONS = ['.txt', '.md', '.pdf', '.docx', '.doc']
+const FORMAT_LABELS = ['TXT', 'MD', 'PDF', 'DOCX', 'DOC']
 
 const EMPTY_MODAL = {
   open: false,
@@ -16,6 +17,76 @@ const EMPTY_MODAL = {
   message: '',
   variant: 'success',
   detail: null,
+}
+
+function UploadIcon() {
+  return (
+    <svg
+      className="upload-dropzone__icon"
+      width="40"
+      height="40"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 16V4m0 0 4 4m-4-4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function DocumentEmptyIcon() {
+  return (
+    <svg
+      className="upload-empty__icon"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 2v6h6M9 13h6M9 17h4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function UploadSkeleton() {
+  return (
+    <div className="upload-skeleton" aria-hidden="true">
+      {[0, 1, 2].map((row) => (
+        <div key={row} className="upload-skeleton__row">
+          <span className="upload-skeleton__cell upload-skeleton__cell--check" />
+          <span className="upload-skeleton__cell upload-skeleton__cell--name" />
+          <span className="upload-skeleton__cell upload-skeleton__cell--short" />
+          <span className="upload-skeleton__cell upload-skeleton__cell--medium" />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function isAllowedFile(file) {
@@ -43,6 +114,7 @@ function buildUploadDetail(response, t) {
 
 export default function UploadDocument({ language }) {
   const t = messages[language]
+  const fileInputId = useId()
   const [knowledgeBases, setKnowledgeBases] = useState([])
   const [selectedKbId, setSelectedKbId] = useState('')
   const [documents, setDocuments] = useState([])
@@ -55,6 +127,9 @@ export default function UploadDocument({ language }) {
   const [progress, setProgress] = useState(0)
   const [error, setError] = useState('')
   const [documentsError, setDocumentsError] = useState('')
+
+  const kbReady = knowledgeBases.length > 0 && Boolean(selectedKbId)
+  const dropzoneDisabled = !kbReady || uploading || deleting
 
   const closeFeedbackModal = useCallback(() => {
     setFeedbackModal(EMPTY_MODAL)
@@ -248,6 +323,9 @@ export default function UploadDocument({ language }) {
   function onDrop(event) {
     event.preventDefault()
     setDragOver(false)
+    if (dropzoneDisabled) {
+      return
+    }
     const file = event.dataTransfer.files?.[0]
     if (file) {
       handleUpload(file)
@@ -259,104 +337,169 @@ export default function UploadDocument({ language }) {
     setSelectedIds(new Set())
     closeFeedbackModal()
     setDocumentsError('')
+    setError('')
   }
 
+  const deleteLabel =
+    selectedIds.size > 0
+      ? `${t.uploadBatchDelete} · ${t.uploadSelectedCount.replace('{count}', String(selectedIds.size))}`
+      : t.uploadBatchDelete
+
   return (
-    <section className="knowledge-screen">
+    <section className="knowledge-screen upload-screen">
       <header className="knowledge-screen__header">
         <h1>{t.uploadTitle}</h1>
         <p>{t.uploadSubtitle}</p>
       </header>
 
-      <div className="knowledge-form">
-        <label className="knowledge-form__label" htmlFor="kb-select">
-          {t.uploadSelectKbLabel}
-        </label>
-        <select
-          id="kb-select"
-          className="knowledge-form__select"
-          value={selectedKbId}
-          onChange={onKnowledgeBaseChange}
-          disabled={uploading || deleting}
-        >
-          {knowledgeBases.length === 0 ? (
-            <option value="">{t.uploadNoKb}</option>
-          ) : (
-            knowledgeBases.map((kb) => (
-              <option key={kb.id} value={kb.id}>
-                {kb.name}
-              </option>
-            ))
-          )}
-        </select>
-      </div>
+      <div className="upload-layout">
+        <div className="upload-panel knowledge-panel">
+          <div className="knowledge-form">
+            <label className="knowledge-form__label" htmlFor="kb-select">
+              {t.uploadSelectKbLabel}
+            </label>
+            <select
+              id="kb-select"
+              className="knowledge-form__select"
+              value={selectedKbId}
+              onChange={onKnowledgeBaseChange}
+              disabled={uploading || deleting}
+            >
+              {knowledgeBases.length === 0 ? (
+                <option value="">{t.uploadNoKb}</option>
+              ) : (
+                knowledgeBases.map((kb) => (
+                  <option key={kb.id} value={kb.id}>
+                    {kb.name}
+                  </option>
+                ))
+              )}
+            </select>
+          </div>
 
-      <div
-        className={`upload-dropzone ${dragOver ? 'upload-dropzone--active' : ''}`}
-        onDragOver={(event) => {
-          event.preventDefault()
-          setDragOver(true)
-        }}
-        onDragLeave={() => setDragOver(false)}
-        onDrop={onDrop}
-      >
-        <p>{t.uploadDropHint}</p>
-        <p className="upload-dropzone__formats">{t.uploadFormats}</p>
-        <label className="upload-dropzone__button">
-          {uploading ? t.uploading : t.uploadChooseFile}
-          <input type="file" hidden onChange={onFileInput} disabled={uploading || deleting} />
-        </label>
-      </div>
-
-      {uploading ? (
-        <div className="upload-progress">
-          <div className="upload-progress__bar" style={{ width: `${progress}%` }} />
-          <span>{progress}%</span>
-        </div>
-      ) : null}
-
-      <section className="upload-documents">
-        <div className="upload-documents__header">
-          <h2>{t.uploadDocumentsTitle}</h2>
-          <button
-            type="button"
-            className="upload-documents__delete"
-            disabled={selectedIds.size === 0 || deleting || !selectedKbId}
-            onClick={handleBatchDelete}
+          <div
+            className={[
+              'upload-dropzone',
+              dragOver && kbReady ? 'upload-dropzone--active' : '',
+              !kbReady ? 'upload-dropzone--disabled' : '',
+              uploading ? 'upload-dropzone--uploading' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+            role="region"
+            aria-label={t.uploadTitle}
+            aria-disabled={dropzoneDisabled}
+            onDragOver={(event) => {
+              if (dropzoneDisabled) {
+                return
+              }
+              event.preventDefault()
+              setDragOver(true)
+            }}
+            onDragLeave={() => setDragOver(false)}
+            onDrop={onDrop}
           >
-            {deleting ? t.uploadDeleting : t.uploadBatchDelete}
-          </button>
+            <UploadIcon />
+            <p className="upload-dropzone__hint">
+              {kbReady ? t.uploadDropHint : t.uploadDropDisabled}
+            </p>
+            <div className="upload-dropzone__formats" aria-label={t.uploadFormats}>
+              {FORMAT_LABELS.map((label) => (
+                <span key={label} className="upload-format-chip">
+                  {label}
+                </span>
+              ))}
+            </div>
+            <label
+              className="upload-dropzone__button"
+              htmlFor={dropzoneDisabled ? undefined : fileInputId}
+              aria-disabled={dropzoneDisabled}
+            >
+              {uploading ? t.uploading : t.uploadChooseFile}
+              <input
+                id={fileInputId}
+                type="file"
+                hidden
+                onChange={onFileInput}
+                disabled={dropzoneDisabled}
+                accept={ALLOWED_EXTENSIONS.join(',')}
+              />
+            </label>
+          </div>
+
+          {uploading ? (
+            <div className="upload-progress" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}>
+              <div className="upload-progress__track">
+                <div className="upload-progress__bar" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="upload-progress__label">{progress}%</span>
+            </div>
+          ) : null}
+
+          {error ? (
+            <div className="knowledge-error upload-panel__error" role="alert">
+              {error}
+            </div>
+          ) : null}
         </div>
 
-        <div className="kb-table-wrap">
-          {documentsLoading ? (
-            <div className="skills-empty">{t.streamingLabel}</div>
-          ) : (
-            <table className="kb-table upload-documents__table">
-              <thead>
-                <tr>
-                  <th>
-                    <input
-                      type="checkbox"
-                      checked={allSelected}
-                      disabled={documents.length === 0 || deleting}
-                      onChange={toggleSelectAll}
-                      aria-label={t.uploadSelectAll}
-                    />
-                  </th>
-                  <th>{t.uploadDocNameCol}</th>
-                  <th>{t.uploadChunkCount}</th>
-                  <th>{t.uploadUpdatedCol}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {documents.length === 0 ? (
+        <section className="upload-documents knowledge-panel" aria-labelledby="upload-documents-title">
+          <div className="upload-documents__header">
+            <div className="upload-documents__heading">
+              <h2 id="upload-documents-title">{t.uploadDocumentsTitle}</h2>
+              {documents.length > 0 ? (
+                <span className="upload-documents__count">{documents.length}</span>
+              ) : null}
+            </div>
+            <button
+              type="button"
+              className="upload-documents__delete"
+              disabled={selectedIds.size === 0 || deleting || !selectedKbId}
+              onClick={handleBatchDelete}
+            >
+              {deleting ? t.uploadDeleting : deleteLabel}
+            </button>
+          </div>
+
+          {documentsError ? (
+            <div className="knowledge-warning upload-documents__alert" role="alert">
+              {documentsError}
+            </div>
+          ) : null}
+
+          <div className="kb-table-wrap">
+            {documentsLoading ? (
+              <div className="upload-loading" aria-live="polite">
+                <span className="upload-loading__label">{t.uploadLoadingDocuments}</span>
+                <UploadSkeleton />
+              </div>
+            ) : documents.length === 0 ? (
+              <div className="upload-empty">
+                <DocumentEmptyIcon />
+                <strong>{t.uploadDocumentsEmpty}</strong>
+                <p>{t.uploadEmptyHint}</p>
+              </div>
+            ) : (
+              <table className="kb-table upload-documents__table">
+                <thead>
                   <tr>
-                    <td colSpan={4}>{t.uploadDocumentsEmpty}</td>
+                    <th scope="col">
+                      <input
+                        type="checkbox"
+                        checked={allSelected}
+                        disabled={documents.length === 0 || deleting}
+                        onChange={toggleSelectAll}
+                        aria-label={t.uploadSelectAll}
+                      />
+                    </th>
+                    <th scope="col">{t.uploadDocNameCol}</th>
+                    <th scope="col">{t.uploadChunkCount}</th>
+                    <th scope="col">{t.uploadUpdatedCol}</th>
                   </tr>
-                ) : (
-                  documents.map((document) => (
-                    <tr key={document.id}>
+                </thead>
+                <tbody>
+                  {documents.map((document) => (
+                    <tr key={document.id} className={selectedIds.has(document.id) ? 'is-selected' : ''}>
                       <td>
                         <input
                           type="checkbox"
@@ -366,20 +509,17 @@ export default function UploadDocument({ language }) {
                           aria-label={document.fileName}
                         />
                       </td>
-                      <td>{document.fileName}</td>
+                      <td className="upload-documents__name">{document.fileName}</td>
                       <td>{document.chunkCount}</td>
                       <td>{formatDocumentTime(document.updatedAt, language)}</td>
                     </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </section>
-
-      {error ? <div className="knowledge-error">{error}</div> : null}
-      {documentsError ? <div className="knowledge-warning">{documentsError}</div> : null}
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </section>
+      </div>
 
       <FeedbackModal
         open={feedbackModal.open}

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-31T00:00:00.000Z",
+  "title": "Design System: Nebula Desk",
+  "extensions": {
+    "colorMeta": {
+      "accent-sky": {
+        "role": "primary",
+        "displayName": "Sky Signal",
+        "canonical": "oklch(75% 0.15 230)",
+        "tonalRamp": [
+          "oklch(15% 0.04 230)",
+          "oklch(25% 0.06 230)",
+          "oklch(35% 0.08 230)",
+          "oklch(45% 0.10 230)",
+          "oklch(55% 0.12 230)",
+          "oklch(65% 0.14 230)",
+          "oklch(75% 0.15 230)",
+          "oklch(92% 0.06 230)"
+        ]
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised Slate",
+        "canonical": "oklch(20% 0.03 260)",
+        "tonalRamp": [
+          "oklch(8% 0.02 260)",
+          "oklch(12% 0.025 260)",
+          "oklch(16% 0.03 260)",
+          "oklch(20% 0.03 260)",
+          "oklch(28% 0.035 260)",
+          "oklch(40% 0.04 260)",
+          "oklch(55% 0.04 260)",
+          "oklch(75% 0.03 260)"
+        ]
+      },
+      "ink-primary": {
+        "role": "neutral",
+        "displayName": "Ink Primary",
+        "canonical": "oklch(93% 0.02 250)",
+        "tonalRamp": [
+          "oklch(15% 0.02 250)",
+          "oklch(25% 0.02 250)",
+          "oklch(35% 0.02 250)",
+          "oklch(50% 0.02 250)",
+          "oklch(65% 0.02 250)",
+          "oklch(78% 0.02 250)",
+          "oklch(88% 0.02 250)",
+          "oklch(93% 0.02 250)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Welcome 与 skills 页主标题" },
+      "body": { "displayName": "Body", "purpose": "对话正文、表单、列表" },
+      "label": { "displayName": "Section Label", "purpose": "侧栏分区标题，uppercase 限用" }
+    },
+    "shadows": [
+      {
+        "name": "composer",
+        "value": "0 24px 80px rgba(0, 0, 0, 0.22)",
+        "purpose": "Composer 输入区浮层锚点"
+      },
+      {
+        "name": "modal",
+        "value": "0 24px 48px rgba(0, 0, 0, 0.35)",
+        "purpose": "Feedback modal 面板"
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-ui",
+        "value": "ease",
+        "purpose": "按钮、菜单 hover 默认 0.2s"
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile-stack", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "发送消息、确认操作等主 CTA",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">发送消息</button>",
+      "css": ".ds-btn-primary { padding: 10px 18px; border-radius: 12px; border: 1px solid rgba(96, 165, 250, 0.24); background: rgba(37, 99, 235, 0.88); color: #e2e8f0; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; } .ds-btn-primary:hover { transform: translateY(-1px); background: rgba(37, 99, 235, 0.95); } .ds-btn-primary:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; } .ds-btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }"
+    },
+    {
+      "name": "Sidebar Menu Item",
+      "kind": "nav",
+      "refersTo": "button-primary",
+      "description": "侧栏导航与历史条目",
+      "html": "<button class=\"ds-nav-item is-active\" type=\"button\"><span class=\"ds-nav-item__label\">对话</span></button>",
+      "css": ".ds-nav-item { display: flex; align-items: center; gap: 10px; width: 100%; padding: 12px 14px; min-height: 46px; border-radius: 12px; background: rgba(15, 23, 42, 0.72); color: #dbeafe; font-weight: 600; text-align: left; border: 1px solid rgba(148, 163, 184, 0.08); cursor: pointer; transition: transform 0.2s ease, background 0.2s ease; } .ds-nav-item:hover { transform: translateY(-1px); } .ds-nav-item.is-active { background: rgba(37, 99, 235, 0.28); border-color: rgba(96, 165, 250, 0.25); } .ds-nav-item:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }"
+    },
+    {
+      "name": "Composer Shell",
+      "kind": "input",
+      "refersTo": "composer-shell",
+      "description": "聊天输入区容器",
+      "html": "<div class=\"ds-composer\"><textarea class=\"ds-composer__input\" placeholder=\"输入消息…\" rows=\"3\"></textarea><div class=\"ds-composer__toolbar\"><button class=\"ds-btn-primary\" type=\"button\">发送</button></div></div>",
+      "css": ".ds-composer { display: grid; gap: 14px; padding: 16px 18px 14px; border-radius: 26px; background: rgba(2, 6, 23, 0.8); border: 1px solid rgba(96, 165, 250, 0.22); box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22); } .ds-composer__input { width: 100%; resize: none; border: 0; outline: 0; color: #e2e8f0; background: transparent; min-height: 78px; font-size: 0.98rem; line-height: 1.5; } .ds-composer__input::placeholder { color: #94a3b8; } .ds-composer__toolbar { display: flex; justify-content: flex-end; }"
+    },
+    {
+      "name": "Assistant Bubble",
+      "kind": "card",
+      "refersTo": "bubble-assistant",
+      "description": "AI 回复消息气泡",
+      "html": "<div class=\"ds-bubble ds-bubble--assistant\"><p class=\"ds-bubble__text\">这是助手回复示例。</p></div>",
+      "css": ".ds-bubble { width: fit-content; max-width: min(760px, 100%); padding: 16px 18px; border-radius: 22px; border: 1px solid rgba(148, 163, 184, 0.14); color: #e2e8f0; } .ds-bubble--assistant { background: rgba(15, 23, 42, 0.86); border-top-left-radius: 8px; } .ds-bubble__text { margin: 0; white-space: pre-wrap; word-break: break-word; font-size: 0.98rem; line-height: 1.5; }"
+    },
+    {
+      "name": "Mode Badge",
+      "kind": "chip",
+      "refersTo": "bubble-assistant",
+      "description": "历史列表中的会话模式标识",
+      "html": "<span class=\"ds-mode-badge ds-mode-badge--agent\">Agent</span>",
+      "css": ".ds-mode-badge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 18px; padding: 0 4px; border-radius: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.02em; } .ds-mode-badge--agent { color: #93c5fd; background: rgba(37, 99, 235, 0.14); border: 1px solid rgba(96, 165, 250, 0.2); } .ds-mode-badge--knowledge { color: #86efac; background: rgba(34, 197, 94, 0.14); border: 1px solid rgba(74, 222, 128, 0.2); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Nebula Operations Deck",
+    "overview": "Nebula Desk 面向长时间 AI 工作：深色星云画布默认，冷色 accent 小面积使用，分层透明与细边框传达深度。拒绝 SaaS 营销套路与消费级 IM 风格。",
+    "keyCharacteristics": [
+      "280px 固定侧栏 + fluid 主区",
+      "默认 dark canvas；dzj / lv 浅色主题",
+      "Inter 单族层级；圆角 8–26px",
+      "Composer 为视觉锚点",
+      "模式 badge 颜色+文字双重编码"
+    ],
+    "rules": [],
+    "dos": [
+      "Do 保持 sidebar + main 壳层一致",
+      "Do 用模式 badge 双重表达会话类型",
+      "Do 限制 display clamp max ≤ 2.8rem",
+      "Do 新 surface 复用既有 token",
+      "Do 主题切换通过 [data-theme] 覆盖"
+    ],
+    "donts": [
+      "Don't 做成通用 SaaS 仪表盘 cliché",
+      "Don't 模仿消费级 IM 气泡风格",
+      "Don't 使用 gradient text",
+      "Don't 默认 glassmorphism 堆叠",
+      "Don't 用 washed-out gray 正文",
+      "Don't 使用 z-index 魔法数 9999"
+    ]
+  }
+}
