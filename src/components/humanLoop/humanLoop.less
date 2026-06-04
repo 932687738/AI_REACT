@@ -8,14 +8,14 @@
 
   h1 {
     margin: 0;
-    color: #f8fafc;
+    color: var(--nebula-ink);
     font-size: clamp(1.35rem, 2.5vw, 1.75rem);
     text-wrap: balance;
   }
 
   p {
     margin: 6px 0 0;
-    color: rgb(148 163 184 / 92%);
+    color: var(--nebula-ink-muted);
     line-height: 1.55;
   }
 }
@@ -24,9 +24,9 @@
   margin-top: 14px;
   padding: 12px 14px;
   border-radius: 12px;
-  border: 1px solid rgb(56 189 248 / 22%);
-  background: rgb(56 189 248 / 8%);
-  color: #bae6fd;
+  border: 1px solid var(--nebula-notice-border);
+  background: var(--nebula-notice-bg);
+  color: var(--nebula-notice-ink);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -48,25 +48,25 @@
 .tabButton {
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid rgb(148 163 184 / 18%);
-  background: rgb(15 23 42 / 55%);
-  color: rgb(203 213 225 / 88%);
+  border: 1px solid var(--nebula-tab-border);
+  background: var(--nebula-tab-bg);
+  color: var(--nebula-tab-ink);
   transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 
   &:hover {
-    border-color: rgb(56 189 248 / 35%);
+    border-color: var(--nebula-tab-active-border);
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 55%);
+    outline: 2px solid var(--nebula-focus-ring);
     outline-offset: 2px;
   }
 }
 
 .tabButtonActive {
-  border-color: rgb(56 189 248 / 45%);
-  background: rgb(56 189 248 / 14%);
-  color: #e0f2fe;
+  border-color: var(--nebula-tab-active-border);
+  background: var(--nebula-tab-active-bg);
+  color: var(--nebula-tab-active-ink);
 }
 
 .body {
@@ -87,9 +87,9 @@
   margin: 0;
   padding: 14px 16px;
   border-radius: 12px;
-  border: 1px dashed rgb(148 163 184 / 22%);
-  background: rgb(15 23 42 / 45%);
-  color: rgb(148 163 184 / 92%);
+  border: 1px dashed var(--nebula-empty-border);
+  background: var(--nebula-empty-bg);
+  color: var(--nebula-empty-ink);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -97,12 +97,12 @@
 .section {
   padding: 16px 18px;
   border-radius: 14px;
-  background: rgb(15 23 42 / 72%);
-  border: 1px solid rgb(148 163 184 / 12%);
+  background: var(--nebula-section-bg);
+  border: 1px solid var(--nebula-section-border);
 
   h3 {
     margin: 0 0 12px;
-    color: #f1f5f9;
+    color: var(--nebula-ink);
     font-size: 15px;
   }
 }
@@ -119,7 +119,7 @@
   gap: 6px;
 
   span {
-    color: rgb(203 213 225 / 88%);
+    color: var(--nebula-ink-muted);
     font-size: 13px;
   }
 
@@ -128,13 +128,13 @@
   select {
     padding: 8px 10px;
     border-radius: 8px;
-    border: 1px solid rgb(148 163 184 / 18%);
-    background: rgb(2 6 23 / 72%);
-    color: #e2e8f0;
+    border: 1px solid var(--nebula-border);
+    background: var(--nebula-input-surface);
+    color: var(--nebula-ink);
     font: inherit;
 
     &:focus-visible {
-      outline: 2px solid rgb(56 189 248 / 55%);
+      outline: 2px solid var(--nebula-focus-ring);
       outline-offset: 2px;
     }
   }
@@ -153,18 +153,18 @@
 .btn {
   padding: 8px 14px;
   border-radius: 8px;
-  border: 1px solid rgb(148 163 184 / 18%);
-  background: rgb(15 23 42 / 72%);
-  color: #e2e8f0;
+  border: 1px solid var(--nebula-btn-border);
+  background: var(--nebula-btn-bg);
+  color: var(--nebula-btn-ink);
   font-size: 13px;
   transition: background-color 160ms ease;
 
   &:hover:not(:disabled) {
-    background: rgb(148 163 184 / 10%);
+    background: var(--nebula-btn-hover-bg);
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 55%);
+    outline: 2px solid var(--nebula-focus-ring);
     outline-offset: 2px;
   }
 
@@ -175,32 +175,32 @@
 }
 
 .btnPrimary {
-  border-color: rgb(56 189 248 / 35%);
-  background: rgb(56 189 248 / 18%);
-  color: #e0f2fe;
+  border-color: var(--nebula-btn-primary-border);
+  background: var(--nebula-btn-primary-bg);
+  color: var(--nebula-btn-primary-ink);
 }
 
 .btnDanger {
-  border-color: rgb(248 113 113 / 35%);
-  background: rgb(127 29 29 / 28%);
-  color: #fecaca;
+  border-color: var(--nebula-error-border);
+  background: var(--nebula-error-bg);
+  color: var(--nebula-error-ink);
 }
 
 .result {
   padding: 12px 14px;
   border-radius: 10px;
-  border: 1px solid rgb(148 163 184 / 14%);
-  background: rgb(2 6 23 / 55%);
+  border: 1px solid var(--nebula-result-border);
+  background: var(--nebula-result-bg);
 }
 
 .resultSuccess {
-  border-color: rgb(52 211 153 / 28%);
-  background: rgb(6 78 59 / 18%);
+  border-color: var(--nebula-success-border);
+  background: var(--nebula-success-bg);
 }
 
 .resultLabel {
   margin: 0 0 8px;
-  color: #94a3b8;
+  color: var(--nebula-ink-muted);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -210,7 +210,7 @@
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
-  color: #e2e8f0;
+  color: var(--nebula-ink);
   font-size: 13px;
 }
 
@@ -218,13 +218,13 @@
   margin-top: 12px;
   padding: 12px;
   border-radius: 10px;
-  background: rgb(2 6 23 / 45%);
-  border: 1px solid rgb(148 163 184 / 12%);
+  background: var(--nebula-facts-bg);
+  border: 1px solid var(--nebula-facts-border);
 }
 
 .factsTitle {
   margin: 0 0 10px;
-  color: #cbd5e1;
+  color: var(--nebula-ink-muted);
   font-size: 13px;
   font-weight: 600;
 }
@@ -238,7 +238,7 @@
   grid-template-columns: minmax(120px, 34%) 1fr;
   gap: 8px 12px;
   padding: 8px 0;
-  border-bottom: 1px solid rgb(148 163 184 / 10%);
+  border-bottom: 1px solid var(--nebula-row-divider);
 
   &:last-child {
     border-bottom: 0;
@@ -246,13 +246,13 @@
 
   dt {
     margin: 0;
-    color: #94a3b8;
+    color: var(--nebula-ink-muted);
     font-size: 12px;
   }
 
   dd {
     margin: 0;
-    color: #e2e8f0;
+    color: var(--nebula-ink);
     font-size: 13px;
     white-space: pre-wrap;
     word-break: break-word;
@@ -260,11 +260,11 @@
 }
 
 .factsRowSuccess dd {
-  color: #bbf7d0;
+  color: var(--nebula-success-ink);
 }
 
 .factsRowWarning dd {
-  color: #fde68a;
+  color: var(--nebula-warning-ink);
 }
 
 .approvalList {
@@ -279,16 +279,16 @@
 .approvalCard {
   padding: 12px;
   border-radius: 10px;
-  border: 1px solid rgb(148 163 184 / 14%);
-  background: rgb(15 23 42 / 55%);
+  border: 1px solid var(--nebula-border);
+  background: var(--nebula-surface-soft);
 
   strong {
-    color: #f1f5f9;
+    color: var(--nebula-ink);
   }
 
   p {
     margin: 6px 0;
-    color: rgb(203 213 225 / 88%);
+    color: var(--nebula-ink-muted);
     font-size: 13px;
   }
 
@@ -296,14 +296,14 @@
     margin: 0;
     font-size: 12px;
     white-space: pre-wrap;
-    color: #cbd5e1;
+    color: var(--nebula-ink-muted);
   }
 }
 
 .logList {
   margin: 10px 0 0;
   padding-left: 18px;
-  color: #cbd5e1;
+  color: var(--nebula-ink-muted);
   font-size: 12px;
 }
 
@@ -311,9 +311,9 @@
   margin: 0;
   padding: 10px 12px;
   border-radius: 8px;
-  border: 1px solid rgb(248 113 113 / 35%);
-  background: rgb(127 29 29 / 28%);
-  color: #fecaca;
+  border: 1px solid var(--nebula-error-border);
+  background: var(--nebula-error-bg);
+  color: var(--nebula-error-ink);
   font-size: 13px;
 }
 

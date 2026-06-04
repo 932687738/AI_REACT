@@ -26,8 +26,8 @@
   padding: 18px 20px;
   border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%));
   border-radius: 12px;
-  background: var(--nebula-surface-card, rgb(21 34 56 / 96%));
-  box-shadow: 0 12px 32px rgb(0 0 0 / 18%);
+  background: var(--nebula-surface-card);
+  box-shadow: var(--nebula-card-shadow);
 }
 
 .formCard :global(.ant-form-item-label > label),
@@ -82,7 +82,7 @@
 }
 
 .tableCard :global(.ant-table-tbody > tr:hover > td) {
-  background: rgb(56 189 248 / 8%) !important;
+  background: var(--nebula-table-row-hover) !important;
 }
 
 .tableCard :global(.ant-empty-description) {
@@ -121,20 +121,20 @@
   max-width: 100%;
   margin-top: 12px;
   padding: 28px 20px;
-  border: 1px dashed rgb(148 163 184 / 45%);
+  border: 1px dashed var(--nebula-border-strong);
   border-radius: 12px;
-  background: var(--nebula-input-bg, rgb(19 32 56 / 72%));
+  background: var(--nebula-input-bg);
   text-align: center;
   transition: border-color 160ms ease, background-color 160ms ease;
 
   &:hover:not(.dropzoneDisabled) {
-    border-color: rgb(56 189 248 / 55%);
-    background: rgb(56 189 248 / 6%);
+    border-color: var(--nebula-dropzone-hover-border);
+    background: var(--nebula-dropzone-hover-bg);
   }
 
   &:focus-within:not(.dropzoneDisabled) {
-    border-color: rgb(56 189 248 / 62%);
-    background: rgb(56 189 248 / 8%);
+    border-color: var(--nebula-dropzone-active-border);
+    background: var(--nebula-dropzone-active-bg);
   }
 
   :global(.ant-upload-wrapper) {
@@ -176,9 +176,9 @@
   }
 
   :global(.ant-btn-primary:disabled) {
-    border-color: rgb(148 163 184 / 28%) !important;
-    background: rgb(51 65 85 / 65%) !important;
-    color: rgb(226 232 240 / 88%) !important;
+    border-color: var(--nebula-border-strong) !important;
+    background: var(--nebula-chip-bg) !important;
+    color: var(--nebula-ink-muted) !important;
   }
 }
 
@@ -187,8 +187,8 @@
 }
 
 .dropzoneActive {
-  border-color: rgb(56 189 248 / 62%) !important;
-  background: rgb(56 189 248 / 10%) !important;
+  border-color: var(--nebula-dropzone-active-border) !important;
+  background: var(--nebula-dropzone-active-bg) !important;
 }
 
 .dropzoneDisabled {
@@ -211,8 +211,8 @@
 .formatChip {
   padding: 2px 8px;
   border-radius: 999px;
-  background: rgb(148 163 184 / 16%);
-  color: #cbd5e1;
+  background: var(--nebula-format-chip-bg);
+  color: var(--nebula-format-chip-ink);
   font-size: 11px;
 }
 
@@ -234,26 +234,13 @@
 }
 
 .highlightRow :global(td) {
-  background: rgb(56 189 248 / 10%) !important;
+  background: var(--nebula-table-row-hover) !important;
 }
 
 .emptyBlock {
   padding: 32px 16px;
   text-align: center;
-  color: var(--nebula-ink-muted, #94a3b8);
-}
-
-html[data-theme='dzj'],
-html[data-theme='lv'] {
-  .formCard,
-  .tableCard,
-  .panel {
-    box-shadow: 0 8px 24px rgb(15 23 42 / 8%);
-  }
-
-  .dropzoneShell {
-    background: rgb(255 255 255 / 88%);
-  }
+  color: var(--nebula-ink-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

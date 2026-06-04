@@ -8,7 +8,7 @@ import {
   SettingOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
-import { resolveBrandGradient } from '@/constants/theme';
+import { resolveBrandMark } from '@/constants/theme';
 import { useAppStore, selectSidebarCollapsed, selectTheme } from '@/models/useAppStore';
 import { history, Outlet, useIntl, useLocation, SelectLang } from '@umijs/max';
 import { Avatar, Button, Dropdown, Layout } from 'antd';
@@ -169,10 +169,9 @@ function BasicLayoutFrame() {
             className={styles.brandMark}
             shape="square"
             size={40}
-            style={{ background: resolveBrandGradient(theme) }}
-          >
-            N
-          </Avatar>
+            src={resolveBrandMark(theme)}
+            alt={intl.formatMessage({ id: 'layout.appName' })}
+          />
           {!collapsed ? (
             <div className={styles.brandCopy}>
               <strong>{intl.formatMessage({ id: 'layout.appName' })}</strong>
@@ -204,10 +203,9 @@ function BasicLayoutFrame() {
               <Avatar
                 size={32}
                 className={styles.profileAvatar}
-                style={{ background: resolveBrandGradient(theme) }}
-              >
-                N
-              </Avatar>
+                src={resolveBrandMark(theme)}
+                alt={intl.formatMessage({ id: 'layout.profile.name' })}
+              />
               {!collapsed ? (
                 <span className={`${styles.profileName} nebula-profile-name`}>
                   {intl.formatMessage({ id: 'layout.profile.name' })}

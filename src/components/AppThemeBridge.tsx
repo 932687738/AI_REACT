@@ -96,6 +96,12 @@ function lightThemeConfig(themeCode: ThemeCode): ThemeConfig {
     },
     components: {
       ...sharedComponents,
+      Select: {
+        colorBgContainer: '#ffffff',
+        colorBgElevated: '#ffffff',
+        optionSelectedBg: themeCode === THEMES.LV ? 'rgba(34, 197, 94, 0.14)' : 'rgba(186, 230, 253, 0.88)',
+        optionActiveBg: themeCode === THEMES.LV ? 'rgba(220, 252, 231, 0.88)' : 'rgba(224, 242, 254, 0.88)',
+      },
       Table: {
         ...sharedComponents?.Table,
         headerBg: '#f1f5f9',

@@ -1,8 +1,8 @@
 .panel {
   margin-top: 12px;
-  border: 1px solid rgb(148 163 184 / 16%);
+  border: 1px solid var(--nebula-citation-border);
   border-radius: 10px;
-  background: rgb(15 23 42 / 45%);
+  background: var(--nebula-citation-bg);
 }
 
 .summary {
@@ -18,7 +18,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 55%);
+    outline: 2px solid var(--nebula-focus-ring);
     outline-offset: 2px;
   }
 }
@@ -27,15 +27,15 @@
   flex: 1;
   font-size: 13px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--nebula-citation-title-ink);
 }
 
 .count {
   min-width: 22px;
   padding: 0 8px;
   border-radius: 999px;
-  background: rgb(56 189 248 / 14%);
-  color: #bae6fd;
+  background: var(--nebula-citation-count-bg);
+  color: var(--nebula-citation-count-ink);
   font-size: 12px;
   text-align: center;
 }
@@ -64,18 +64,18 @@
   transition: background-color 160ms ease, border-color 160ms ease;
 
   &:hover {
-    background: rgb(148 163 184 / 8%);
-    border-color: rgb(56 189 248 / 18%);
+    background: var(--nebula-citation-hit-hover-bg);
+    border-color: var(--nebula-citation-hit-hover-border);
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 55%);
+    outline: 2px solid var(--nebula-focus-ring);
     outline-offset: 2px;
   }
 }
 
 .static {
-  border: 1px solid rgb(148 163 184 / 10%);
+  border: 1px solid var(--nebula-border);
 }
 
 .row {
@@ -86,7 +86,7 @@
 
 .icon {
   margin-top: 2px;
-  color: #94a3b8;
+  color: var(--nebula-citation-meta-ink);
 }
 
 .main {
@@ -96,7 +96,7 @@
 
 .docName {
   display: block;
-  color: #f1f5f9;
+  color: var(--nebula-citation-doc-ink);
   font-size: 13px;
   font-weight: 600;
   overflow: hidden;
@@ -107,40 +107,40 @@
 .kbName {
   display: block;
   margin-top: 2px;
-  color: #94a3b8;
+  color: var(--nebula-citation-meta-ink);
   font-size: 12px;
 }
 
 .score {
-  color: #7dd3fc;
+  color: var(--nebula-citation-link-ink);
   font-size: 12px;
   white-space: nowrap;
 }
 
 .preview {
   margin: 8px 0 0;
-  color: rgb(203 213 225 / 88%);
+  color: var(--nebula-citation-preview-ink);
   font-size: 12px;
   line-height: 1.55;
 }
 
 .vector {
   margin: 4px 0 0;
-  color: #94a3b8;
+  color: var(--nebula-citation-meta-ink);
   font-size: 11px;
 }
 
 .cta {
   display: inline-block;
   margin-top: 8px;
-  color: #38bdf8;
+  color: var(--nebula-citation-link-ink);
   font-size: 12px;
 }
 
 .hint {
   margin: 0;
   padding: 0 12px 10px;
-  color: #94a3b8;
+  color: var(--nebula-citation-meta-ink);
   font-size: 11px;
   line-height: 1.5;
 }

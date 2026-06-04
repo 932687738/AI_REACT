@@ -8,7 +8,7 @@ import {
 } from '@ant-design/icons';
 import { getLocale, history, setLocale, useIntl } from '@umijs/max';
 import { Avatar, Button, Select } from 'antd';
-import { themeOptions, resolveBrandGradient } from '@/constants/theme';
+import { themeOptions, resolveBrandMark } from '@/constants/theme';
 import { useAppStore, selectTheme } from '@/models/useAppStore';
 import styles from './settings.less';
 
@@ -51,10 +51,9 @@ export default function SettingsScreen() {
           <Avatar
             size={88}
             className={styles.avatar}
-            style={{ background: resolveBrandGradient(theme) }}
-          >
-            N
-          </Avatar>
+            src={resolveBrandMark(theme)}
+            alt={intl.formatMessage({ id: 'layout.appName' })}
+          />
           <h1>{intl.formatMessage({ id: 'layout.profile.name' })}</h1>
           <p>{intl.formatMessage({ id: 'settings.profileUserId' })}</p>
           <Button className={styles.manageBtn}>{intl.formatMessage({ id: 'settings.accountManage' })}</Button>

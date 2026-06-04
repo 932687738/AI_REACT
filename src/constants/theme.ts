@@ -1,3 +1,7 @@
+import brandDzj from '@/assets/brand-dzj.png';
+import brandLv from '@/assets/brand-lv.png';
+import brandYxy from '@/assets/brand-yxy.png';
+
 export const THEMES = {
   DZJ: 'dzj',
   LV: 'lv',
@@ -20,6 +24,16 @@ export function isValidTheme(value: unknown): value is ThemeCode {
 
 export function applyTheme(theme: ThemeCode) {
   document.documentElement.dataset.theme = theme;
+}
+
+const brandByTheme: Record<ThemeCode, string> = {
+  [THEMES.DZJ]: brandDzj,
+  [THEMES.LV]: brandLv,
+  [THEMES.YXY]: brandYxy,
+};
+
+export function resolveBrandMark(theme: ThemeCode): string {
+  return brandByTheme[theme] ?? brandByTheme[DEFAULT_THEME];
 }
 
 export function resolveBrandGradient(theme: ThemeCode): string {

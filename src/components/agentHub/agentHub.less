@@ -30,26 +30,26 @@
   gap: 10px;
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgb(148 163 184 / 18%);
-  background: rgb(255 255 255 / 96%);
-  color: #0f172a;
+  border: 1px solid var(--nebula-border);
+  background: var(--nebula-surface-card);
+  color: var(--nebula-ink);
 
   input {
-    color: #0f172a;
+    color: var(--nebula-ink);
   }
 }
 
 .header {
   h1 {
     margin: 0;
-    color: var(--nebula-ink, #f8fafc);
+    color: var(--nebula-ink);
     font-size: clamp(1.75rem, 3vw, 2.4rem);
     text-wrap: balance;
   }
 
   p {
     margin: 6px 0 0;
-    color: var(--nebula-ink-muted, rgb(148 163 184 / 92%));
+    color: var(--nebula-ink-muted);
     line-height: 1.55;
     max-width: 62ch;
   }
@@ -61,13 +61,12 @@
 
   h2 {
     margin: 0;
-    color: #cbd5e1;
+    color: var(--nebula-ink-muted);
     font-size: 16px;
     font-weight: 600;
   }
 }
 
-/* 规整网格：同行等高，列宽一致 */
 .catalogGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -83,9 +82,9 @@
   min-height: 160px;
   padding: 24px;
   border-radius: 16px;
-  border: 1px dashed rgb(148 163 184 / 22%);
-  background: rgb(15 23 42 / 45%);
-  color: rgb(148 163 184 / 92%);
+  border: 1px dashed var(--nebula-empty-border);
+  background: var(--nebula-empty-bg);
+  color: var(--nebula-empty-ink);
   text-align: center;
 }
 
@@ -97,10 +96,10 @@
   min-height: 132px;
   padding: 14px 16px;
   border-radius: 14px;
-  border: 1px solid rgb(226 232 240 / 90%);
-  background: rgb(255 255 255 / 96%);
-  color: #111827;
-  box-shadow: 0 1px 2px rgb(15 23 42 / 4%);
+  border: 1px solid var(--nebula-border);
+  background: var(--nebula-surface-card);
+  color: var(--nebula-ink);
+  box-shadow: var(--nebula-card-shadow);
 }
 
 .cardHead {
@@ -117,8 +116,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgb(241 245 249);
-  color: #0f172a;
+  background: var(--nebula-catalog-icon-bg);
+  color: var(--nebula-ink);
   font-weight: 700;
   font-size: 15px;
 }
@@ -139,7 +138,7 @@
 
 .cardDesc {
   margin: 0;
-  color: #475569;
+  color: var(--nebula-ink-muted);
   font-size: 12px;
   line-height: 1.45;
   display: -webkit-box;
@@ -156,15 +155,15 @@
   gap: 6px;
   margin-top: auto;
   padding-top: 10px;
-  border-top: 1px solid rgb(241 245 249);
+  border-top: 1px solid var(--nebula-catalog-footer-border);
 }
 
 .chip {
   max-width: 100%;
   padding: 2px 8px;
   border-radius: 6px;
-  background: rgb(241 245 249);
-  color: #475569;
+  background: var(--nebula-catalog-chip-bg);
+  color: var(--nebula-ink-muted);
   font-size: 11px;
   line-height: 1.4;
   overflow: hidden;
@@ -173,13 +172,13 @@
 }
 
 .chipAccent {
-  background: rgb(224 242 254);
-  color: #0369a1;
+  background: var(--nebula-catalog-chip-accent-bg);
+  color: var(--nebula-catalog-chip-accent-ink);
 }
 
 .chipMuted {
   background: transparent;
-  color: #64748b;
+  color: var(--nebula-ink-muted);
   padding-left: 0;
   padding-right: 0;
 }
@@ -194,18 +193,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-}
-
-html[data-theme='dzj'] .card,
-html[data-theme='lv'] .card {
-  background: rgb(255 255 255 / 98%);
-}
-
-html[data-theme='yxy'] .search,
-html[data-theme='yxy'] .card,
-html:not([data-theme]) .search,
-html:not([data-theme]) .card {
-  background: rgb(255 255 255 / 96%);
 }
 
 @media (max-width: 720px) {

@@ -156,7 +156,7 @@ export default function ConversationHistoryPanel({
             </div>
           ))
         ) : (
-          <Typography.Text type="secondary" className={styles.empty}>
+          <Typography.Text className={styles.empty}>
             {intl.formatMessage({ id: 'layout.sidebar.noHistory' })}
           </Typography.Text>
         )}

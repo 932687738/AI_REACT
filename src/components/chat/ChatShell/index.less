@@ -80,8 +80,8 @@
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: linear-gradient(135deg, rgb(56 189 248 / 28%), rgb(99 102 241 / 22%));
-  color: #e0f2fe;
+  background: var(--nebula-welcome-mark-bg);
+  color: var(--nebula-welcome-mark-ink);
   font-size: 26px;
   font-weight: 700;
 }
@@ -112,7 +112,7 @@
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
-  scrollbar-color: rgb(56 189 248 / 32%) transparent;
+  scrollbar-color: var(--nebula-scrollbar-color) transparent;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -126,12 +126,12 @@
   &::-webkit-scrollbar-thumb {
     border: 2px solid transparent;
     border-radius: 999px;
-    background: rgb(148 163 184 / 26%);
+    background: var(--nebula-scrollbar-thumb);
     background-clip: padding-box;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: rgb(56 189 248 / 42%);
+    background: var(--nebula-scrollbar-thumb-hover);
     background-clip: padding-box;
   }
 }
@@ -147,12 +147,12 @@
 }
 
 .messageRowTarget .bubble {
-  box-shadow: 0 0 0 1px rgb(56 189 248 / 45%), 0 0 24px rgb(56 189 248 / 12%);
+  box-shadow: 0 0 0 1px var(--nebula-nav-accent), 0 0 24px var(--nebula-accent-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .messageRowTarget .bubble {
-    box-shadow: 0 0 0 1px rgb(56 189 248 / 45%);
+    box-shadow: 0 0 0 1px var(--nebula-nav-accent);
   }
 }
 
@@ -175,14 +175,14 @@
 }
 
 .bubbleUser {
-  background: linear-gradient(135deg, rgb(56 189 248 / 22%), rgb(99 102 241 / 18%));
-  border: 1px solid rgb(56 189 248 / 22%);
-  color: #f8fafc;
+  background: var(--nebula-bubble-user-bg);
+  border: 1px solid var(--nebula-bubble-user-border);
+  color: var(--nebula-bubble-user-ink);
 }
 
 .bubbleError {
-  border-color: rgb(248 113 113 / 35%);
-  background: rgb(127 29 29 / 28%);
+  border-color: var(--nebula-error-border);
+  background: var(--nebula-error-bg);
 }
 
 .plainText {
@@ -203,8 +203,8 @@
   padding: 12px 14px 10px;
   border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%));
   border-radius: 16px;
-  background: var(--nebula-surface-soft, rgb(21 34 56 / 94%));
-  box-shadow: 0 10px 40px rgb(0 0 0 / 22%);
+  background: var(--nebula-surface-soft);
+  box-shadow: var(--nebula-composer-shadow);
 }
 
 .input {
@@ -258,12 +258,12 @@
 
   &:hover:not(:disabled) {
     background: var(--nebula-chip-hover-bg);
-    border-color: rgb(56 189 248 / 28%);
+    border-color: var(--nebula-nav-accent);
     color: var(--nebula-ink);
   }
 
   &:focus-visible {
-    outline: 2px solid rgb(56 189 248 / 55%);
+    outline: 2px solid var(--nebula-focus-ring);
     outline-offset: 2px;
   }
 
