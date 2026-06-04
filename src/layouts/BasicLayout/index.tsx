@@ -32,26 +32,79 @@ function moduleIcon(id: SidebarModuleGroup['id']) {
   return <CommentOutlined aria-hidden />;
 }
 
+function isNavItemActive(activePath: string, itemPath: string) {
+  return activePath === itemPath || activePath.startsWith(`${itemPath}/`);
+}
+
 function SidebarModuleSection({
   module,
+  collapsed,
   expanded,
   activePath,
   onToggle,
   onNavigate,
 }: {
   module: SidebarModuleGroup;
+  collapsed: boolean;
   expanded: boolean;
   activePath: string;
   onToggle: () => void;
   onNavigate: (path: string) => void;
 }) {
   const intl = useIntl();
-  const hasActiveChild = module.items.some((item) => activePath.startsWith(item.path));
+  const moduleTitle = intl.formatMessage({ id: module.titleId });
+  const hasActiveChild = module.items.some((item) => isNavItemActive(activePath, item.path));
+
+  if (collapsed) {
+    return (
+      <section className={styles.module} aria-label={moduleTitle}>
+        <Dropdown
+          trigger={['click']}
+          placement="rightTop"
+          align={{ offset: [10, 0] }}
+          getPopupContainer={() => document.body}
+          overlayClassName={`${styles.moduleDropdownOverlay} nebula-sidebar-module-dropdown`}
+          dropdownRender={() => (
+            <div className={styles.moduleDropdownPanel}>
+              <div className={styles.moduleDropdownHeader}>{moduleTitle}</div>
+              <div className={styles.moduleDropdownList} role="menu">
+                {module.items.map((item) => {
+                  const isActive = isNavItemActive(activePath, item.path);
+                  const label = intl.formatMessage({ id: item.labelId });
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      role="menuitem"
+                      className={`${styles.moduleDropdownItem} nebula-nav-item ${isActive ? `${styles.moduleDropdownItemActive} nebula-nav-item-active` : ''}`}
+                      aria-current={isActive ? 'page' : undefined}
+                      onClick={() => onNavigate(item.path)}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        >
+          <button
+            type="button"
+            className={`${styles.moduleTrigger} ${styles.moduleTriggerCollapsed} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}
+            aria-label={moduleTitle}
+            aria-haspopup="menu"
+          >
+            <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>
+          </button>
+        </Dropdown>
+      </section>
+    );
+  }
 
   return (
     <section
       className={`${styles.module} ${expanded ? styles.moduleExpanded : ''}`}
-      aria-label={intl.formatMessage({ id: module.titleId })}
+      aria-label={moduleTitle}
     >
       <button
         type="button"
@@ -60,18 +113,16 @@ function SidebarModuleSection({
         onClick={onToggle}
       >
         <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>
-        <span className={styles.moduleTriggerTitle}>
-          {intl.formatMessage({ id: module.titleId })}
-        </span>
+        <span className={styles.moduleTriggerTitle}>{moduleTitle}</span>
         <DownOutlined
           className={`${styles.moduleTriggerArrow} ${expanded ? styles.moduleTriggerArrowOpen : ''}`}
           aria-hidden
         />
       </button>
       {expanded ? (
-        <nav className={styles.moduleNav} aria-label={intl.formatMessage({ id: module.titleId })}>
+        <nav className={styles.moduleNav} aria-label={moduleTitle}>
           {module.items.map((item) => {
-            const isActive = activePath === item.path || activePath.startsWith(`${item.path}/`);
+            const isActive = isNavItemActive(activePath, item.path);
             return (
               <button
                 key={item.key}
@@ -96,14 +147,6 @@ function HistorySlot({ visible }: { visible: boolean }) {
     return null;
   }
   return <ConversationHistoryPanel chatMode={chatMode} />;
-}
-
-export default function BasicLayout() {
-  return (
-    <ChatSessionProvider>
-      <BasicLayoutFrame />
-    </ChatSessionProvider>
-  );
 }
 
 function BasicLayoutFrame() {
@@ -156,6 +199,7 @@ function BasicLayoutFrame() {
       <Sider
         className={`${styles.sider} nebula-sider`}
         width={260}
+        collapsedWidth={72}
         collapsible
         collapsed={collapsed}
         onCollapse={setSidebarCollapsed}
@@ -185,6 +229,7 @@ function BasicLayoutFrame() {
             <SidebarModuleSection
               key={module.id}
               module={module}
+              collapsed={collapsed}
               expanded={!collapsed && expandedModuleId === module.id}
               activePath={location.pathname}
               onToggle={() =>
@@ -242,5 +287,13 @@ function BasicLayoutFrame() {
         </Content>
       </Layout>
     </Layout>
+  );
+}
+
+export default function BasicLayout() {
+  return (
+    <ChatSessionProvider>
+      <BasicLayoutFrame />
+    </ChatSessionProvider>
   );
 }

@@ -15,6 +15,17 @@
   :global(.ant-layout-sider-children) {
     height: 100%;
   }
+
+  &:global(.ant-layout-sider-collapsed) {
+    .brand {
+      justify-content: center;
+      padding-inline: 10px;
+    }
+
+    .profileTrigger {
+      justify-content: center;
+    }
+  }
 }
 
 .siderInner {
@@ -99,6 +110,78 @@
 .moduleTriggerActive {
   background: var(--nebula-nav-active-bg, rgb(56 189 248 / 18%));
   color: var(--nebula-nav-active-ink, #f0f9ff);
+  box-shadow: inset 3px 0 0 var(--nebula-nav-accent, #38bdf8);
+}
+
+.moduleTriggerCollapsed {
+  justify-content: center;
+  padding: 10px 8px;
+  width: 100%;
+
+  &.moduleTriggerActive {
+    box-shadow: none;
+  }
+}
+
+.moduleDropdownOverlay {
+  min-width: 220px !important;
+  width: max-content !important;
+}
+
+.moduleDropdownPanel {
+  width: 220px;
+  padding: 8px;
+  background: var(--nebula-surface, rgb(11 22 38 / 98%));
+  border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 18%));
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 22%);
+}
+
+.moduleDropdownHeader {
+  padding: 4px 12px 8px;
+  border-bottom: 1px solid var(--nebula-divider-subtle, rgb(148 163 184 / 14%));
+  color: var(--nebula-nav-ink-muted, #94a3b8);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.moduleDropdownList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 4px;
+}
+
+.moduleDropdownItem {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  color: var(--nebula-nav-ink-muted, #cbd5e1);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: visible;
+  transition: background-color 160ms ease, color 160ms ease;
+
+  &:hover {
+    background: var(--nebula-nav-hover-bg, rgb(148 163 184 / 12%));
+    color: var(--nebula-nav-ink, #f8fafc);
+  }
+}
+
+.moduleDropdownItemActive {
+  background: var(--nebula-nav-active-bg, rgb(56 189 248 / 20%));
+  color: var(--nebula-nav-active-ink, #f0f9ff);
+  font-weight: 600;
   box-shadow: inset 3px 0 0 var(--nebula-nav-accent, #38bdf8);
 }
 
