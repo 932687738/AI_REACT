@@ -57,6 +57,7 @@ export function useChatStream(chatMode: ChatMode) {
   const fallbackTitle = intl.formatMessage({ id: resolveFallbackTitleId(chatMode) });
 
   useEffect(() => {
+    setMessages([]);
     let alive = true;
     void fetchNormalizedMessages(conversationId).then((nextMessages) => {
       if (alive && conversationRef.current === conversationId) {

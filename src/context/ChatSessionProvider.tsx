@@ -8,7 +8,10 @@ interface ChatSessionContextValue {
   chatMode: ChatMode;
   conversationId: string;
   setConversationId: (id: string) => void;
+  /** 侧栏「+」或等价入口：当前 chatMode 下新建空白会话 */
   startNewConversation: () => string;
+  /** 侧栏菜单进入某聊天路由时：为该 mode 新建空白会话（不加载历史） */
+  startNewConversationForMode: (mode: ChatMode) => string;
 }
 
 const ChatSessionContext = createContext<ChatSessionContextValue | null>(null);
@@ -36,11 +39,16 @@ export function ChatSessionProvider({ children }: { children: ReactNode }) {
     [chatMode],
   );
 
-  const startNewConversation = useCallback(() => {
+  const startNewConversationForMode = useCallback((mode: ChatMode) => {
     const nextId = createConversationId();
-    setConversationByMode((current) => ({ ...current, [chatMode]: nextId }));
+    setConversationByMode((current) => ({ ...current, [mode]: nextId }));
     return nextId;
-  }, [chatMode]);
+  }, []);
+
+  const startNewConversation = useCallback(
+    () => startNewConversationForMode(chatMode),
+    [chatMode, startNewConversationForMode],
+  );
 
   const value = useMemo(
     () => ({
@@ -48,8 +56,9 @@ export function ChatSessionProvider({ children }: { children: ReactNode }) {
       conversationId,
       setConversationId,
       startNewConversation,
+      startNewConversationForMode,
     }),
-    [chatMode, conversationId, setConversationId, startNewConversation],
+    [chatMode, conversationId, setConversationId, startNewConversation, startNewConversationForMode],
   );
 
   return <ChatSessionContext.Provider value={value}>{children}</ChatSessionContext.Provider>;

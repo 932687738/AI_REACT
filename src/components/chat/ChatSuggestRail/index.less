@@ -1,0 +1,183 @@
+/* Portal 挂载 body，须用 nebula-chat-suggest-rail 接入全局 token 与 button reset */
+
+/* 单行：padding 8+8 + 12px × line-height 1.45；超过 8 行列表内滚动 */
+@suggest-rail-visible-rows: 8;
+
+.rail {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  width: 14px;
+  color: var(--nebula-ink, #e2e8f0);
+  font-family: inherit;
+  pointer-events: none;
+}
+
+/* 仅贴右缘 14px 感应，不可盖住面板否则拦截点击 */
+.hitStrip {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 14px;
+  pointer-events: auto;
+}
+
+.railDock {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  z-index: 2;
+  display: flex;
+  max-height: min(72vh, calc(100vh - 80px));
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  width: min(200px, 26vw);
+  max-height: min(72vh, calc(100vh - 80px));
+  padding: 10px 8px 10px 10px;
+  border-radius: 12px 0 0 12px;
+  background: var(--nebula-surface-soft, rgb(21 34 56 / 94%));
+  border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%));
+  border-right: none;
+  box-shadow: 0 10px 40px rgb(0 0 0 / 22%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(12px);
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 260ms;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.panelTitle {
+  margin: 0 8px 8px 4px;
+  color: var(--nebula-ink-muted, #94a3b8);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.list {
+  flex: 0 1 auto;
+  max-height: calc(@suggest-rail-visible-rows * (16px + 12px * 1.45));
+  margin: 0;
+  padding: 0 2px 2px;
+  list-style: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(56 189 248 / 38%) rgb(148 163 184 / 12%);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: 2px 0;
+    border-radius: 999px;
+    background: rgb(148 163 184 / 10%);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: rgb(56 189 248 / 32%);
+
+    &:hover {
+      background: rgb(56 189 248 / 48%);
+    }
+  }
+}
+
+.item {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  text-align: right;
+  background: transparent;
+  color: var(--nebula-nav-ink-muted, #cbd5e1);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+  transition: background-color 160ms ease, color 160ms ease;
+
+  &:hover {
+    background: var(--nebula-nav-hover-bg, rgb(148 163 184 / 12%));
+    color: var(--nebula-nav-ink, #e2e8f0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(56 189 248 / 55%);
+    outline-offset: 1px;
+  }
+}
+
+.itemActive {
+  background: var(--nebula-nav-active-bg, rgb(56 189 248 / 18%));
+  color: var(--nebula-nav-active-ink, #f0f9ff);
+  font-weight: 600;
+}
+
+.itemText {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.railHovered {
+  width: calc(min(200px, 26vw) + 14px);
+  pointer-events: auto;
+}
+
+.railHovered .railDock {
+  pointer-events: auto;
+}
+
+.railHovered .panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  pointer-events: auto;
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s;
+}
+
+@media (max-width: 991px) {
+  .rail {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transform: translateX(0);
+    transition: opacity 120ms ease, visibility 0s;
+  }
+
+  .rail:not(.railHovered) .panel {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .item {
+    transition: none;
+  }
+}

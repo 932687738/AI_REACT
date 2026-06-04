@@ -14,7 +14,7 @@ import { history, Outlet, useIntl, useLocation, SelectLang } from '@umijs/max';
 import { Avatar, Button, Dropdown, Layout } from 'antd';
 import { ROUTES, isChatRoute } from '@/constants/routes';
 import { chatModeFromPath } from '@/utils/chatModeFromPath';
-import { ChatSessionProvider } from '@/context/ChatSessionProvider';
+import { ChatSessionProvider, useChatSession } from '@/context/ChatSessionProvider';
 import ConversationHistoryPanel from './ConversationHistoryPanel';
 import { resolveModuleIdFromPath, SIDEBAR_MODULES } from './menuConfig';
 import type { SidebarModuleGroup, SidebarModuleId } from './types';
@@ -99,6 +99,14 @@ function HistorySlot({ visible }: { visible: boolean }) {
 }
 
 export default function BasicLayout() {
+  return (
+    <ChatSessionProvider>
+      <BasicLayoutFrame />
+    </ChatSessionProvider>
+  );
+}
+
+function BasicLayoutFrame() {
   const intl = useIntl();
   const location = useLocation();
   const theme = useAppStore(selectTheme);
@@ -113,11 +121,17 @@ export default function BasicLayout() {
     setExpandedModuleId(resolveModuleIdFromPath(location.pathname));
   }, [location.pathname]);
 
+  const { startNewConversationForMode } = useChatSession();
   const showHistory = isChatRoute(location.pathname);
   const fillViewport = isChatRoute(location.pathname);
 
   const handleNavigate = (path: string) => {
-    history.push(path);
+    if (isChatRoute(path)) {
+      startNewConversationForMode(chatModeFromPath(path));
+    }
+    if (location.pathname !== path) {
+      history.push(path);
+    }
     setExpandedModuleId(resolveModuleIdFromPath(path));
   };
 
@@ -138,7 +152,6 @@ export default function BasicLayout() {
   };
 
   return (
-    <ChatSessionProvider>
       <Layout className={`${styles.shell} nebula-layout`}>
       <Sider
         className={`${styles.sider} nebula-sider`}
@@ -231,6 +244,5 @@ export default function BasicLayout() {
         </Content>
       </Layout>
     </Layout>
-    </ChatSessionProvider>
   );
 }

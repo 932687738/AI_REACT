@@ -4,8 +4,12 @@ import { Button, Input } from 'antd';
 import { CHAT_MODE, type ChatMode } from '@/constants/chatMode';
 import { ROUTES } from '@/constants/routes';
 import AgentAssistantMessageContent from '@/components/chat/AgentAssistantMessageContent';
+import ChatSuggestRail from '@/components/chat/ChatSuggestRail';
+import { resolveQuickActionIds } from '@/components/chat/chatQuickActions';
 import KnowledgeCitationPanel from '@/components/chat/KnowledgeCitationPanel';
 import TypewriterText from '@/components/chat/TypewriterText';
+import { buildUserMessageNavItems } from '@/utils/chatUserMessageNav';
+import { scrollThreadToMessage } from '@/utils/scrollThreadToMessage';
 import RetrievalThresholdSettings from '@/components/settings/RetrievalThresholdSettings';
 import { useChatSession } from '@/context/ChatSessionProvider';
 import { useChatStream } from '@/hooks/useChatStream';
@@ -54,34 +58,63 @@ function resolvePlaceholderId(chatMode: ChatMode) {
   return 'chat.placeholder.agent';
 }
 
-function resolveQuickActionIds(chatMode: ChatMode) {
-  if (chatMode === CHAT_MODE.REQUIREMENT_DEV) {
-    return [
-      'chat.quick.pmLogin',
-      'chat.quick.pmOrder',
-      'chat.quick.pmDashboard',
-      'chat.quick.more',
-    ];
-  }
-  return ['chat.quick.fast', 'chat.quick.code', 'chat.quick.write', 'chat.quick.music', 'chat.quick.more'];
-}
-
 export default function ChatShell({ chatMode }: ChatShellProps) {
   const intl = useIntl();
   const { conversationId } = useChatSession();
   const { messages, isSending, sendMessage } = useChatStream(chatMode);
   const [inputValue, setInputValue] = useState('');
+  const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
 
   useEffect(() => {
     setInputValue('');
+    setActiveMessageId(null);
   }, [conversationId]);
   const endRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const messageRefs = useRef<Map<string, HTMLElement>>(new Map());
 
   const headerIds = useMemo(() => resolveHeaderIds(chatMode), [chatMode]);
   const welcomeIds = useMemo(() => resolveWelcomeIds(chatMode), [chatMode]);
   const placeholderId = useMemo(() => resolvePlaceholderId(chatMode), [chatMode]);
   const quickActionIds = useMemo(() => resolveQuickActionIds(chatMode), [chatMode]);
+
+  const userNavItems = useMemo(() => buildUserMessageNavItems(messages), [messages]);
+  const showMessageNav = userNavItems.length > 0;
+
+  const registerMessageRef = useCallback((messageId: string, node: HTMLElement | null) => {
+    if (node) {
+      messageRefs.current.set(messageId, node);
+      return;
+    }
+    messageRefs.current.delete(messageId);
+  }, []);
+
+  const scrollToMessage = useCallback((messageId: string) => {
+    const container = listRef.current;
+    if (!container) {
+      return;
+    }
+
+    const target =
+      messageRefs.current.get(messageId) ??
+      (container.querySelector(`[data-message-id="${messageId}"]`) as HTMLElement | null);
+
+    if (!target) {
+      return;
+    }
+
+    setActiveMessageId(messageId);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    requestAnimationFrame(() => {
+      scrollThreadToMessage(container, target, prefersReducedMotion ? 'auto' : 'smooth');
+      requestAnimationFrame(() => {
+        scrollThreadToMessage(container, target, prefersReducedMotion ? 'auto' : 'smooth');
+      });
+    });
+  }, []);
 
   const scrollToBottom = useCallback(() => {
     requestAnimationFrame(() => {
@@ -113,6 +146,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
 
   return (
     <section className={`${styles.shell} nebula-chat-shell`}>
+      <div className={styles.canvas}>
       <div className={styles.stage}>
       <header className={`${styles.topbar} nebula-chat-topbar`}>
         <div>
@@ -135,7 +169,11 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           {messages.map((item) => (
             <article
               key={item.id}
-              className={`${styles.messageRow} ${item.role === 'user' ? styles.messageRowUser : ''}`}
+              ref={(node) => registerMessageRef(item.id, node)}
+              data-message-id={item.id}
+              className={`${styles.messageRow} ${item.role === 'user' ? styles.messageRowUser : ''} ${
+                activeMessageId === item.id ? styles.messageRowTarget : ''
+              }`}
             >
               <div
                 className={`${styles.bubble} nebula-chat-bubble ${
@@ -229,6 +267,14 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
         </div>
       </form>
       </div>
+      </div>
+      {showMessageNav ? (
+        <ChatSuggestRail
+          items={userNavItems}
+          activeMessageId={activeMessageId}
+          onNavigate={scrollToMessage}
+        />
+      ) : null}
     </section>
   );
 }

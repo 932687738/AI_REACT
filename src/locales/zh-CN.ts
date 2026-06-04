@@ -80,6 +80,8 @@ export default {
   'chat.quick.pmLogin': '用户登录',
   'chat.quick.pmOrder': '订单模块',
   'chat.quick.pmDashboard': '数据看板',
+  'chat.suggestRail.label': '我的消息导航',
+  'chat.suggestRail.title': '我发送的消息',
   'knowledge.kb.title': '知识库管理',
   'knowledge.kb.subtitle': '创建、修改和删除业务知识库',
   'knowledge.kb.nameLabel': '名称',

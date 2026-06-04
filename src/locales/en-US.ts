@@ -80,6 +80,8 @@ export default {
   'chat.quick.pmLogin': 'User login',
   'chat.quick.pmOrder': 'Orders',
   'chat.quick.pmDashboard': 'Dashboard',
+  'chat.suggestRail.label': 'My message navigation',
+  'chat.suggestRail.title': 'Messages I sent',
   'knowledge.kb.title': 'Knowledge bases',
   'knowledge.kb.subtitle': 'Create, update, and delete business knowledge bases',
   'knowledge.kb.nameLabel': 'Name',

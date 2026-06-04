@@ -85,7 +85,7 @@ html[data-theme='lv'] {
   --nebula-nav-accent: #16a34a;
 }
 
-/* 原生 button：仅 reset 浏览器白底，不覆盖组件字色 */
+/* 原生 button：仅 reset 浏览器白底；侧栏字色/激活条由下方 nebula-module-* / nebula-nav-* 规则负责 */
 .nebula-layout button:not(.ant-btn),
 .nebula-chat-shell button:not(.ant-btn) {
   margin: 0;
@@ -94,6 +94,37 @@ html[data-theme='lv'] {
   border: none;
   cursor: pointer;
   appearance: none;
+}
+
+/* Portal 右侧消息轨（不在 layout 内）单独 reset */
+.nebula-chat-suggest-rail button:not(.ant-btn) {
+  margin: 0;
+  font: inherit;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  color: inherit;
+}
+
+.nebula-chat-suggest-rail .panelTitle {
+  color: var(--nebula-ink-muted);
+}
+
+.nebula-chat-suggest-rail .item {
+  color: var(--nebula-nav-ink-muted);
+}
+
+.nebula-chat-suggest-rail .item:hover {
+  background: var(--nebula-nav-hover-bg);
+  color: var(--nebula-nav-ink);
+}
+
+.nebula-chat-suggest-rail .itemActive {
+  background: var(--nebula-nav-active-bg);
+  color: var(--nebula-nav-active-ink);
 }
 
 .nebula-layout {
