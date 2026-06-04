@@ -66,16 +66,48 @@ function normalizeEntity(item: unknown, locale: string, extra: Record<string, un
   };
 }
 
+function normalizeLocalTool(item: unknown, locale: string) {
+  const row = item as Record<string, unknown>;
+  return normalizeEntity(item, locale, {
+    beanClass: String(row.beanClass || '').trim(),
+    module: String(row.module || '').trim(),
+  });
+}
+
+function normalizeMcpCallback(item: unknown, locale: string) {
+  const row = item as Record<string, unknown>;
+  return normalizeEntity(item, locale, {
+    providerBean: String(row.providerBean || '').trim(),
+    transport: String(row.transport || '').trim(),
+    endpointSummary: String(row.endpointSummary || '').trim(),
+  });
+}
+
+function normalizeMcpProvider(item: unknown) {
+  const row = item as Record<string, unknown>;
+  return {
+    name: String(row.name || '').trim(),
+    transport: String(row.transport || '').trim(),
+    endpoint: String(row.endpoint || '').trim(),
+    toolCount: Number(row.toolCount) || 0,
+    ready: Boolean(row.ready),
+  };
+}
+
 export interface NormalizedAgentHubStatus {
   locale: string;
   modules: ReturnType<typeof normalizeModule>[];
   skills: ReturnType<typeof normalizeEntity>[];
   subAgents: ReturnType<typeof normalizeEntity>[];
-  tools: ReturnType<typeof normalizeEntity>[];
-  mcpCallbacks: ReturnType<typeof normalizeEntity>[];
+  tools: ReturnType<typeof normalizeLocalTool>[];
+  mcpCallbacks: ReturnType<typeof normalizeMcpCallback>[];
+  mcpProviders: ReturnType<typeof normalizeMcpProvider>[];
 }
 
 export type AgentHubEntity = NormalizedAgentHubStatus['skills'][number];
+export type AgentHubLocalTool = NormalizedAgentHubStatus['tools'][number];
+export type AgentHubMcpCallback = NormalizedAgentHubStatus['mcpCallbacks'][number];
+export type AgentHubMcpProvider = NormalizedAgentHubStatus['mcpProviders'][number];
 export type AgentHubModule = NormalizedAgentHubStatus['modules'][number];
 
 function normalizeStatusResponse(data: AgentHubStatusResponse, locale: string): NormalizedAgentHubStatus {
@@ -86,9 +118,12 @@ function normalizeStatusResponse(data: AgentHubStatusResponse, locale: string): 
     subAgents: Array.isArray(data?.subAgents)
       ? data.subAgents.map((item) => normalizeEntity(item, locale))
       : [],
-    tools: Array.isArray(data?.tools) ? data.tools.map((item) => normalizeEntity(item, locale)) : [],
+    tools: Array.isArray(data?.tools) ? data.tools.map((item) => normalizeLocalTool(item, locale)) : [],
     mcpCallbacks: Array.isArray(data?.mcpCallbacks)
-      ? data.mcpCallbacks.map((item) => normalizeEntity(item, locale))
+      ? data.mcpCallbacks.map((item) => normalizeMcpCallback(item, locale))
+      : [],
+    mcpProviders: Array.isArray(data?.mcpProviders)
+      ? data.mcpProviders.map((item) => normalizeMcpProvider(item))
       : [],
   };
 }

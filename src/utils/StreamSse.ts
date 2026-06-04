@@ -1,11 +1,17 @@
 import type { ChatStreamHandlers } from '@/types/chat';
+import { resolveEnvString } from '@/utils/envString';
 import { dispatchSuperAgentSsePayload } from '@/utils/SuperAgentSse';
 
-const API_BASE = (process.env.API_BASE as string | undefined) || '';
+function resolveApiBase(raw: string | undefined): string {
+  return resolveEnvString(raw, '').replace(/\/+$/, '');
+}
 
 function buildUrl(path: string): string {
-  const base = API_BASE.replace(/\/+$/, '');
+  const base = resolveApiBase(process.env.API_BASE as string | undefined);
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+  if (!base) {
+    return normalizedPath;
+  }
   return `${base}${normalizedPath}`;
 }
 

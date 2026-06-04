@@ -1,0 +1,43 @@
+.routing {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgb(56 189 248 / 8%);
+  border: 1px solid rgb(56 189 248 / 18%);
+}
+
+.kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.grid {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  font-size: 12px;
+  line-height: 1.45;
+
+  dt {
+    margin: 0;
+    color: var(--nebula-ink-muted, #94a3b8);
+    font-weight: 500;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--nebula-ink, #e2e8f0);
+    word-break: break-word;
+  }
+}

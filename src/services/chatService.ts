@@ -12,12 +12,16 @@ import {
   stripKnowledgeMetaFromText,
 } from '@/utils/KnowledgeCitation';
 import type { ChatPayload, ChatStreamHandlers } from '@/types/chat';
+import { resolveEnvString } from '@/utils/envString';
 
 const STREAM_DELAY_MS = 32;
 declare const __MOCK_CHAT__: string;
 
 const MOCK_CHAT = __MOCK_CHAT__ === 'true';
-const SUPER_AGENTS_TENANT_ID = (process.env.SUPER_AGENTS_TENANT_ID as string | undefined) || 'default';
+const SUPER_AGENTS_TENANT_ID = resolveEnvString(
+  process.env.SUPER_AGENTS_TENANT_ID as string | undefined,
+  'default',
+);
 
 function buildKnowledgeBody(payload: ChatPayload): KnowledgeChatRequest {
   const body: KnowledgeChatRequest = {

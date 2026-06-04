@@ -106,14 +106,17 @@ components:
           type: string
     ConversationUpsertRequest:
       type: object
+      required: [conversationId]
       properties:
-        id:
+        conversationId:
           type: string
         title:
           type: string
         mode:
           type: string
         preview:
+          type: string
+        ownerId:
           type: string
     ConversationMessageRequest:
       type: object
@@ -124,7 +127,9 @@ components:
           type: string
         text:
           type: string
-        meta:
+        clientMessageId:
+          type: string
+        metadata:
           type: object
     KnowledgeRetrievalThreshold:
       type: object

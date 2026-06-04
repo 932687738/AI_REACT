@@ -11,9 +11,26 @@ import {
 } from '@/services/conversationPersist';
 import type { AgentProgressStep, ConversationMessage } from '@/openapi/typings';
 import type { SuperAgentProgressEvent } from '@/utils/SuperAgentSse';
+import { stripAgentStreamDecorations } from '@/utils/agentChatDisplay';
 import { stripKnowledgeMetaFromText } from '@/utils/KnowledgeCitation';
 import { conversationHistoryKey } from '@/hooks/useConversationHistory';
 import { deriveConversationTitle } from '@/utils/conversationHelpers';
+
+function mergeAssistantText(chatMode: ChatMode, prev: string, chunk: string): string {
+  const merged = stripKnowledgeMetaFromText(`${prev}${chunk}`);
+  if (chatMode === CHAT_MODE.AGENT) {
+    return stripAgentStreamDecorations(merged);
+  }
+  return merged;
+}
+
+function finalizeAssistantText(chatMode: ChatMode, raw: string): string {
+  const cleaned = stripKnowledgeMetaFromText(raw || '');
+  if (chatMode === CHAT_MODE.AGENT) {
+    return stripAgentStreamDecorations(cleaned);
+  }
+  return cleaned;
+}
 
 function resolveFallbackTitleId(chatMode: ChatMode): string {
   if (chatMode === CHAT_MODE.AGENT) {
@@ -93,7 +110,7 @@ export function useChatStream(chatMode: ChatMode) {
                   item.id === assistantMessageId
                     ? {
                         ...item,
-                        text: stripKnowledgeMetaFromText(`${item.text}${chunk}`),
+                        text: mergeAssistantText(chatMode, item.text || '', chunk),
                         pending: true,
                       }
                     : item,
@@ -151,7 +168,7 @@ export function useChatStream(chatMode: ChatMode) {
                   }
                 : undefined,
             onComplete: async (finalText) => {
-              const cleanedText = stripKnowledgeMetaFromText(finalText || '');
+              const cleanedText = finalizeAssistantText(chatMode, finalText || '');
               setMessages((current) =>
                 current.map((item) =>
                   item.id === assistantMessageId

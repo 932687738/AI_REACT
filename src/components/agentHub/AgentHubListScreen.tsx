@@ -6,21 +6,6 @@ import type { AgentHubEntity } from '@/services/agentHubService';
 import AgentHubEntityCard from './AgentHubEntityCard';
 import styles from './agentHub.less';
 
-function formatExampleMeta(
-  examples: AgentHubEntity['examples'],
-  examplesLabel: string,
-): string {
-  if (!examples.length) {
-    return '';
-  }
-  const first = examples[0];
-  const firstLabel = first?.title || first?.description;
-  if (firstLabel) {
-    return `${examplesLabel}: ${firstLabel}`;
-  }
-  return `${examplesLabel}: ${examples.length}`;
-}
-
 export interface AgentHubListScreenProps {
   titleId: string;
   subtitleId: string;
@@ -33,6 +18,8 @@ export interface AgentHubListScreenProps {
   showToolCount?: boolean;
   showSearch?: boolean;
   sectionTitleId?: string;
+  /** 卡片底部标签（如模块、Bean） */
+  formatChips?: (item: AgentHubEntity) => string[];
 }
 
 export default function AgentHubListScreen({
@@ -47,6 +34,7 @@ export default function AgentHubListScreen({
   showToolCount = false,
   showSearch = false,
   sectionTitleId,
+  formatChips,
 }: AgentHubListScreenProps) {
   const intl = useIntl();
   const [query, setQuery] = useState('');
@@ -63,7 +51,6 @@ export default function AgentHubListScreen({
     );
   }, [items, query]);
 
-  const examplesLabel = intl.formatMessage({ id: 'agentHub.examples' });
   const toolsLabel = intl.formatMessage({ id: 'agentHub.toolCount' });
 
   return (
@@ -122,23 +109,25 @@ export default function AgentHubListScreen({
 
       <section className={styles.section}>
         {sectionTitleId ? <h2>{intl.formatMessage({ id: sectionTitleId })}</h2> : null}
-        <div className={styles.grid}>
+        <div className={styles.catalogGrid}>
           {loading ? (
             <div className={styles.empty}>
               <Spin tip={intl.formatMessage({ id: 'agentHub.loading' })} />
             </div>
           ) : filteredItems.length > 0 ? (
             filteredItems.map((item) => {
-              const extraParts = [
-                showToolCount ? `${toolsLabel}: ${item.toolCount}` : '',
-                formatExampleMeta(item.examples, examplesLabel),
+              const chips = [
+                ...(formatChips ? formatChips(item) : []),
+                ...(showToolCount && item.toolCount > 0
+                  ? [`${toolsLabel} ${item.toolCount}`]
+                  : []),
               ].filter(Boolean);
               return (
                 <AgentHubEntityCard
                   key={`${typeLabel}-${item.name}`}
                   item={item}
                   typeLabel={typeLabel}
-                  extraLabel={extraParts.join(' · ')}
+                  chips={chips}
                 />
               );
             })

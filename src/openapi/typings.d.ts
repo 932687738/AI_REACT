@@ -79,7 +79,7 @@ export interface ConversationSummary {
 }
 
 export interface ConversationUpsertRequest {
-  id?: string;
+  conversationId: string;
   title?: string;
   mode?: string;
   preview?: string;
@@ -140,6 +140,7 @@ export interface AgentHubStatusResponse {
   subAgents?: unknown[];
   tools?: unknown[];
   mcpCallbacks?: unknown[];
+  mcpProviders?: unknown[];
 }
 
 export type JsonMap = Record<string, unknown>;

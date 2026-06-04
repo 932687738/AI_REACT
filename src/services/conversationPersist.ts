@@ -19,7 +19,7 @@ export async function ensureConversationOnServer(params: {
 }) {
   const { conversationId, chatMode, message, fallbackTitle } = params;
   await upsertConversation({
-    id: conversationId,
+    conversationId,
     title: deriveConversationTitle(message, fallbackTitle),
     preview: message || '',
     mode: toApiMode(chatMode),
@@ -59,7 +59,7 @@ export async function persistAgentTurn(params: {
   } = params;
 
   await upsertConversation({
-    id: conversationId,
+    conversationId,
     title: deriveConversationTitle(message, fallbackTitle),
     preview: message,
     mode: toApiMode(chatMode),

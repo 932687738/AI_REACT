@@ -3,6 +3,11 @@ import { defineConfig } from 'umi';
 const apiProxyTarget = process.env.API_PROXY_TARGET || 'http://localhost:8080';
 const mockChatEnabled =
   process.env.HARNESS_E2E_BUILD === '1' || process.env.MOCK_CHAT === 'true';
+/** 空字符串时 JSON.stringify('') 会注入字面量 ""，导致 fetch 相对路径错乱 */
+const apiBaseDefine =
+  process.env.API_BASE && process.env.API_BASE.trim().length > 0
+    ? JSON.stringify(process.env.API_BASE)
+    : "''";
 
 export default defineConfig({
   npmClient: 'npm',
@@ -15,11 +20,12 @@ export default defineConfig({
   },
   define: {
     __MOCK_CHAT__: JSON.stringify(mockChatEnabled ? 'true' : 'false'),
-    'process.env.API_BASE': JSON.stringify(process.env.API_BASE || ''),
+    'process.env.API_BASE': apiBaseDefine,
     'process.env.MOCK_CHAT': JSON.stringify(mockChatEnabled ? 'true' : 'false'),
-    'process.env.SUPER_AGENTS_TENANT_ID': JSON.stringify(
-      process.env.SUPER_AGENTS_TENANT_ID || 'default',
-    ),
+    'process.env.SUPER_AGENTS_TENANT_ID':
+      process.env.SUPER_AGENTS_TENANT_ID && process.env.SUPER_AGENTS_TENANT_ID.trim().length > 0
+        ? JSON.stringify(process.env.SUPER_AGENTS_TENANT_ID.trim())
+        : "'default'",
   },
   proxy: {
     '/api': {

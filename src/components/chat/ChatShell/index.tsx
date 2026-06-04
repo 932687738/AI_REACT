@@ -3,7 +3,7 @@ import { history, useIntl } from '@umijs/max';
 import { Button, Input } from 'antd';
 import { CHAT_MODE, type ChatMode } from '@/constants/chatMode';
 import { ROUTES } from '@/constants/routes';
-import AgentProgressTimeline from '@/components/chat/AgentProgressTimeline';
+import AgentAssistantMessageContent from '@/components/chat/AgentAssistantMessageContent';
 import KnowledgeCitationPanel from '@/components/chat/KnowledgeCitationPanel';
 import TypewriterText from '@/components/chat/TypewriterText';
 import RetrievalThresholdSettings from '@/components/settings/RetrievalThresholdSettings';
@@ -144,12 +144,13 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                     : `${styles.bubbleAssistant} nebula-chat-bubble-assistant`
                 } ${item.error ? styles.bubbleError : ''}`}
               >
-                {item.role === 'assistant' &&
-                chatMode === CHAT_MODE.AGENT &&
-                item.agentProgress?.length ? (
-                  <AgentProgressTimeline steps={item.agentProgress} />
-                ) : null}
-                {item.role === 'assistant' && (item.text || item.pending) ? (
+                {item.role === 'assistant' && chatMode === CHAT_MODE.AGENT ? (
+                  <AgentAssistantMessageContent
+                    item={item}
+                    scrollToBottom={scrollToBottom}
+                    onCitationNavigate={handleCitationNavigate}
+                  />
+                ) : item.role === 'assistant' && (item.text || item.pending) ? (
                   <>
                     <TypewriterText
                       text={item.text}
