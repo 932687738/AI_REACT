@@ -1,0 +1,150 @@
+.screen {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 8px 32px 4px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.headerCopy {
+  min-width: min(100%, 320px);
+}
+
+.title {
+  margin: 0 !important;
+  color: var(--nebula-ink, #f8fafc) !important;
+  font-size: clamp(1.5rem, 2.5vw, 2rem) !important;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 8px 0 0 !important;
+  color: var(--nebula-ink-muted, #94a3b8) !important;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.configCard,
+.tableCard,
+.drawerSection {
+  border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%));
+  border-radius: 14px;
+  background: var(--nebula-surface-card, rgb(21 34 56 / 96%));
+  box-shadow: 0 14px 36px rgb(0 0 0 / 16%);
+}
+
+.configCard {
+  margin-bottom: 16px;
+  padding: 14px 18px;
+}
+
+.configRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.tableCard {
+  padding: 4px 0 8px;
+  overflow: hidden;
+}
+
+.nameCell strong {
+  display: block;
+  color: var(--nebula-ink, #e8eef9);
+  font-size: 14px;
+}
+
+.nameCell span {
+  color: var(--nebula-ink-muted, #94a3b8);
+  font-size: 12px;
+}
+
+.descCell {
+  color: var(--nebula-ink-muted, #b6c3d8);
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 36ch;
+}
+
+.toolTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.drawerSection {
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.drawerSection h4 {
+  margin: 0 0 12px;
+  color: var(--nebula-nav-ink, #e2e8f0);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stepRow {
+  display: grid;
+  grid-template-columns: 72px 1fr 160px auto;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 720px) {
+  .stepRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tableCard :global(.ant-table) {
+  background: transparent !important;
+}
+
+.tableCard :global(.ant-table-thead > tr > th) {
+  background: var(--nebula-table-head-bg, #1a2942) !important;
+  color: var(--nebula-ink, #e2e8f0) !important;
+  font-weight: 600;
+  border-bottom: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%)) !important;
+}
+
+.tableCard :global(.ant-table-tbody > tr > td) {
+  border-bottom: 1px solid var(--nebula-border, rgb(148 163 184 / 18%)) !important;
+  color: var(--nebula-ink, #e2e8f0) !important;
+  vertical-align: top;
+}
+
+.tableCard :global(.ant-table-tbody > tr:hover > td) {
+  background: rgb(56 189 248 / 6%) !important;
+}
+
+.configCard :global(.ant-input),
+.configCard :global(.ant-input-affix-wrapper),
+.drawerSection :global(.ant-input),
+.drawerSection :global(.ant-input-affix-wrapper) {
+  background: var(--nebula-input-bg, #132038) !important;
+  border-color: var(--nebula-border-strong, rgb(148 163 184 / 28%)) !important;
+  color: var(--nebula-ink, #e8eef9) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tableCard :global(.ant-table-tbody > tr) {
+    transition: none;
+  }
+}

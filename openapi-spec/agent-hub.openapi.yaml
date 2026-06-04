@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Nebula Desk Agent Hub API (fragment)
+  version: 1.0.0
+  description: 本地 OpenAPI 片段，供 Umi openAPI 生成或 typings 对齐；完整规范以 springdoc 为准。
+paths:
+  /api/agent-hub/chat/knowledge:
+    post:
+      operationId: chatKnowledge
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeChatRequest'
+  /api/super-agents/chat:
+    post:
+      operationId: chatAgent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentChatRequest'
+  /api/agent-hub/requirement-dev:
+    post:
+      operationId: chatRequirementDev
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequirementDevChatRequest'
+  /api/agent-hub/status:
+    get:
+      operationId: getAgentHubStatus
+      parameters:
+        - name: locale
+          in: query
+          schema:
+            type: string
+        - name: mode
+          in: query
+          schema:
+            type: string
+  /api/agent-hub/knowledge-bases:
+    get:
+      operationId: listKnowledgeBases
+    post:
+      operationId: createKnowledgeBase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KnowledgeBaseInput'
+  /api/agent-hub/knowledge-bases/{id}:
+    put:
+      operationId: updateKnowledgeBase
+    delete:
+      operationId: deleteKnowledgeBase
+  /api/agent-hub/conversations:
+    get:
+      operationId: listConversations
+    post:
+      operationId: upsertConversation
+  /api/agent-hub/conversation-config/knowledge-retrieval-threshold:
+    get:
+      operationId: getKnowledgeRetrievalThreshold
+    put:
+      operationId: saveKnowledgeRetrievalThreshold
+components:
+  schemas:
+    KnowledgeChatRequest:
+      type: object
+      required: [conversationId, message]
+      properties:
+        conversationId:
+          type: string
+        sessionId:
+          type: string
+        message:
+          type: string
+        knowledgeBaseIds:
+          type: array
+          items:
+            type: string
+    AgentChatRequest:
+      type: object
+      required: [conversationId, message]
+      properties:
+        conversationId:
+          type: string
+        message:
+          type: string
+    RequirementDevChatRequest:
+      type: object
+      required: [conversationId, requirement]
+      properties:
+        conversationId:
+          type: string
+        requirement:
+          type: string
+    KnowledgeBaseInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    ConversationUpsertRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        mode:
+          type: string
+        preview:
+          type: string
+    ConversationMessageRequest:
+      type: object
+      properties:
+        role:
+          type: string
+        kind:
+          type: string
+        text:
+          type: string
+        meta:
+          type: object
+    KnowledgeRetrievalThreshold:
+      type: object
+      properties:
+        scoreThreshold:
+          type: number
+        enabled:
+          type: boolean

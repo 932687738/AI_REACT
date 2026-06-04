@@ -1,57 +1,89 @@
-# 架构设计
+# Nebula Desk 架构（Umi 4 + TypeScript）
 
-## 组件层级
+> 原 Vite 实现已归档至 `legacy-vite/`，仅供 API/UX 对照，**禁止**作为生产入口。
+
+## 技术栈
+
+| 层 | 选型 |
+|----|------|
+| 框架 | React 18 + **@umijs/max 4** + TypeScript |
+| UI | Ant Design 5 |
+| 服务端状态 | TanStack React Query |
+| 客户端偏好 | Zustand（`useAppStore`：theme、sidebarCollapsed） |
+| 工程 CLI | `harness`（`scripts/harness.mjs`） |
+| E2E | Playwright（`e2e/`，`harness build` 门禁） |
+
+## 目录结构
 
 ```text
-src/main.jsx
-  -> src/app/App.jsx
-    -> src/pages/HomePage.jsx
-      -> src/pages/SettingsPage.jsx
-      -> src/services/conversationHistory.js
-      -> src/api/chat.js
-      -> src/api/agentHub.js
-      -> src/utils/request.js
-      -> src/i18n/messages.js
+src/
+├── app.tsx                 # ConfigProvider + QueryClient + request 错误拦截
+├── global.less             # 全局样式 + 三主题 CSS 变量
+├── layouts/BasicLayout/    # 侧栏三模块、顶栏、Outlet、历史会话
+├── pages/                  # 约定式路由页面
+├── components/             # ChatShell、humanLoop、settings、agentHub、knowledge
+├── services/               # REST/SSE 封装（唯一对外 API 层）
+├── hooks/                  # useChatStream、useConversationHistory、useAgentHubStatus
+├── models/useAppStore.ts   # Zustand 持久化
+├── openapi/                # typings.d.ts + request.ts（OpenAPI 手维护/生成）
+├── utils/StreamSse.ts      # SSE fetch（chat 专用，非 Umi request）
+└── constants/ApiPaths.ts   # 路径常量
+openapi-spec/               # agent-hub.openapi.yaml 降级真源
+legacy-vite/                # 已弃用 Vite 参考实现
+e2e/                        # Playwright 冒烟
 ```
 
-## 状态管理
+## 路由（`.umirc.ts`）
 
-- 采用 React `useState`、`useEffect`、`useMemo`、`useRef`
-- 语言状态通过 `src/hooks/useLanguage.js` 持久化到 `localStorage`
-- 主题状态通过 `src/hooks/useTheme.js` 持久化到 `localStorage`，并写入 `document.documentElement.dataset.theme`（`dzj` / `lv` / `yxy`）
-- 历史对话与消息通过 `src/services/conversationHistory.js` 持久化到 `localStorage`
-- 当前会话、侧边栏选项、设置页状态主要集中在 `src/pages/HomePage.jsx`
+| 路径 | 页面 |
+|------|------|
+| `/chat/knowledge` | 知识库对话 |
+| `/chat/agent` | 智能体对话（SuperAgents SSE） |
+| `/chat/requirement-dev` | 项目经理对话 |
+| `/chat/human-review` | 人工审核工作台 |
+| `/knowledge/bases` | 知识库 CRUD |
+| `/knowledge/upload` | 文档上传 |
+| `/agent-hub/skills` | **Skill 管理台**（SuperAgents 发布 / 生命周期） |
+| `/agent-hub/agents` … `/mcp` | Agent Hub 运行时浏览 |
+| `/settings` | 设置（主题/语言/阈值） |
 
-## 路由
+## Services 与契约映射
 
-- 当前未引入路由库
-- 页面切换由 `HomePage.jsx` 内部状态控制：
-  - `chat`
-  - `skills`
-  - `agents`
-  - `tools`
-  - `mcpCallbacks`
-  - `settings`
+| 契约路径 | Service |
+|----------|---------|
+| `POST /api/agent-hub/chat/knowledge` | `chatService.sendKnowledgeChat` |
+| `POST /api/super-agents/chat` | `chatService.sendAgentChat` |
+| `POST /api/agent-hub/requirement-dev` | `chatService.sendRequirementDevChat` |
+| `GET /api/agent-hub/status` | `agentHubService.getAgentHubStatus` |
+| `GET/POST /api/super-agents/skills` | `platformSkillService` |
+| `PATCH /api/super-agents/skills/{name}/versions/{v}/status` | `platformSkillService.transitionPlatformSkillStatus` |
+| `/api/agent-hub/knowledge-bases` CRUD | `knowledgeService` |
+| `POST .../knowledge/upload` | `knowledgeService.uploadDocument` |
+| `POST .../batch-delete` | `knowledgeService.batchDeleteDocuments` |
+| `/api/agent-hub/conversations` 系列 | `conversationService` + `conversationPersist` |
+| `GET/PUT .../knowledge-retrieval-threshold` | `conversationConfigService` |
+| `/springai/demo/.../human-loop/*` | `humanLoopService`（Demo HIL） |
 
-## 外部 API
+SSE 解析：`utils/StreamSse.ts`；知识库 meta/citations：`utils/KnowledgeCitation.ts`。
 
-- `GET /api/agent-hub/status?locale=zh|en`
-  - 用于读取 modules、skills、agents、tools、mcpCallbacks
-  - 返回中的多语言字段由前端按当前界面语言解析
-- `POST /api/agent-hub/chat`
-  - 流式聊天接口
-  - `conversationId` 和 `message` 由前端构造
+## 状态与主题
 
-## 设计模式
+- **语言**：Umi locale 插件（`zh-CN` / `en-US`），设置页 `setLocale`
+- **主题**：`useAppStore.theme` → `document.documentElement.dataset.theme`（`dzj` / `lv` / `yxy`）
+- **会话**：`ChatSessionProvider` 按 `chatMode` 隔离 `conversationId`；历史走 React Query + 后端 CRUD
 
-- `src/utils/request.js` 统一封装 `get/post/put/del/postStream`
-- `src/api/` 统一管理后端接口路径
-- `src/services/conversationHistory.js` 负责本地历史数据的读写与标题生成
-- `src/i18n/messages.js` 负责前端文案多语言映射
+## 开发与构建
 
-## 构建与部署
+```powershell
+cd ai_react
+harness install    # npm install + playwright chromium
+harness dev        # max dev，代理 /api、/springai
+harness lint
+harness build      # MOCK_CHAT=true build + Playwright e2e
+```
 
-- 开发时通过 Vite 启动本地服务
-- `/api` 可通过 `vite.config.js` 代理到后端
-- 构建命令为 `npm.cmd run build`
-- 生产部署产物位于 `dist/`
+环境变量见 `.env.example`：`API_PROXY_TARGET`、`MOCK_CHAT`、`SUPER_AGENTS_TENANT_ID`。
+
+## 代理
+
+开发环境 `.umirc.ts` 将 `/api`、`/springai` 代理至 `API_PROXY_TARGET`（默认 `http://localhost:8080`）。

@@ -1,6 +1,6 @@
 /**
  * 前端聊天模式常量（与后端 AgentHubChatMode 语义对齐）。
- * 知识库与智能体使用独立 API：/chat/knowledge 与 /chat/agent。
+ * 知识库：POST /api/agent-hub/chat/knowledge；智能体：POST /api/super-agents/chat。
  */
 export const CHAT_MODE = {
   /** 仅向量知识库 RAG，无子智能体、无工具 */

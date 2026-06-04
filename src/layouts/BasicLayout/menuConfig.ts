@@ -1,0 +1,47 @@
+import { ROUTES } from '@/constants/routes';
+import type { SidebarModuleGroup } from './types';
+
+export const SIDEBAR_MODULES: SidebarModuleGroup[] = [
+  {
+    id: 'chat',
+    titleId: 'layout.sidebar.chatGroup',
+    items: [
+      { key: 'knowledge', path: ROUTES.CHAT_KNOWLEDGE, labelId: 'layout.nav.knowledgeChat' },
+      { key: 'agent', path: ROUTES.CHAT_AGENT, labelId: 'layout.nav.agentChat' },
+      {
+        key: 'requirement-dev',
+        path: ROUTES.CHAT_REQUIREMENT_DEV,
+        labelId: 'layout.nav.projectManagerChat',
+      },
+      { key: 'human-review', path: ROUTES.CHAT_HUMAN_REVIEW, labelId: 'layout.nav.humanReview' },
+    ],
+  },
+  {
+    id: 'knowledge',
+    titleId: 'layout.sidebar.knowledgeGroup',
+    items: [
+      { key: 'upload', path: ROUTES.KNOWLEDGE_UPLOAD, labelId: 'layout.nav.upload' },
+      { key: 'bases', path: ROUTES.KNOWLEDGE_BASES, labelId: 'layout.nav.kbManager' },
+    ],
+  },
+  {
+    id: 'agentHub',
+    titleId: 'layout.sidebar.agentHubGroup',
+    items: [
+      { key: 'skills', path: ROUTES.AGENT_HUB_SKILLS, labelId: 'layout.nav.skills' },
+      { key: 'agents', path: ROUTES.AGENT_HUB_AGENTS, labelId: 'layout.nav.agents' },
+      { key: 'tools', path: ROUTES.AGENT_HUB_TOOLS, labelId: 'layout.nav.tools' },
+      { key: 'mcp', path: ROUTES.AGENT_HUB_MCP, labelId: 'layout.nav.mcp' },
+    ],
+  },
+];
+
+export function resolveModuleIdFromPath(pathname: string): SidebarModuleGroup['id'] {
+  if (pathname.startsWith('/knowledge/')) {
+    return 'knowledge';
+  }
+  if (pathname.startsWith('/agent-hub/')) {
+    return 'agentHub';
+  }
+  return 'chat';
+}

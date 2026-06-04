@@ -1,5 +1,59 @@
 # Changelog
 
+## [2026-06-03] - 智能体 SSE 进度时间线（P2-SSE）
+
+### Added
+
+- `AgentProgressTimeline`：智能体对话气泡上方展示 `progress` 步骤（step / status / tool 摘要）
+- `ConversationMessage.agentProgress`：客户端 SSE 字段（非 OpenAPI）
+
+### Changed
+
+- `useChatStream`：AGENT 模式订阅 `onProgress` 并去重追加步骤
+- `SuperAgentSse`：移除仅 `console.debug` 的进度输出，改由 UI 消费
+
+## [2026-06-03] - Skill 管理台（P4-UI）
+
+### Added
+
+- `PlatformSkillManager`：`/agent-hub/skills` 对接 `GET/POST /api/super-agents/skills` 与 `PATCH .../status`
+- `platformSkillService`：租户 / 管理员 API Key（sessionStorage）、生命周期状态变更
+- 中英文文案 `platformSkill.*`
+
+### Changed
+
+- 技能页由 Agent Hub 只读浏览改为平台 Skill 管理台（发布新版本、状态机）
+
+## [2026-06-03] - Umi 4 全量重构（frontend-umi-refactor）
+
+### Added
+
+- **@umijs/max 4 + TypeScript** 工程：`src/pages` 约定式路由、`src/layouts/BasicLayout`、`harness` CLI
+- `src/services/*` 分层（chat、conversation、knowledge、agentHub、humanLoop、conversationConfig）
+- `src/utils/StreamSse.ts` SSE 流式；`src/openapi/` typings + `request.ts`
+- 三聊天模式 `ChatShell` + `useChatStream`；会话历史 React Query CRUD
+- 知识库 CRUD/上传/批量删除；人工审核三 Tab；设置页 + `useAppStore` 三主题
+- Agent Hub 四页浏览 + `useAgentHubStatus`
+- Playwright 冒烟 E2E（`e2e/smoke.spec.ts`）；`harness build` 含 e2e 门禁
+
+### Changed
+
+- 原 Vite 实现移至 `legacy-vite/`（只读参考）
+- 智能体对话对接 `POST /api/super-agents/chat`（`chatService.sendAgentChat`）
+- 重写 `ARCHITECTURE.md`；契约引用更新至 `src/services/`
+
+### Removed
+
+- 生产入口 `src/main.jsx` / `src/app/App.jsx` / `src/pages/HomePage.jsx`（已归档至 legacy-vite）
+
+## [2026-06-02] - 智能体模式对接 SuperAgents 新接口
+
+### Changed
+
+- 修改 `src/api/index.js`，新增 `API.superAgents.chat`（`/api/super-agents/chat`）
+- 修改 `src/api/chat.js`，`sendAgentChatMessage` 改调平台新接口，请求体仅 `conversationId` + `message`，可选 Header `X-Tenant-Id`（`VITE_SUPER_AGENTS_TENANT_ID`，默认 `default`）
+- 修改 `src/constants/chatMode.js` 注释
+
 ## [2026-05-31] - LV 主题侧边栏历史区样式修复
 
 ### Fixed

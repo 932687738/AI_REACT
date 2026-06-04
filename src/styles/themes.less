@@ -1,0 +1,185 @@
+/* YXY 默认深色 */
+html[data-theme='yxy'],
+html:not([data-theme]) {
+  --nebula-page-bg:
+    radial-gradient(circle at 18% 8%, rgb(56 189 248 / 14%), transparent 28%),
+    radial-gradient(circle at 82% 0%, rgb(99 102 241 / 12%), transparent 22%),
+    linear-gradient(180deg, #0b1526 0%, #060b14 100%);
+  --nebula-ink: #e8eef9;
+  --nebula-ink-muted: #94a3b8;
+  --nebula-ink-placeholder: #8fa0ba;
+  --nebula-surface: rgb(11 22 38 / 96%);
+  --nebula-surface-soft: rgb(21 34 56 / 94%);
+  --nebula-surface-card: rgb(21 34 56 / 96%);
+  --nebula-input-bg: #132038;
+  --nebula-table-head-bg: #1a2942;
+  --nebula-border: rgb(148 163 184 / 18%);
+  --nebula-border-strong: rgb(148 163 184 / 28%);
+  --nebula-accent: rgb(56 189 248 / 35%);
+  --nebula-accent-soft: rgb(56 189 248 / 10%);
+  --nebula-chip-bg: rgb(15 23 42 / 55%);
+  --nebula-chip-border: rgb(148 163 184 / 16%);
+  --nebula-chip-hover-bg: rgb(148 163 184 / 10%);
+  --nebula-nav-ink: #e2e8f0;
+  --nebula-nav-ink-muted: #cbd5e1;
+  --nebula-nav-active-ink: #f0f9ff;
+  --nebula-nav-active-bg: rgb(56 189 248 / 18%);
+  --nebula-nav-hover-bg: rgb(148 163 184 / 12%);
+  --nebula-nav-accent: #38bdf8;
+  --nebula-chat-column-max: 900px;
+  --nebula-chat-column-ratio: 68%;
+  --nebula-chat-column-min: 320px;
+}
+
+html[data-theme='dzj'] {
+  --nebula-page-bg:
+    radial-gradient(circle at 18% 8%, rgb(125 211 252 / 45%), transparent 32%),
+    radial-gradient(circle at 82% 0%, rgb(186 230 253 / 55%), transparent 28%),
+    linear-gradient(180deg, #dbeafe 0%, #f0f9ff 42%, #fff 100%);
+  --nebula-ink: #0f172a;
+  --nebula-ink-muted: #64748b;
+  --nebula-surface: rgb(255 255 255 / 82%);
+  --nebula-surface-soft: rgb(255 255 255 / 92%);
+  --nebula-surface-card: rgb(255 255 255 / 94%);
+  --nebula-input-bg: #fff;
+  --nebula-table-head-bg: #f1f5f9;
+  --nebula-border: rgb(125 211 252 / 55%);
+  --nebula-border-strong: rgb(148 163 184 / 35%);
+  --nebula-accent: rgb(56 189 248 / 45%);
+  --nebula-accent-soft: rgb(224 242 254 / 88%);
+  --nebula-chip-bg: rgb(255 255 255 / 82%);
+  --nebula-chip-border: rgb(125 211 252 / 45%);
+  --nebula-chip-hover-bg: rgb(224 242 254 / 88%);
+  --nebula-nav-ink: #0f172a;
+  --nebula-nav-ink-muted: #475569;
+  --nebula-nav-active-ink: #0369a1;
+  --nebula-nav-active-bg: rgb(186 230 253 / 88%);
+  --nebula-nav-hover-bg: rgb(224 242 254 / 72%);
+  --nebula-nav-accent: #0284c7;
+}
+
+html[data-theme='lv'] {
+  --nebula-page-bg:
+    radial-gradient(circle at 18% 8%, rgb(134 239 172 / 45%), transparent 32%),
+    radial-gradient(circle at 82% 0%, rgb(187 247 208 / 55%), transparent 28%),
+    linear-gradient(180deg, #dcfce7 0%, #f0fdf4 42%, #fff 100%);
+  --nebula-ink: #0f172a;
+  --nebula-ink-muted: #64748b;
+  --nebula-surface: rgb(255 255 255 / 82%);
+  --nebula-surface-soft: rgb(255 255 255 / 92%);
+  --nebula-surface-card: rgb(255 255 255 / 94%);
+  --nebula-input-bg: #fff;
+  --nebula-table-head-bg: #f0fdf4;
+  --nebula-border: rgb(134 239 172 / 55%);
+  --nebula-border-strong: rgb(148 163 184 / 35%);
+  --nebula-accent: rgb(34 197 94 / 45%);
+  --nebula-accent-soft: rgb(220 252 231 / 88%);
+  --nebula-chip-bg: rgb(255 255 255 / 82%);
+  --nebula-chip-border: rgb(134 239 172 / 45%);
+  --nebula-chip-hover-bg: rgb(220 252 231 / 88%);
+  --nebula-nav-ink: #0f172a;
+  --nebula-nav-ink-muted: #475569;
+  --nebula-nav-active-ink: #15803d;
+  --nebula-nav-active-bg: rgb(187 247 208 / 88%);
+  --nebula-nav-hover-bg: rgb(220 252 231 / 72%);
+  --nebula-nav-accent: #16a34a;
+}
+
+/* 原生 button：仅 reset 浏览器白底，不覆盖组件字色 */
+.nebula-layout button:not(.ant-btn),
+.nebula-chat-shell button:not(.ant-btn) {
+  margin: 0;
+  font: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+}
+
+.nebula-layout {
+  background: var(--nebula-page-bg) !important;
+}
+
+.nebula-sider.ant-layout-sider {
+  background: var(--nebula-surface) !important;
+  border-right: 1px solid var(--nebula-border) !important;
+}
+
+.nebula-layout .nebula-brand strong,
+.nebula-layout .nebula-profile-name,
+.nebula-layout .nebula-profile-trigger,
+.nebula-layout .nebula-module-trigger,
+.nebula-layout .nebula-nav-item,
+.nebula-chat-topbar h1,
+.nebula-chat-welcome h2,
+.nebula-chat-bubble,
+.nebula-settings-profile h1,
+.nebula-settings-item {
+  color: var(--nebula-nav-ink);
+}
+
+.nebula-layout .nebula-brand span,
+.nebula-layout .nebula-module-title,
+.nebula-chat-topbar p,
+.nebula-chat-welcome p,
+.nebula-settings-profile p,
+.nebula-settings-feature p {
+  color: var(--nebula-nav-ink-muted);
+}
+
+.nebula-layout .nebula-module-trigger:hover,
+.nebula-layout .nebula-nav-item:hover {
+  background: var(--nebula-nav-hover-bg);
+  color: var(--nebula-nav-ink);
+}
+
+.nebula-layout .nebula-module-trigger-active,
+.nebula-layout .nebula-nav-item-active {
+  background: var(--nebula-nav-active-bg) !important;
+  color: var(--nebula-nav-active-ink) !important;
+  font-weight: 600;
+}
+
+.nebula-layout .nebula-module-trigger-active {
+  box-shadow: inset 3px 0 0 var(--nebula-nav-accent);
+}
+
+.nebula-layout .nebula-nav-item-active {
+  box-shadow: inset 3px 0 0 var(--nebula-nav-accent);
+}
+
+.nebula-chat-bubble-assistant,
+.nebula-chat-bubble-user {
+  border: 1px solid var(--nebula-border);
+  background: var(--nebula-surface-soft);
+}
+
+html[data-theme='dzj'] .nebula-settings-screen,
+html[data-theme='lv'] .nebula-settings-screen {
+  background: var(--nebula-page-bg);
+}
+
+html[data-theme='dzj'] .nebula-settings-card,
+html[data-theme='lv'] .nebula-settings-card {
+  background: var(--nebula-surface-soft);
+  border-color: var(--nebula-border);
+}
+
+html[data-theme='dzj'] .nebula-retrieval-trigger,
+html[data-theme='lv'] .nebula-retrieval-trigger {
+  border-color: var(--nebula-border);
+  background: var(--nebula-surface-soft);
+  color: var(--nebula-ink);
+}
+
+html[data-theme='dzj'] .nebula-layout .nebula-profile,
+html[data-theme='lv'] .nebula-layout .nebula-profile {
+  background: var(--nebula-accent-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula-layout *,
+  .nebula-chat-shell * {
+    transition: none !important;
+  }
+}

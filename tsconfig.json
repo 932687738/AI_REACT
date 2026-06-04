@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ES2020"],
+    "jsx": "react-jsx",
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@@/*": ["src/.umi/*"],
+      "@umijs/max": ["src/.umi/exports"],
+      "@umijs/max/typings": ["src/.umi/typings"]
+    }
+  },
+  "include": ["src", ".umirc.ts", "typings.d.ts"]
+}

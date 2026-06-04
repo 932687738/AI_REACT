@@ -1,0 +1,146 @@
+.panel {
+  margin-top: 12px;
+  border: 1px solid rgb(148 163 184 / 16%);
+  border-radius: 10px;
+  background: rgb(15 23 42 / 45%);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  list-style: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(56 189 248 / 55%);
+    outline-offset: 2px;
+  }
+}
+
+.title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.count {
+  min-width: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgb(56 189 248 / 14%);
+  color: #bae6fd;
+  font-size: 12px;
+  text-align: center;
+}
+
+.list {
+  margin: 0;
+  padding: 0 8px 8px;
+  list-style: none;
+}
+
+.item {
+  margin-top: 6px;
+}
+
+.hit,
+.static {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.hit {
+  border: 1px solid transparent;
+  color: inherit;
+  transition: background-color 160ms ease, border-color 160ms ease;
+
+  &:hover {
+    background: rgb(148 163 184 / 8%);
+    border-color: rgb(56 189 248 / 18%);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(56 189 248 / 55%);
+    outline-offset: 2px;
+  }
+}
+
+.static {
+  border: 1px solid rgb(148 163 184 / 10%);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.icon {
+  margin-top: 2px;
+  color: #94a3b8;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.docName {
+  display: block;
+  color: #f1f5f9;
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kbName {
+  display: block;
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.score {
+  color: #7dd3fc;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.preview {
+  margin: 8px 0 0;
+  color: rgb(203 213 225 / 88%);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.vector {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 8px;
+  color: #38bdf8;
+  font-size: 12px;
+}
+
+.hint {
+  margin: 0;
+  padding: 0 12px 10px;
+  color: #94a3b8;
+  font-size: 11px;
+  line-height: 1.5;
+}

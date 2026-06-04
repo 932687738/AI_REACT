@@ -1,0 +1,181 @@
+.screen {
+  min-width: 0;
+  padding: 8px 8px 24px 4px;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: 20px;
+}
+
+.topbar,
+.topbarCompact {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.topbarCompact {
+  min-height: 32px;
+}
+
+.refreshBtn {
+  border-radius: 999px;
+}
+
+.search {
+  min-width: min(100%, 320px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgb(148 163 184 / 18%);
+  background: rgb(255 255 255 / 96%);
+  color: #0f172a;
+
+  input {
+    color: #0f172a;
+  }
+}
+
+.header {
+  h1 {
+    margin: 0;
+    color: var(--nebula-ink, #f8fafc);
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: var(--nebula-ink-muted, rgb(148 163 184 / 92%));
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+}
+
+.section {
+  display: grid;
+  gap: 14px;
+
+  h2 {
+    margin: 0;
+    color: #cbd5e1;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 160px;
+  padding: 24px;
+  border-radius: 22px;
+  border: 1px dashed rgb(148 163 184 / 22%);
+  background: rgb(15 23 42 / 45%);
+  color: rgb(148 163 184 / 92%);
+  text-align: center;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid rgb(229 231 235 / 86%);
+  background: rgb(255 255 255 / 96%);
+  color: #111827;
+}
+
+.cardIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgb(56 189 248 / 22%), rgb(99 102 241 / 18%));
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.cardBody {
+  min-width: 0;
+
+  strong {
+    display: block;
+    font-size: 15px;
+    line-height: 1.35;
+  }
+
+  p {
+    margin: 6px 0 0;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  small {
+    display: block;
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 12px;
+  }
+}
+
+.exampleList {
+  margin: 10px 0 0;
+  padding-left: 16px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.45;
+
+  li + li {
+    margin-top: 4px;
+  }
+}
+
+.cardStatus {
+  color: #94a3b8;
+  font-size: 18px;
+  line-height: 1;
+}
+
+html[data-theme='dzj'] .card,
+html[data-theme='lv'] .card {
+  background: rgb(255 255 255 / 98%);
+}
+
+html[data-theme='yxy'] .search,
+html[data-theme='yxy'] .card,
+html:not([data-theme]) .search,
+html:not([data-theme]) .card {
+  background: rgb(255 255 255 / 96%);
+}
+
+@media (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .search {
+    min-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

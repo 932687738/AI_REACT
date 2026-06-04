@@ -81,16 +81,26 @@ export async function sendKnowledgeChatMessage(payload, handlers = {}) {
   })
 }
 
-/** 智能体模式：POST /api/agent-hub/chat/agent */
+/** 智能体模式：POST /api/super-agents/chat（SuperAgents 平台，与存量 Agent Hub 分离） */
 export async function sendAgentChatMessage(payload, handlers = {}) {
   const useMock = import.meta.env.VITE_USE_MOCK_CHAT === 'true'
-  const requestBody = buildRequestBody(payload)
+  const requestBody = {
+    conversationId: payload.conversationId,
+    message: payload.message,
+  }
+  const tenantId = import.meta.env.VITE_SUPER_AGENTS_TENANT_ID || 'default'
 
   if (useMock) {
     return mockStream(payload, handlers, CHAT_MODE.AGENT)
   }
 
-  return postStream(API.agentHub.chatAgent, requestBody, handlers)
+  return postStream(API.superAgents.chat, requestBody, {
+    ...handlers,
+    headers: {
+      ...(handlers.headers || {}),
+      'X-Tenant-Id': tenantId,
+    },
+  })
 }
 
 /** 需求开发模式：POST /api/agent-hub/requirement-dev */
