@@ -1,13 +1,18 @@
 import { MoreOutlined, PlusOutlined, PushpinFilled } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
 import { useIntl } from '@umijs/max';
-import { Dropdown, Input, Spin, Typography } from 'antd';
+import { Dropdown, Input, Spin, Typography, message } from 'antd';
 import type { InputRef } from 'antd';
 import { CHAT_MODE, type ChatMode } from '@/constants/chatMode';
 import { useChatSession } from '@/context/ChatSessionProvider';
 import { useShareMode } from '@/context/ShareModeProvider';
 import { useConversationHistory } from '@/hooks/useConversationHistory';
+import { useConversationSearch } from '@/hooks/useConversationSearch';
+import { checkConversationExists } from '@/services/conversationService';
+import type { ConversationSearchHit } from '@/openapi/typings';
 import { truncateTitle } from '@/utils/conversationHelpers';
+import ConversationSearchBox from './ConversationSearchBox';
+import ConversationSearchResults from './ConversationSearchResults';
 import styles from './ConversationHistoryPanel.less';
 
 interface ConversationHistoryPanelProps {
@@ -28,10 +33,23 @@ export default function ConversationHistoryPanel({
   chatMode,
 }: ConversationHistoryPanelProps) {
   const intl = useIntl();
-  const { conversationId, setConversationId, startNewConversation } = useChatSession();
+  const { conversationId, setConversationId, setPendingScrollMessageId, startNewConversation } =
+    useChatSession();
   const shareMode = useShareMode();
   const { items, isLoading, renameConversation, pinConversation, deleteConversation } =
     useConversationHistory(chatMode);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchActive = searchQuery.trim().length > 0;
+  const searchDisabled = shareMode.active;
+  const {
+    debouncedQuery,
+    items: searchItems,
+    isLoading: isSearchLoading,
+    isError: isSearchError,
+    hasMore,
+    fetchMore,
+    refetch: refetchSearch,
+  } = useConversationSearch(chatMode, searchQuery);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
   const renameInputRef = useRef<InputRef>(null);
@@ -45,6 +63,33 @@ export default function ConversationHistoryPanel({
 
   const handleSelect = (id: string) => {
     setConversationId(id);
+  };
+
+  const handleSearchClear = () => {
+    setSearchQuery('');
+  };
+
+  const handleSearchSelect = async (hit: ConversationSearchHit) => {
+    const targetConversationId = hit.conversationId;
+    if (!targetConversationId) {
+      return;
+    }
+
+    try {
+      const { exists } = await checkConversationExists(targetConversationId);
+      if (!exists) {
+        message.warning(intl.formatMessage({ id: 'layout.search.targetMissing' }));
+        void refetchSearch();
+        return;
+      }
+    } catch {
+      message.warning(intl.formatMessage({ id: 'layout.search.targetMissing' }));
+      void refetchSearch();
+      return;
+    }
+
+    setConversationId(targetConversationId);
+    setPendingScrollMessageId(hit.messageId ?? null);
   };
 
   const handleRenameCommit = async (id: string) => {
@@ -63,6 +108,9 @@ export default function ConversationHistoryPanel({
   const handleDelete = async (id: string) => {
     try {
       await deleteConversation(id);
+      if (searchActive) {
+        void refetchSearch();
+      }
     } catch {
       // ignore
     }
@@ -87,8 +135,27 @@ export default function ConversationHistoryPanel({
         </button>
       </div>
 
-      <div className={styles.list}>
-        {isLoading ? (
+      {!searchDisabled ? (
+        <ConversationSearchBox
+          value={searchQuery}
+          onChange={setSearchQuery}
+          onClear={handleSearchClear}
+        />
+      ) : null}
+
+      <div className={searchActive ? styles.listSearch : styles.list}>
+        {searchActive ? (
+          <ConversationSearchResults
+            keyword={debouncedQuery}
+            items={searchItems}
+            isLoading={isSearchLoading}
+            isError={isSearchError}
+            hasMore={hasMore}
+            onRetry={() => void refetchSearch()}
+            onLoadMore={() => void fetchMore()}
+            onSelect={(item) => void handleSearchSelect(item)}
+          />
+        ) : isLoading ? (
           <div className={styles.loading}>
             <Spin size="small" />
           </div>

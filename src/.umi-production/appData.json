@@ -1,5 +1,5 @@
 {
-  "cwd": "D:\\cache\\workspace\\AI_REACT",
+  "cwd": "D:\\cache\\workspace\\ai_react",
   "pkg": {
     "name": "nebula-desk",
     "private": true,
@@ -36,12 +36,12 @@
       "@vitejs/plugin-react": "^6.0.1"
     }
   },
-  "pkgPath": "D:\\cache\\workspace\\AI_REACT\\package.json",
+  "pkgPath": "D:\\cache\\workspace\\ai_react\\package.json",
   "plugins": {
     "./node_modules/@umijs/core/dist/service/servicePlugin": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "preset",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/core/dist/service/servicePlugin.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/core/dist/service/servicePlugin.js",
       "id": "./node_modules/@umijs/core/dist/service/servicePlugin",
       "key": "servicePlugin",
       "config": {},
@@ -52,35 +52,35 @@
       "enableBy": "register"
     },
     "@umijs/preset-umi": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "preset",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/index.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/index.js",
       "id": "@umijs/preset-umi",
       "key": "umi",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 9
+        "register": 8
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/max/dist/preset": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "preset",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/max/dist/preset.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/max/dist/preset.js",
       "id": "./node_modules/@umijs/max/dist/preset",
       "key": "preset",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 5
+        "register": 7
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/registerMethods": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/registerMethods.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/registerMethods.js",
       "id": "./node_modules/@umijs/preset-umi/dist/registerMethods",
       "key": "registerMethods",
       "config": {},
@@ -90,31 +90,31 @@
             0
           ]
         },
-        "register": 4
+        "register": 3
       },
       "enableBy": "register"
     },
     "@umijs/did-you-know": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/did-you-know/dist/plugin.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/did-you-know/dist/plugin.js",
       "id": "@umijs/did-you-know",
       "key": "umijsDidYouKnow",
       "config": {},
       "time": {
         "hooks": {
           "onStart": [
-            3
+            2
           ]
         },
-        "register": 3
+        "register": 2
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/404/404": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/404/404.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/404/404.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/404/404",
       "key": "404",
       "config": {},
@@ -124,14 +124,14 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/aiDev/aiDev": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/aiDev/aiDev.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/aiDev/aiDev.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/aiDev/aiDev",
       "key": "aiDev",
       "config": {},
@@ -142,16 +142,16 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/appData/appData": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/appData/appData.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/appData/appData.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/appData/appData",
       "key": "appData",
       "config": {},
       "time": {
         "hooks": {
           "modifyAppData": [
-            322
+            253
           ]
         },
         "register": 23
@@ -159,22 +159,22 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/appData/umiInfo": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/appData/umiInfo.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/appData/umiInfo.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/appData/umiInfo",
       "key": "umiInfo",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/check/check": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/check/check.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/check/check.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/check/check",
       "key": "check",
       "config": {},
@@ -187,14 +187,14 @@
             0
           ]
         },
-        "register": 2
+        "register": 1
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/check/babel722": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/check/babel722.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/check/babel722.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/check/babel722",
       "key": "babel722",
       "config": {},
@@ -209,9 +209,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/codeSplitting/codeSplitting": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/codeSplitting/codeSplitting.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/codeSplitting/codeSplitting.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/codeSplitting/codeSplitting",
       "key": "codeSplitting",
       "config": {},
@@ -222,9 +222,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/configPlugins/configPlugins": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/configPlugins/configPlugins.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/configPlugins/configPlugins.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/configPlugins/configPlugins",
       "key": "configPlugins",
       "config": {},
@@ -1064,10 +1064,10 @@
       "config": {
         "default": {
           "umi": "@@/exports",
-          "react": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react",
-          "react-dom": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-dom",
-          "react-router": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-router",
-          "react-router-dom": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-router-dom"
+          "react": "D:\\cache\\workspace\\ai_react\\node_modules\\react",
+          "react-dom": "D:\\cache\\workspace\\ai_react\\node_modules\\react-dom",
+          "react-router": "D:\\cache\\workspace\\ai_react\\node_modules\\react-router",
+          "react-router-dom": "D:\\cache\\workspace\\ai_react\\node_modules\\react-router-dom"
         }
       },
       "type": "plugin",
@@ -1078,29 +1078,29 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/crossorigin/crossorigin": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/crossorigin/crossorigin.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/crossorigin/crossorigin.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/crossorigin/crossorigin",
       "key": "crossorigin",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/depsOnDemand/depsOnDemand": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/depsOnDemand/depsOnDemand.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/depsOnDemand/depsOnDemand.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/depsOnDemand/depsOnDemand",
       "key": "depsOnDemand",
       "config": {},
       "time": {
         "hooks": {
           "onStart": [
-            0
+            1
           ]
         },
         "register": 1
@@ -1108,9 +1108,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/devTool/devTool": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/devTool/devTool.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/devTool/devTool.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/devTool/devTool",
       "key": "devTool",
       "config": {},
@@ -1121,35 +1121,35 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/esbuildHelperChecker/esbuildHelperChecker": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/esbuildHelperChecker/esbuildHelperChecker.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/esbuildHelperChecker/esbuildHelperChecker.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/esbuildHelperChecker/esbuildHelperChecker",
       "key": "esbuildHelperChecker",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 90
+        "register": 87
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/esmi/esmi": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/esmi/esmi.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/esmi/esmi.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/esmi/esmi",
       "key": "esmi",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 42
+        "register": 40
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/exportStatic/exportStatic": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/exportStatic/exportStatic.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/exportStatic/exportStatic.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/exportStatic/exportStatic",
       "key": "exportStatic",
       "config": {},
@@ -1160,26 +1160,26 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/favicons/favicons": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/favicons/favicons.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/favicons/favicons.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/favicons/favicons",
       "key": "favicons",
       "config": {},
       "time": {
         "hooks": {
           "modifyAppData": [
-            0
+            1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/helmet/helmet": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/helmet/helmet.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/helmet/helmet.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/helmet/helmet",
       "key": "helmet",
       "config": {},
@@ -1190,34 +1190,34 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/icons/icons": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/icons/icons.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/icons/icons.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/icons/icons",
       "key": "icons",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/mock/mock": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/mock/mock.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/mock/mock.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/mock/mock",
       "key": "mock",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 36
+        "register": 34
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/mpa/mpa": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/mpa/mpa.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/mpa/mpa.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/mpa/mpa",
       "key": "mpa",
       "config": {},
@@ -1228,9 +1228,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/okam/okam": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/okam/okam.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/okam/okam.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/okam/okam",
       "key": "okam",
       "config": {},
@@ -1240,9 +1240,9 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/overrides/overrides": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/overrides/overrides.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/overrides/overrides.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/overrides/overrides",
       "key": "overrides",
       "config": {},
@@ -1253,9 +1253,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/phantomDependency/phantomDependency": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/phantomDependency/phantomDependency.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/phantomDependency/phantomDependency.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/phantomDependency/phantomDependency",
       "key": "phantomDependency",
       "config": {},
@@ -1266,9 +1266,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/polyfill/polyfill",
       "key": "polyfill",
       "config": {},
@@ -1282,9 +1282,9 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill",
       "key": "publicPathPolyfill",
       "config": {},
@@ -1295,9 +1295,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/prepare/prepare": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/prepare/prepare.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/prepare/prepare.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/prepare/prepare",
       "key": "prepare",
       "config": {},
@@ -1308,9 +1308,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/routePrefetch/routePrefetch": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/routePrefetch/routePrefetch.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/routePrefetch/routePrefetch.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/routePrefetch/routePrefetch",
       "key": "routePrefetch",
       "config": {},
@@ -1321,9 +1321,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/stagewise/stagewise": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/stagewise/stagewise.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/stagewise/stagewise.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/stagewise/stagewise",
       "key": "stagewise",
       "config": {},
@@ -1334,9 +1334,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/terminal/terminal": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/terminal/terminal.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/terminal/terminal.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/terminal/terminal",
       "key": "terminal",
       "config": {},
@@ -1347,9 +1347,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/tmpFiles/tmpFiles": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/tmpFiles/tmpFiles.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/tmpFiles/tmpFiles.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/tmpFiles/tmpFiles",
       "key": "tmpFiles",
       "config": {},
@@ -1360,9 +1360,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/clientLoader/clientLoader": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/clientLoader/clientLoader.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/clientLoader/clientLoader.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/clientLoader/clientLoader",
       "key": "clientLoader",
       "config": {},
@@ -1373,9 +1373,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/routeProps/routeProps",
       "key": "routeProps",
       "config": {},
@@ -1385,9 +1385,9 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/ssr/ssr": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/ssr/ssr.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/ssr/ssr.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/ssr/ssr",
       "key": "ssr",
       "config": {},
@@ -1398,9 +1398,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/tmpFiles/configTypes": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/tmpFiles/configTypes.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/tmpFiles/configTypes.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/tmpFiles/configTypes",
       "key": "configTypes",
       "config": {},
@@ -1411,9 +1411,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/transform/transform": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/transform/transform.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/transform/transform.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/transform/transform",
       "key": "transform",
       "config": {},
@@ -1424,9 +1424,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/lowImport/lowImport": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/lowImport/lowImport.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/lowImport/lowImport.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/lowImport/lowImport",
       "key": "lowImport",
       "config": {},
@@ -1437,9 +1437,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/vite/vite": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/vite/vite.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/vite/vite.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/vite/vite",
       "key": "vite",
       "config": {},
@@ -1450,21 +1450,21 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/apiRoute/apiRoute",
       "key": "apiRoute",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 7
+        "register": 6
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/monorepo/redirect": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/monorepo/redirect.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/monorepo/redirect.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/monorepo/redirect",
       "key": "monorepoRedirect",
       "config": {},
@@ -1475,9 +1475,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/test/test": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/test/test.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/test/test.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/test/test",
       "key": "test",
       "config": {},
@@ -1487,9 +1487,9 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/clickToComponent/clickToComponent": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/clickToComponent/clickToComponent.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/clickToComponent/clickToComponent.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/clickToComponent/clickToComponent",
       "key": "clickToComponent",
       "config": {},
@@ -1499,9 +1499,9 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/legacy/legacy": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/legacy/legacy.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/legacy/legacy.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/legacy/legacy",
       "key": "legacy",
       "config": {},
@@ -1512,9 +1512,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/classPropertiesLoose/classPropertiesLoose": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/classPropertiesLoose/classPropertiesLoose.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/classPropertiesLoose/classPropertiesLoose.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/classPropertiesLoose/classPropertiesLoose",
       "key": "classPropertiesLoose",
       "config": {},
@@ -1525,9 +1525,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/webpack/webpack": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/webpack/webpack.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/webpack/webpack.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/webpack/webpack",
       "key": "preset-umi:webpack",
       "config": {},
@@ -1537,51 +1537,51 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/swc/swc": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/swc/swc.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/swc/swc.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/swc/swc",
       "key": "swc",
       "config": {},
       "time": {
         "hooks": {
           "addOnDemandDeps": [
-            0
+            1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/features/ui/ui": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/ui/ui.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/ui/ui.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/ui/ui",
       "key": "ui",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 7
+        "register": 5
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/mako/mako": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/mako/mako.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/mako/mako.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/mako/mako",
       "key": "mako",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/utoopack/utoopack": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/utoopack/utoopack.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/utoopack/utoopack.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/utoopack/utoopack",
       "key": "utoopack",
       "config": {},
@@ -1591,46 +1591,46 @@
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian",
       "key": "hmrGuardian",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad",
       "key": "routePreloadOnLoad",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 34
+        "register": 32
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/forget/forget": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/forget/forget.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/forget/forget.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/forget/forget",
       "key": "forget",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/preset-umi/dist/features/bundler/bundler": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/features/bundler/bundler.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/features/bundler/bundler.js",
       "id": "./node_modules/@umijs/preset-umi/dist/features/bundler/bundler",
       "key": "preset-umi:bundler",
       "config": {},
@@ -1641,62 +1641,49 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/build": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/build.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/build.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/build",
       "key": "build",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 4
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/config/config": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/config/config.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/config/config.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/config/config",
       "key": "config",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 35
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/dev/dev": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/dev/dev.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/dev/dev.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/dev/dev",
       "key": "dev",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 36
       }
     },
     "./node_modules/@umijs/preset-umi/dist/commands/help": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/help.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/help.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/help",
       "key": "help",
-      "config": {},
-      "time": {
-        "hooks": {},
-        "register": 1
-      },
-      "enableBy": "register"
-    },
-    "./node_modules/@umijs/preset-umi/dist/commands/lint": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
-      "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/lint.js",
-      "id": "./node_modules/@umijs/preset-umi/dist/commands/lint",
-      "key": "lint",
       "config": {},
       "time": {
         "hooks": {},
@@ -1704,12 +1691,12 @@
       },
       "enableBy": "register"
     },
-    "./node_modules/@umijs/preset-umi/dist/commands/setup": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+    "./node_modules/@umijs/preset-umi/dist/commands/lint": {
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/setup.js",
-      "id": "./node_modules/@umijs/preset-umi/dist/commands/setup",
-      "key": "setup",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/lint.js",
+      "id": "./node_modules/@umijs/preset-umi/dist/commands/lint",
+      "key": "lint",
       "config": {},
       "time": {
         "hooks": {},
@@ -1717,10 +1704,23 @@
       },
       "enableBy": "register"
     },
-    "./node_modules/@umijs/preset-umi/dist/commands/deadcode": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+    "./node_modules/@umijs/preset-umi/dist/commands/setup": {
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/deadcode.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/setup.js",
+      "id": "./node_modules/@umijs/preset-umi/dist/commands/setup",
+      "key": "setup",
+      "config": {},
+      "time": {
+        "hooks": {},
+        "register": 0
+      },
+      "enableBy": "register"
+    },
+    "./node_modules/@umijs/preset-umi/dist/commands/deadcode": {
+      "cwd": "D:\\cache\\workspace\\ai_react",
+      "type": "plugin",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/deadcode.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/deadcode",
       "key": "deadcode",
       "config": {},
@@ -1731,35 +1731,35 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/version": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/version.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/version.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/version",
       "key": "version",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/page": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/page.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/page.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/page",
       "key": "generator:page",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/prettier": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/prettier.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/prettier.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/prettier",
       "key": "generator:prettier",
       "config": {},
@@ -1770,9 +1770,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/tsconfig": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/tsconfig.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/tsconfig.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/tsconfig",
       "key": "generator:tsconfig",
       "config": {},
@@ -1783,22 +1783,22 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/jest": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/jest.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/jest.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/jest",
       "key": "generator:jest",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/tailwindcss": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/tailwindcss.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/tailwindcss.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/tailwindcss",
       "key": "generator:tailwindcss",
       "config": {},
@@ -1809,9 +1809,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/dva": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/dva.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/dva.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/dva",
       "key": "generator:dva",
       "config": {},
@@ -1822,9 +1822,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/component": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/component.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/component.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/component",
       "key": "generator:component",
       "config": {},
@@ -1835,9 +1835,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/mock": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/mock.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/mock.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/mock",
       "key": "generator:mock",
       "config": {},
@@ -1848,9 +1848,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/cypress": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/cypress.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/cypress.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/cypress",
       "key": "generator:cypress",
       "config": {},
@@ -1861,9 +1861,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/api": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/api.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/api.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/api",
       "key": "generator:api",
       "config": {},
@@ -1874,9 +1874,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/generators/precommit": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/generators/precommit.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/generators/precommit.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/generators/precommit",
       "key": "generator:precommit",
       "config": {},
@@ -1887,9 +1887,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/plugin": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/plugin.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/plugin.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/plugin",
       "key": "command:plugin",
       "config": {},
@@ -1900,9 +1900,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/verify-commit": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/verify-commit.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/verify-commit.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/verify-commit",
       "key": "verifyCommit",
       "config": {},
@@ -1913,9 +1913,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/preview": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/preview.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/preview.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/preview",
       "key": "preview",
       "config": {},
@@ -1926,9 +1926,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/preset-umi/dist/commands/mfsu/mfsu": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/preset-umi/dist/commands/mfsu/mfsu.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/preset-umi/dist/commands/mfsu/mfsu.js",
       "id": "./node_modules/@umijs/preset-umi/dist/commands/mfsu/mfsu",
       "key": "mfsu-cli",
       "config": {},
@@ -1939,9 +1939,9 @@
       "enableBy": "register"
     },
     "@umijs/plugin-run": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugin-run/dist/index.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugin-run/dist/index.js",
       "id": "@umijs/plugin-run",
       "key": "run",
       "config": {},
@@ -1952,9 +1952,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/plugins/dist/access": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/access.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/access.js",
       "id": "./node_modules/@umijs/plugins/dist/access",
       "key": "access",
       "config": {},
@@ -1965,9 +1965,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/analytics": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/analytics.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/analytics.js",
       "id": "./node_modules/@umijs/plugins/dist/analytics",
       "key": "analytics",
       "config": {
@@ -1979,9 +1979,9 @@
       }
     },
     "./node_modules/@umijs/plugins/dist/antd": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/antd.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/antd.js",
       "id": "./node_modules/@umijs/plugins/dist/antd",
       "key": "antd",
       "config": {},
@@ -2001,9 +2001,9 @@
       }
     },
     "./node_modules/@umijs/plugins/dist/dva": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/dva.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/dva.js",
       "id": "./node_modules/@umijs/plugins/dist/dva",
       "key": "dva",
       "config": {},
@@ -2014,22 +2014,22 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/initial-state": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/initial-state.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/initial-state.js",
       "id": "./node_modules/@umijs/plugins/dist/initial-state",
       "key": "initialState",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/layout": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/layout.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/layout.js",
       "id": "./node_modules/@umijs/plugins/dist/layout",
       "key": "layout",
       "config": {
@@ -2037,14 +2037,14 @@
       },
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 3
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/locale": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/locale.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/locale.js",
       "id": "./node_modules/@umijs/plugins/dist/locale",
       "key": "locale",
       "config": {},
@@ -2055,9 +2055,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/mf": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/mf.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/mf.js",
       "id": "./node_modules/@umijs/plugins/dist/mf",
       "key": "mf",
       "config": {},
@@ -2068,72 +2068,72 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/model": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/model.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/model.js",
       "id": "./node_modules/@umijs/plugins/dist/model",
       "key": "model",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/moment2dayjs": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/moment2dayjs.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/moment2dayjs.js",
       "id": "./node_modules/@umijs/plugins/dist/moment2dayjs",
       "key": "moment2dayjs",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/qiankun": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/qiankun.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/qiankun.js",
       "id": "./node_modules/@umijs/plugins/dist/qiankun",
       "key": "qiankun",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/plugins/dist/qiankun/master": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/qiankun/master.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/qiankun/master.js",
       "id": "./node_modules/@umijs/plugins/dist/qiankun/master",
       "key": "qiankun-master",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       }
     },
     "./node_modules/@umijs/plugins/dist/qiankun/slave": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/qiankun/slave.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/qiankun/slave.js",
       "id": "./node_modules/@umijs/plugins/dist/qiankun/slave",
       "key": "qiankun-slave",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 3
       }
     },
     "./node_modules/@umijs/plugins/dist/react-query": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/react-query.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/react-query.js",
       "id": "./node_modules/@umijs/plugins/dist/react-query",
       "key": "reactQuery",
       "config": {},
@@ -2144,9 +2144,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/request": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/request.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/request.js",
       "id": "./node_modules/@umijs/plugins/dist/request",
       "key": "request",
       "config": {},
@@ -2157,22 +2157,22 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/styled-components": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/styled-components.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/styled-components.js",
       "id": "./node_modules/@umijs/plugins/dist/styled-components",
       "key": "styledComponents",
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/tailwindcss": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/tailwindcss.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/tailwindcss.js",
       "id": "./node_modules/@umijs/plugins/dist/tailwindcss",
       "key": "tailwindcss",
       "config": {},
@@ -2183,9 +2183,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/plugins/dist/valtio": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/dist/valtio.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/plugins/dist/valtio.js",
       "id": "./node_modules/@umijs/plugins/dist/valtio",
       "key": "valtio",
       "config": {},
@@ -2196,9 +2196,9 @@
       "enableBy": "config"
     },
     "./node_modules/@umijs/max/dist/plugins/maxAlias": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/max/dist/plugins/maxAlias.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/max/dist/plugins/maxAlias.js",
       "id": "./node_modules/@umijs/max/dist/plugins/maxAlias",
       "key": "maxAlias",
       "config": {},
@@ -2208,14 +2208,14 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/max/dist/plugins/maxAppData": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/max/dist/plugins/maxAppData.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/max/dist/plugins/maxAppData.js",
       "id": "./node_modules/@umijs/max/dist/plugins/maxAppData",
       "key": "maxAppData",
       "config": {},
@@ -2225,14 +2225,14 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
     "./node_modules/@umijs/max/dist/plugins/maxChecker": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/max/dist/plugins/maxChecker.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/max/dist/plugins/maxChecker.js",
       "id": "./node_modules/@umijs/max/dist/plugins/maxChecker",
       "key": "maxChecker",
       "config": {},
@@ -2247,9 +2247,9 @@
       "enableBy": "register"
     },
     "./node_modules/@umijs/core/dist/service/generatePlugin": {
-      "cwd": "D:\\cache\\workspace\\AI_REACT",
+      "cwd": "D:\\cache\\workspace\\ai_react",
       "type": "plugin",
-      "path": "D:/cache/workspace/AI_REACT/node_modules/@umijs/core/dist/service/generatePlugin.js",
+      "path": "D:/cache/workspace/ai_react/node_modules/@umijs/core/dist/service/generatePlugin.js",
       "id": "./node_modules/@umijs/core/dist/service/generatePlugin",
       "key": "generatePlugin",
       "config": {},
@@ -2352,7 +2352,7 @@
       }
     ]
   },
-  "mainConfigFile": "D:\\cache\\workspace\\AI_REACT\\.umirc.ts",
+  "mainConfigFile": "D:\\cache\\workspace\\ai_react\\.umirc.ts",
   "config": {
     "routeLoader": {
       "moduleType": "esm"
@@ -2372,14 +2372,14 @@
     "autoCSSModules": true,
     "alias": {
       "umi": "@@/exports",
-      "react": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react",
-      "react-dom": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-dom",
-      "react-router": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-router",
-      "react-router-dom": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-router-dom",
-      "@": "D:/cache/workspace/AI_REACT/src",
-      "@@": "D:/cache/workspace/AI_REACT/src/.umi-production",
-      "regenerator-runtime": "D:\\cache\\workspace\\AI_REACT\\node_modules\\regenerator-runtime",
-      "antd": "D:\\cache\\workspace\\AI_REACT\\node_modules\\antd",
+      "react": "D:\\cache\\workspace\\ai_react\\node_modules\\react",
+      "react-dom": "D:\\cache\\workspace\\ai_react\\node_modules\\react-dom",
+      "react-router": "D:\\cache\\workspace\\ai_react\\node_modules\\react-router",
+      "react-router-dom": "D:\\cache\\workspace\\ai_react\\node_modules\\react-router-dom",
+      "@": "D:/cache/workspace/ai_react/src",
+      "@@": "D:/cache/workspace/ai_react/src/.umi-production",
+      "regenerator-runtime": "D:\\cache\\workspace\\ai_react\\node_modules\\regenerator-runtime",
+      "antd": "D:\\cache\\workspace\\ai_react\\node_modules\\antd",
       "@umijs/max": "@@/exports"
     },
     "npmClient": "npm",
@@ -3393,7 +3393,7 @@
       "absPath": "/share/:shareId",
       "__content": "import { useEffect, useState } from 'react';\r\nimport { useIntl, useParams } from '@umijs/max';\r\nimport { Spin, Typography } from 'antd';\r\nimport { loadConversationShare, type ShareDetail } from '@/services/conversationShareService';\r\nimport styles from './index.less';\r\n\r\nexport default function ConversationSharePage() {\r\n  const intl = useIntl();\r\n  const { shareId = '' } = useParams<{ shareId: string }>();\r\n  const [detail, setDetail] = useState<ShareDetail | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n  const [notFound, setNotFound] = useState(false);\r\n\r\n  useEffect(() => {\r\n    let cancelled = false;\r\n    setLoading(true);\r\n    setNotFound(false);\r\n    void loadConversationShare(shareId)\r\n      .then((data) => {\r\n        if (!cancelled) {\r\n          setDetail(data);\r\n        }\r\n      })\r\n      .catch(() => {\r\n        if (!cancelled) {\r\n          setNotFound(true);\r\n          setDetail(null);\r\n        }\r\n      })\r\n      .finally(() => {\r\n        if (!cancelled) {\r\n          setLoading(false);\r\n        }\r\n      });\r\n    return () => {\r\n      cancelled = true;\r\n    };\r\n  }, [shareId]);\r\n\r\n  if (loading) {\r\n    return (\r\n      <div className={styles.page}>\r\n        <Spin tip={intl.formatMessage({ id: 'chat.share.loading' })} />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  if (notFound || !detail) {\r\n    return (\r\n      <div className={styles.page}>\r\n        <Typography.Title level={4}>{intl.formatMessage({ id: 'chat.share.notFound' })}</Typography.Title>\r\n      </div>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <div className={styles.page}>\r\n      <header className={styles.header}>\r\n        <Typography.Title level={3}>{detail.title || intl.formatMessage({ id: 'chat.share.pageTitle' })}</Typography.Title>\r\n      </header>\r\n      <div className={styles.thread}>\r\n        {detail.groups.flatMap((group) =>\r\n          group.messages.map((message, index) => (\r\n            <article\r\n              key={`${group.groupIndex}-${index}`}\r\n              className={`${styles.messageRow} ${message.role === 'user' ? styles.messageRowUser : ''}`}\r\n            >\r\n              <div\r\n                className={`${styles.bubble} ${\r\n                  message.role === 'user' ? styles.bubbleUser : styles.bubbleAssistant\r\n                }`}\r\n              >\r\n                {message.text}\r\n              </div>\r\n            </article>\r\n          )),\r\n        )}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/share/$shareId/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/share/$shareId/index.tsx"
     },
     "2": {
       "path": "/",
@@ -3402,7 +3402,7 @@
       "absPath": "/",
       "__content": "import {\r\n  CommentOutlined,\r\n  DatabaseOutlined,\r\n  DownOutlined,\r\n  MenuFoldOutlined,\r\n  MenuUnfoldOutlined,\r\n  RobotOutlined,\r\n  SettingOutlined,\r\n} from '@ant-design/icons';\r\nimport { useEffect, useState } from 'react';\r\nimport { resolveBrandMark } from '@/constants/theme';\r\nimport { useAppStore, selectSidebarCollapsed, selectTheme } from '@/models/useAppStore';\r\nimport { history, Outlet, useIntl, useLocation, SelectLang } from '@umijs/max';\r\nimport { Avatar, Button, Dropdown, Layout } from 'antd';\r\nimport { ROUTES, isChatRoute } from '@/constants/routes';\r\nimport { chatModeFromPath } from '@/utils/chatModeFromPath';\r\nimport { ChatSessionProvider, useChatSession } from '@/context/ChatSessionProvider';\r\nimport { ShareModeProvider } from '@/context/ShareModeProvider';\r\nimport ConversationHistoryPanel from './ConversationHistoryPanel';\r\nimport { resolveModuleIdFromPath, SIDEBAR_MODULES } from './menuConfig';\r\nimport type { SidebarModuleGroup, SidebarModuleId } from './types';\r\nimport styles from './index.less';\r\n\r\nconst { Sider, Header, Content } = Layout;\r\n\r\nfunction moduleIcon(id: SidebarModuleGroup['id']) {\r\n  if (id === 'knowledge') {\r\n    return <DatabaseOutlined aria-hidden />;\r\n  }\r\n  if (id === 'agentHub') {\r\n    return <RobotOutlined aria-hidden />;\r\n  }\r\n  return <CommentOutlined aria-hidden />;\r\n}\r\n\r\nfunction isNavItemActive(activePath: string, itemPath: string) {\r\n  return activePath === itemPath || activePath.startsWith(`${itemPath}/`);\r\n}\r\n\r\nfunction SidebarModuleSection({\r\n  module,\r\n  collapsed,\r\n  expanded,\r\n  activePath,\r\n  onToggle,\r\n  onNavigate,\r\n}: {\r\n  module: SidebarModuleGroup;\r\n  collapsed: boolean;\r\n  expanded: boolean;\r\n  activePath: string;\r\n  onToggle: () => void;\r\n  onNavigate: (path: string) => void;\r\n}) {\r\n  const intl = useIntl();\r\n  const moduleTitle = intl.formatMessage({ id: module.titleId });\r\n  const hasActiveChild = module.items.some((item) => isNavItemActive(activePath, item.path));\r\n\r\n  if (collapsed) {\r\n    return (\r\n      <section className={styles.module} aria-label={moduleTitle}>\r\n        <Dropdown\r\n          trigger={['click']}\r\n          placement=\"rightTop\"\r\n          align={{ offset: [10, 0] }}\r\n          getPopupContainer={() => document.body}\r\n          overlayClassName={`${styles.moduleDropdownOverlay} nebula-sidebar-module-dropdown`}\r\n          dropdownRender={() => (\r\n            <div className={styles.moduleDropdownPanel}>\r\n              <div className={styles.moduleDropdownHeader}>{moduleTitle}</div>\r\n              <div className={styles.moduleDropdownList} role=\"menu\">\r\n                {module.items.map((item) => {\r\n                  const isActive = isNavItemActive(activePath, item.path);\r\n                  const label = intl.formatMessage({ id: item.labelId });\r\n                  return (\r\n                    <button\r\n                      key={item.key}\r\n                      type=\"button\"\r\n                      role=\"menuitem\"\r\n                      className={`${styles.moduleDropdownItem} nebula-nav-item ${isActive ? `${styles.moduleDropdownItemActive} nebula-nav-item-active` : ''}`}\r\n                      aria-current={isActive ? 'page' : undefined}\r\n                      onClick={() => onNavigate(item.path)}\r\n                    >\r\n                      {label}\r\n                    </button>\r\n                  );\r\n                })}\r\n              </div>\r\n            </div>\r\n          )}\r\n        >\r\n          <button\r\n            type=\"button\"\r\n            className={`${styles.moduleTrigger} ${styles.moduleTriggerCollapsed} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n            aria-label={moduleTitle}\r\n            aria-haspopup=\"menu\"\r\n          >\r\n            <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n          </button>\r\n        </Dropdown>\r\n      </section>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <section\r\n      className={`${styles.module} ${expanded ? styles.moduleExpanded : ''}`}\r\n      aria-label={moduleTitle}\r\n    >\r\n      <button\r\n        type=\"button\"\r\n        className={`${styles.moduleTrigger} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n        aria-expanded={expanded}\r\n        onClick={onToggle}\r\n      >\r\n        <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n        <span className={styles.moduleTriggerTitle}>{moduleTitle}</span>\r\n        <DownOutlined\r\n          className={`${styles.moduleTriggerArrow} ${expanded ? styles.moduleTriggerArrowOpen : ''}`}\r\n          aria-hidden\r\n        />\r\n      </button>\r\n      {expanded ? (\r\n        <nav className={styles.moduleNav} aria-label={moduleTitle}>\r\n          {module.items.map((item) => {\r\n            const isActive = isNavItemActive(activePath, item.path);\r\n            return (\r\n              <button\r\n                key={item.key}\r\n                type=\"button\"\r\n                className={`${styles.navItem} nebula-nav-item ${isActive ? `${styles.navItemActive} nebula-nav-item-active` : ''}`}\r\n                aria-current={isActive ? 'page' : undefined}\r\n                onClick={() => onNavigate(item.path)}\r\n              >\r\n                {intl.formatMessage({ id: item.labelId })}\r\n              </button>\r\n            );\r\n          })}\r\n        </nav>\r\n      ) : null}\r\n    </section>\r\n  );\r\n}\r\n\r\nfunction HistorySlot({ visible }: { visible: boolean }) {\r\n  const chatMode = chatModeFromPath(useLocation().pathname);\r\n  if (!visible) {\r\n    return null;\r\n  }\r\n  return <ConversationHistoryPanel chatMode={chatMode} />;\r\n}\r\n\r\nfunction BasicLayoutFrame() {\r\n  const intl = useIntl();\r\n  const location = useLocation();\r\n  const theme = useAppStore(selectTheme);\r\n  const collapsed = useAppStore(selectSidebarCollapsed);\r\n  const setSidebarCollapsed = useAppStore((state) => state.setSidebarCollapsed);\r\n  const toggleSidebarCollapsed = useAppStore((state) => state.toggleSidebarCollapsed);\r\n  const [expandedModuleId, setExpandedModuleId] = useState<SidebarModuleId | null>(() =>\r\n    resolveModuleIdFromPath(location.pathname),\r\n  );\r\n\r\n  useEffect(() => {\r\n    setExpandedModuleId(resolveModuleIdFromPath(location.pathname));\r\n  }, [location.pathname]);\r\n\r\n  const { startNewConversationForMode } = useChatSession();\r\n  const showHistory = isChatRoute(location.pathname);\r\n  const fillViewport = isChatRoute(location.pathname);\r\n\r\n  const handleNavigate = (path: string) => {\r\n    if (isChatRoute(path)) {\r\n      startNewConversationForMode(chatModeFromPath(path));\r\n    }\r\n    if (location.pathname !== path) {\r\n      history.push(path);\r\n    }\r\n    setExpandedModuleId(resolveModuleIdFromPath(path));\r\n  };\r\n\r\n  const profileMenu = {\r\n    items: [\r\n      {\r\n        key: 'settings',\r\n        icon: <SettingOutlined />,\r\n        label: intl.formatMessage({ id: 'layout.profile.settings' }),\r\n        onClick: () => history.push(ROUTES.SETTINGS),\r\n      },\r\n      {\r\n        key: 'logout',\r\n        label: intl.formatMessage({ id: 'layout.profile.logout' }),\r\n        disabled: true,\r\n      },\r\n    ],\r\n  };\r\n\r\n  return (\r\n      <Layout className={`${styles.shell} nebula-layout`}>\r\n      <Sider\r\n        className={`${styles.sider} nebula-sider`}\r\n        width={260}\r\n        collapsedWidth={72}\r\n        collapsible\r\n        collapsed={collapsed}\r\n        onCollapse={setSidebarCollapsed}\r\n        trigger={null}\r\n        breakpoint=\"lg\"\r\n        onBreakpoint={(broken) => setSidebarCollapsed(broken)}\r\n      >\r\n        <div className={styles.siderInner}>\r\n        <div className={`${styles.brand} nebula-brand`}>\r\n          <Avatar\r\n            className={styles.brandMark}\r\n            shape=\"square\"\r\n            size={40}\r\n            src={resolveBrandMark(theme)}\r\n            alt={intl.formatMessage({ id: 'layout.appName' })}\r\n          />\r\n          {!collapsed ? (\r\n            <div className={styles.brandCopy}>\r\n              <strong>{intl.formatMessage({ id: 'layout.appName' })}</strong>\r\n              <span>{intl.formatMessage({ id: 'layout.brandTagline' })}</span>\r\n            </div>\r\n          ) : null}\r\n        </div>\r\n\r\n        <div className={styles.sidebarScroll}>\r\n          {SIDEBAR_MODULES.map((module) => (\r\n            <SidebarModuleSection\r\n              key={module.id}\r\n              module={module}\r\n              collapsed={collapsed}\r\n              expanded={!collapsed && expandedModuleId === module.id}\r\n              activePath={location.pathname}\r\n              onToggle={() =>\r\n                setExpandedModuleId((current) => (current === module.id ? null : module.id))\r\n              }\r\n              onNavigate={handleNavigate}\r\n            />\r\n          ))}\r\n\r\n          {!collapsed ? <HistorySlot visible={showHistory} /> : null}\r\n        </div>\r\n\r\n        <div className={`${styles.profile} nebula-profile`}>\r\n          <Dropdown menu={profileMenu} trigger={['click']} placement=\"topLeft\">\r\n            <button type=\"button\" className={`${styles.profileTrigger} nebula-profile-trigger`}>\r\n              <Avatar\r\n                size={32}\r\n                className={styles.profileAvatar}\r\n                src={resolveBrandMark(theme)}\r\n                alt={intl.formatMessage({ id: 'layout.profile.name' })}\r\n              />\r\n              {!collapsed ? (\r\n                <span className={`${styles.profileName} nebula-profile-name`}>\r\n                  {intl.formatMessage({ id: 'layout.profile.name' })}\r\n                </span>\r\n              ) : null}\r\n            </button>\r\n          </Dropdown>\r\n        </div>\r\n        </div>\r\n      </Sider>\r\n\r\n      <Layout className={styles.main}>\r\n        <Header className={styles.header}>\r\n          <Button\r\n            type=\"text\"\r\n            className={styles.collapseTrigger}\r\n            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}\r\n            aria-label={intl.formatMessage({ id: 'layout.top.toggleSidebar' })}\r\n            onClick={() => toggleSidebarCollapsed()}\r\n          />\r\n          <div className={styles.headerSpacer} />\r\n          <div className={styles.headerActions}>\r\n            <SelectLang />\r\n            <Button\r\n              type=\"text\"\r\n              icon={<SettingOutlined />}\r\n              aria-label={intl.formatMessage({ id: 'layout.top.settings' })}\r\n              onClick={() => history.push(ROUTES.SETTINGS)}\r\n            />\r\n          </div>\r\n        </Header>\r\n        <Content className={`${styles.content} ${fillViewport ? styles.contentFill : ''}`}>\r\n          <Outlet />\r\n        </Content>\r\n      </Layout>\r\n    </Layout>\r\n  );\r\n}\r\n\r\nexport default function BasicLayout() {\r\n  return (\r\n    <ChatSessionProvider>\r\n      <ShareModeProvider>\r\n        <BasicLayoutFrame />\r\n      </ShareModeProvider>\r\n    </ChatSessionProvider>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/layouts/BasicLayout/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/layouts/BasicLayout/index.tsx"
     },
     "3": {
       "path": "/",
@@ -3419,7 +3419,7 @@
       "absPath": "/chat/knowledge",
       "__content": "import ChatShell from '@/components/chat/ChatShell';\r\nimport { CHAT_MODE } from '@/constants/chatMode';\r\n\r\nexport default function KnowledgeChatPage() {\r\n  return <ChatShell chatMode={CHAT_MODE.KNOWLEDGE} />;\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/chat/knowledge/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/chat/knowledge/index.tsx"
     },
     "5": {
       "path": "/chat/agent",
@@ -3429,7 +3429,7 @@
       "absPath": "/chat/agent",
       "__content": "import ChatShell from '@/components/chat/ChatShell';\r\nimport { CHAT_MODE } from '@/constants/chatMode';\r\n\r\nexport default function AgentChatPage() {\r\n  return <ChatShell chatMode={CHAT_MODE.AGENT} />;\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/chat/agent/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/chat/agent/index.tsx"
     },
     "6": {
       "path": "/chat/requirement-dev",
@@ -3439,7 +3439,7 @@
       "absPath": "/chat/requirement-dev",
       "__content": "import ChatShell from '@/components/chat/ChatShell';\r\nimport { CHAT_MODE } from '@/constants/chatMode';\r\n\r\nexport default function RequirementDevChatPage() {\r\n  return <ChatShell chatMode={CHAT_MODE.REQUIREMENT_DEV} />;\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/chat/requirement-dev/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/chat/requirement-dev/index.tsx"
     },
     "7": {
       "path": "/chat/human-review",
@@ -3449,7 +3449,7 @@
       "absPath": "/chat/human-review",
       "__content": "export { default } from '@/components/humanLoop/HumanReviewWorkbench';\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/chat/human-review/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/chat/human-review/index.tsx"
     },
     "8": {
       "path": "/knowledge/upload",
@@ -3459,7 +3459,7 @@
       "absPath": "/knowledge/upload",
       "__content": "export { default } from '@/components/knowledge/UploadDocumentPanel';\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/knowledge/upload/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/knowledge/upload/index.tsx"
     },
     "9": {
       "path": "/knowledge/bases",
@@ -3469,7 +3469,7 @@
       "absPath": "/knowledge/bases",
       "__content": "export { default } from '@/components/knowledge/KnowledgeBaseManager';\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/knowledge/bases/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/knowledge/bases/index.tsx"
     },
     "10": {
       "path": "/agent-hub/skills",
@@ -3479,7 +3479,7 @@
       "absPath": "/agent-hub/skills",
       "__content": "import PlatformSkillManager from '@/components/platformSkill/PlatformSkillManager';\r\n\r\n/** P4-UI：SuperAgents 平台 Skill 管理台（发布 / 生命周期） */\r\nexport default function AgentHubSkillsPage() {\r\n  return <PlatformSkillManager />;\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/agent-hub/skills/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/agent-hub/skills/index.tsx"
     },
     "11": {
       "path": "/agent-hub/agents",
@@ -3489,7 +3489,7 @@
       "absPath": "/agent-hub/agents",
       "__content": "import AgentHubListScreen from '@/components/agentHub/AgentHubListScreen';\r\nimport { useAgentHubStatus } from '@/hooks/useAgentHubStatus';\r\n\r\nexport default function AgentHubAgentsPage() {\r\n  const { data, isLoading, isError, refetch } = useAgentHubStatus();\r\n\r\n  return (\r\n    <AgentHubListScreen\r\n      titleId=\"agentHub.agents.title\"\r\n      subtitleId=\"agentHub.agents.subtitle\"\r\n      emptyId=\"agentHub.agents.empty\"\r\n      items={data?.subAgents ?? []}\r\n      loading={isLoading}\r\n      isError={isError}\r\n      onRetry={() => void refetch()}\r\n      typeLabel=\"agent\"\r\n    />\r\n  );\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/agent-hub/agents/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/agent-hub/agents/index.tsx"
     },
     "12": {
       "path": "/agent-hub/tools",
@@ -3499,7 +3499,7 @@
       "absPath": "/agent-hub/tools",
       "__content": "import AgentHubListScreen from '@/components/agentHub/AgentHubListScreen';\r\nimport { useAgentHubStatus } from '@/hooks/useAgentHubStatus';\r\nimport type { AgentHubLocalTool } from '@/services/agentHubService';\r\nimport { useIntl } from '@umijs/max';\r\n\r\nfunction formatToolChips(\r\n  item: AgentHubLocalTool,\r\n  moduleLabel: string,\r\n  beanLabel: string,\r\n): string[] {\r\n  const chips: string[] = [];\r\n  if (item.module) {\r\n    chips.push(`${moduleLabel} · ${item.module}`);\r\n  }\r\n  if (item.beanClass) {\r\n    chips.push(`${beanLabel} · ${item.beanClass}`);\r\n  }\r\n  return chips;\r\n}\r\n\r\nexport default function AgentHubToolsPage() {\r\n  const intl = useIntl();\r\n  const { data, isLoading, isError, refetch } = useAgentHubStatus();\r\n  const moduleLabel = intl.formatMessage({ id: 'agentHub.tools.module' });\r\n  const beanLabel = intl.formatMessage({ id: 'agentHub.tools.bean' });\r\n\r\n  return (\r\n    <AgentHubListScreen\r\n      titleId=\"agentHub.tools.title\"\r\n      subtitleId=\"agentHub.tools.subtitle\"\r\n      emptyId=\"agentHub.tools.empty\"\r\n      items={data?.tools ?? []}\r\n      loading={isLoading}\r\n      isError={isError}\r\n      onRetry={() => void refetch()}\r\n      typeLabel=\"tool\"\r\n      formatChips={(item) =>\r\n        formatToolChips(item as AgentHubLocalTool, moduleLabel, beanLabel)\r\n      }\r\n    />\r\n  );\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/agent-hub/tools/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/agent-hub/tools/index.tsx"
     },
     "13": {
       "path": "/agent-hub/mcp",
@@ -3509,7 +3509,7 @@
       "absPath": "/agent-hub/mcp",
       "__content": "import AgentHubMcpScreen from '@/components/agentHub/AgentHubMcpScreen';\r\nimport { useAgentHubStatus } from '@/hooks/useAgentHubStatus';\r\n\r\nexport default function AgentHubMcpPage() {\r\n  const { data, isLoading, isError, refetch } = useAgentHubStatus();\r\n\r\n  return (\r\n    <AgentHubMcpScreen\r\n      providers={data?.mcpProviders ?? []}\r\n      callbacks={data?.mcpCallbacks ?? []}\r\n      loading={isLoading}\r\n      isError={isError}\r\n      onRetry={() => void refetch()}\r\n    />\r\n  );\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/agent-hub/mcp/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/agent-hub/mcp/index.tsx"
     },
     "14": {
       "path": "/settings",
@@ -3519,7 +3519,7 @@
       "absPath": "/settings",
       "__content": "export { default } from '@/components/settings/SettingsScreen';\r\n",
       "__isJSFile": true,
-      "__absFile": "D:/cache/workspace/AI_REACT/src/pages/settings/index.tsx"
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/settings/index.tsx"
     }
   },
   "apiRoutes": {},
@@ -3539,14 +3539,14 @@
   },
   "react": {
     "version": "18.3.1",
-    "path": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react"
+    "path": "D:\\cache\\workspace\\ai_react\\node_modules\\react"
   },
   "react-dom": {
     "version": "18.3.1",
-    "path": "D:\\cache\\workspace\\AI_REACT\\node_modules\\react-dom"
+    "path": "D:\\cache\\workspace\\ai_react\\node_modules\\react-dom"
   },
   "appJS": {
-    "path": "D:\\cache\\workspace\\AI_REACT\\src\\app.tsx",
+    "path": "D:\\cache\\workspace\\ai_react\\src\\app.tsx",
     "exports": [
       "request",
       "rootContainer"
@@ -3554,7 +3554,7 @@
   },
   "locale": "zh-CN",
   "globalCSS": [
-    "D:\\cache\\workspace\\AI_REACT\\src\\global.less"
+    "D:\\cache\\workspace\\ai_react\\src\\global.less"
   ],
   "globalJS": [],
   "overridesCSS": [],
@@ -3569,7 +3569,7 @@
   },
   "faviconFiles": [],
   "antd": {
-    "pkgPath": "D:\\cache\\workspace\\AI_REACT\\node_modules\\antd",
+    "pkgPath": "D:\\cache\\workspace\\ai_react\\node_modules\\antd",
     "version": "5.29.3"
   }
 }

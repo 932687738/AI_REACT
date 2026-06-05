@@ -80,6 +80,25 @@ export interface ConversationSummary {
   pinnedAt?: number | null;
 }
 
+export interface ConversationSearchHit {
+  conversationId: string;
+  messageId?: string | null;
+  title?: string;
+  chatMode?: string;
+  role?: string | null;
+  matchField?: 'title' | 'content' | string;
+  snippet?: string;
+  hitAt?: number;
+}
+
+export interface ConversationSearchPage {
+  items: ConversationSearchHit[];
+  page: number;
+  size: number;
+  totalHits: number;
+  hasMore: boolean;
+}
+
 export interface ConversationUpsertRequest {
   conversationId: string;
   title?: string;

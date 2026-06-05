@@ -45,7 +45,7 @@ function resolveFallbackTitleId(chatMode: ChatMode): string {
 export function useChatStream(chatMode: ChatMode) {
   const intl = useIntl();
   const queryClient = useQueryClient();
-  const { conversationId, setConversationId } = useChatSession();
+  const { conversationId, setConversationId, pendingScrollMessageId } = useChatSession();
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -76,6 +76,28 @@ export function useChatStream(chatMode: ChatMode) {
       alive = false;
     };
   }, [conversationId]);
+
+  useEffect(() => {
+    if (!pendingScrollMessageId) {
+      return;
+    }
+    let alive = true;
+    setIsLoadingHistory(true);
+    void fetchNormalizedMessages(conversationId)
+      .then((nextMessages) => {
+        if (alive && conversationRef.current === conversationId) {
+          setMessages(nextMessages);
+        }
+      })
+      .finally(() => {
+        if (alive && conversationRef.current === conversationId) {
+          setIsLoadingHistory(false);
+        }
+      });
+    return () => {
+      alive = false;
+    };
+  }, [pendingScrollMessageId, conversationId]);
 
   const sendMessage = useCallback(
     async (rawMessage: string) => {

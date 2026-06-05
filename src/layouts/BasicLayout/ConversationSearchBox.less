@@ -1,0 +1,32 @@
+.wrap {
+  position: relative;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+
+.input {
+  border-radius: 8px;
+  background: var(--nebula-history-search-bg, rgb(255 255 255 / 4%));
+  border-color: var(--nebula-history-search-border, rgb(255 255 255 / 8%));
+
+  :global(.ant-input) {
+    font-size: 13px;
+    color: var(--nebula-history-item-ink);
+  }
+
+  :global(.ant-input::placeholder) {
+    color: var(--nebula-ink-muted);
+  }
+}
+
+.icon {
+  color: var(--nebula-ink-muted);
+  font-size: 12px;
+}
+
+:global(.conversation-search-mark) {
+  padding: 0 1px;
+  border-radius: 2px;
+  background: var(--nebula-history-search-mark-bg, rgb(107 159 255 / 28%));
+  color: inherit;
+}

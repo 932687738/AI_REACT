@@ -7,6 +7,10 @@ import {
 } from '@/services/conversationService';
 import type { ChatMode } from '@/constants/chatMode';
 import type { ConversationSummary } from '@/openapi/typings';
+import {
+  CONVERSATION_SEARCH_ROOT_KEY,
+  pruneConversationFromSearchCache,
+} from '@/hooks/useConversationSearch';
 import { normalizeConversationItem, toApiMode, type NormalizedConversation } from '@/utils/conversationHelpers';
 
 export type { NormalizedConversation };
@@ -41,8 +45,10 @@ export function useConversationHistory(chatMode: ChatMode) {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => deleteConversation(id),
-    onSuccess: () => {
+    onSuccess: (_data, deletedId) => {
       void queryClient.invalidateQueries({ queryKey: conversationHistoryKey(chatMode) });
+      void queryClient.invalidateQueries({ queryKey: [CONVERSATION_SEARCH_ROOT_KEY] });
+      pruneConversationFromSearchCache(queryClient, deletedId);
     },
   });
 

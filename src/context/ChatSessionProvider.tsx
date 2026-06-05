@@ -8,6 +8,8 @@ interface ChatSessionContextValue {
   chatMode: ChatMode;
   conversationId: string;
   setConversationId: (id: string) => void;
+  pendingScrollMessageId: string | null;
+  setPendingScrollMessageId: (id: string | null) => void;
   /** 侧栏「+」或等价入口：当前 chatMode 下新建空白会话 */
   startNewConversation: () => string;
   /** 侧栏菜单进入某聊天路由时：为该 mode 新建空白会话（不加载历史） */
@@ -20,6 +22,7 @@ export function ChatSessionProvider({ children }: { children: ReactNode }) {
   const location = useLocation();
   const chatMode = useMemo(() => chatModeFromPath(location.pathname), [location.pathname]);
   const [conversationByMode, setConversationByMode] = useState<Record<string, string>>({});
+  const [pendingScrollMessageId, setPendingScrollMessageId] = useState<string | null>(null);
 
   useEffect(() => {
     setConversationByMode((current) => {
@@ -55,10 +58,19 @@ export function ChatSessionProvider({ children }: { children: ReactNode }) {
       chatMode,
       conversationId,
       setConversationId,
+      pendingScrollMessageId,
+      setPendingScrollMessageId,
       startNewConversation,
       startNewConversationForMode,
     }),
-    [chatMode, conversationId, setConversationId, startNewConversation, startNewConversationForMode],
+    [
+      chatMode,
+      conversationId,
+      setConversationId,
+      pendingScrollMessageId,
+      startNewConversation,
+      startNewConversationForMode,
+    ],
   );
 
   return <ChatSessionContext.Provider value={value}>{children}</ChatSessionContext.Provider>;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { history, useIntl } from '@umijs/max';
-import { Button, Checkbox, Input } from 'antd';
+import { Button, Checkbox, Input, message } from 'antd';
 import ConversationShareBar from '@/components/chat/ConversationShareBar';
 import { useShareMode } from '@/context/ShareModeProvider';
 import { buildConversationGroups } from '@/utils/conversationShareGroups';
@@ -63,7 +63,7 @@ function resolvePlaceholderId(chatMode: ChatMode) {
 
 export default function ChatShell({ chatMode }: ChatShellProps) {
   const intl = useIntl();
-  const { conversationId } = useChatSession();
+  const { conversationId, pendingScrollMessageId, setPendingScrollMessageId } = useChatSession();
   const shareMode = useShareMode();
   const { messages, isLoadingHistory, isSending, sendMessage } = useChatStream(chatMode);
   const shareTargetConversationId = shareMode.active ? shareMode.conversationId : null;
@@ -150,6 +150,28 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
       endRef.current?.scrollIntoView({ block: 'end' });
     });
   }, []);
+
+  useEffect(() => {
+    if (!pendingScrollMessageId || isLoadingHistory) {
+      return;
+    }
+    const targetId = pendingScrollMessageId;
+    const hasMessage = messages.some((item) => item.id === targetId);
+    if (!hasMessage) {
+      message.warning(intl.formatMessage({ id: 'layout.search.targetMissing' }));
+      setPendingScrollMessageId(null);
+      return;
+    }
+    scrollToMessage(targetId);
+    setPendingScrollMessageId(null);
+  }, [
+    pendingScrollMessageId,
+    isLoadingHistory,
+    messages,
+    scrollToMessage,
+    setPendingScrollMessageId,
+    intl,
+  ]);
 
   const handleCitationNavigate = useCallback((citation: KnowledgeCitation) => {
     if (!citation.knowledgeBaseId || !citation.documentId) {

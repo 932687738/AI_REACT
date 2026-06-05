@@ -2,6 +2,7 @@ import { API_PATHS } from '@/constants/ApiPaths';
 import { request } from '@/openapi/request';
 import type {
   ConversationMessage,
+  ConversationSearchPage,
   ConversationSummary,
   ConversationUpsertRequest,
 } from '@/openapi/typings';
@@ -24,6 +25,14 @@ export interface ListConversationsParams {
   limit?: number;
 }
 
+export interface SearchConversationsParams {
+  q: string;
+  mode?: string;
+  ownerId?: string;
+  page?: number;
+  size?: number;
+}
+
 export function listConversations(params: ListConversationsParams = {}) {
   const query: Record<string, string> = {};
   if (params.mode) {
@@ -41,8 +50,38 @@ export function listConversations(params: ListConversationsParams = {}) {
   });
 }
 
+export function searchConversations(params: SearchConversationsParams) {
+  const query = String(params.q ?? '').trim();
+  if (!query) {
+    return Promise.reject(new Error('search query is required'));
+  }
+  const searchParams: Record<string, string> = { q: query };
+  if (params.mode) {
+    searchParams.mode = params.mode;
+  }
+  if (params.ownerId) {
+    searchParams.ownerId = params.ownerId;
+  }
+  if (params.page !== undefined) {
+    searchParams.page = String(params.page);
+  }
+  if (params.size !== undefined) {
+    searchParams.size = String(params.size);
+  }
+  return request<ConversationSearchPage>(`${API_PATHS.agentHub.conversations}/search`, {
+    method: 'GET',
+    params: searchParams,
+  });
+}
+
 export function loadConversationMessages(conversationId: string) {
   return request<ConversationMessage[]>(`${conversationPath(conversationId)}/messages`, {
+    method: 'GET',
+  });
+}
+
+export function checkConversationExists(conversationId: string) {
+  return request<{ exists: boolean }>(`${conversationPath(conversationId)}/exists`, {
     method: 'GET',
   });
 }
