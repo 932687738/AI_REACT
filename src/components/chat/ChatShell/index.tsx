@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { history, useIntl } from '@umijs/max';
-import { Button, Input } from 'antd';
+import { Button, Checkbox, Input } from 'antd';
+import ConversationShareBar from '@/components/chat/ConversationShareBar';
+import { useShareMode } from '@/context/ShareModeProvider';
+import { buildConversationGroups } from '@/utils/conversationShareGroups';
 import { CHAT_MODE, type ChatMode } from '@/constants/chatMode';
 import { ROUTES } from '@/constants/routes';
 import AgentAssistantMessageContent from '@/components/chat/AgentAssistantMessageContent';
@@ -61,7 +64,24 @@ function resolvePlaceholderId(chatMode: ChatMode) {
 export default function ChatShell({ chatMode }: ChatShellProps) {
   const intl = useIntl();
   const { conversationId } = useChatSession();
-  const { messages, isSending, sendMessage } = useChatStream(chatMode);
+  const shareMode = useShareMode();
+  const { messages, isLoadingHistory, isSending, sendMessage } = useChatStream(chatMode);
+  const shareTargetConversationId = shareMode.active ? shareMode.conversationId : null;
+  const shareActiveForConversation =
+    shareTargetConversationId !== null && shareTargetConversationId === conversationId;
+  const shareGroups = useMemo(
+    () => (shareActiveForConversation ? buildConversationGroups(messages) : []),
+    [shareActiveForConversation, messages],
+  );
+  const messageGroupIdMap = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const group of shareGroups) {
+      for (const messageId of group.messageIds) {
+        map.set(messageId, group.id);
+      }
+    }
+    return map;
+  }, [shareGroups]);
   const [inputValue, setInputValue] = useState('');
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
 
@@ -69,6 +89,15 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
     setInputValue('');
     setActiveMessageId(null);
   }, [conversationId]);
+
+  useEffect(() => {
+    if (!shareActiveForConversation || isLoadingHistory) {
+      return;
+    }
+    if (messages.length === 0) {
+      shareMode.exit();
+    }
+  }, [shareActiveForConversation, isLoadingHistory, messages.length, shareMode]);
   const endRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
   const messageRefs = useRef<Map<string, HTMLElement>>(new Map());
@@ -166,15 +195,28 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
         </section>
       ) : (
         <div className={styles.thread} ref={listRef}>
-          {messages.map((item) => (
+          {messages.map((item) => {
+            const groupId = messageGroupIdMap.get(item.id);
+            const showShareCheckbox = shareActiveForConversation && Boolean(groupId);
+            return (
             <article
               key={item.id}
               ref={(node) => registerMessageRef(item.id, node)}
               data-message-id={item.id}
               className={`${styles.messageRow} ${item.role === 'user' ? styles.messageRowUser : ''} ${
                 activeMessageId === item.id ? styles.messageRowTarget : ''
-              }`}
+              } ${shareActiveForConversation ? styles.messageRowShare : ''}`}
             >
+              {showShareCheckbox ? (
+                <Checkbox
+                  className={`${styles.shareCheckbox} nebula-share-checkbox`}
+                  checked={shareMode.isSelected(groupId)}
+                  onChange={() => shareMode.toggleGroup(groupId)}
+                  aria-label={intl.formatMessage({ id: 'chat.share.selectGroup' })}
+                />
+              ) : shareActiveForConversation ? (
+                <span className={styles.shareCheckboxSpacer} aria-hidden />
+              ) : null}
               <div
                 className={`${styles.bubble} nebula-chat-bubble ${
                   item.role === 'user'
@@ -218,11 +260,24 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                 ) : null}
               </div>
             </article>
-          ))}
+          );
+          })}
           <div ref={endRef} />
         </div>
       )}
 
+      {shareActiveForConversation && shareTargetConversationId ? (
+        <ConversationShareBar
+          conversationId={shareTargetConversationId}
+          groupIds={shareGroups.map((group) => group.id)}
+          selectedGroupIds={shareMode.selectedGroupIds}
+          onSelectAll={() => shareMode.selectAll(shareGroups.map((group) => group.id))}
+          onClearSelection={shareMode.clearSelection}
+          onCancel={shareMode.exit}
+        />
+      ) : null}
+
+      {!shareActiveForConversation ? (
       <form
         className={styles.composer}
         onSubmit={(event) => {
@@ -266,6 +321,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           </Button>
         </div>
       </form>
+      ) : null}
       </div>
       </div>
       {showMessageNav ? (

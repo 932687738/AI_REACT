@@ -38,6 +38,7 @@ export default defineConfig({
     },
   },
   routes: [
+    { path: '/share/:shareId', component: './share/$shareId', layout: false },
     {
       path: '/',
       component: '@/layouts/BasicLayout',

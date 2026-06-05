@@ -47,6 +47,7 @@ export function useChatStream(chatMode: ChatMode) {
   const queryClient = useQueryClient();
   const { conversationId, setConversationId } = useChatSession();
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const conversationRef = useRef(conversationId);
   const assistantMetaRef = useRef<ConversationMessage['meta']>();
@@ -58,12 +59,19 @@ export function useChatStream(chatMode: ChatMode) {
 
   useEffect(() => {
     setMessages([]);
+    setIsLoadingHistory(true);
     let alive = true;
-    void fetchNormalizedMessages(conversationId).then((nextMessages) => {
-      if (alive && conversationRef.current === conversationId) {
-        setMessages(nextMessages);
-      }
-    });
+    void fetchNormalizedMessages(conversationId)
+      .then((nextMessages) => {
+        if (alive && conversationRef.current === conversationId) {
+          setMessages(nextMessages);
+        }
+      })
+      .finally(() => {
+        if (alive && conversationRef.current === conversationId) {
+          setIsLoadingHistory(false);
+        }
+      });
     return () => {
       alive = false;
     };
@@ -224,6 +232,7 @@ export function useChatStream(chatMode: ChatMode) {
 
   return {
     messages,
+    isLoadingHistory,
     isSending,
     sendMessage,
     conversationId,

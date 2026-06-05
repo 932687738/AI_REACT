@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   deleteConversation,
   listConversations,
+  patchConversation,
   renameConversation,
 } from '@/services/conversationService';
 import type { ChatMode } from '@/constants/chatMode';
@@ -45,11 +46,20 @@ export function useConversationHistory(chatMode: ChatMode) {
     },
   });
 
+  const pinMutation = useMutation({
+    mutationFn: ({ id, pinned }: { id: string; pinned: boolean }) =>
+      patchConversation(id, { pinned }),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: conversationHistoryKey(chatMode) });
+    },
+  });
+
   return {
     items: query.data ?? [],
     isLoading: query.isLoading,
     refresh: query.refetch,
     renameConversation: renameMutation.mutateAsync,
+    pinConversation: pinMutation.mutateAsync,
     deleteConversation: deleteMutation.mutateAsync,
   };
 }

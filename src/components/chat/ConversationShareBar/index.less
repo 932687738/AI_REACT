@@ -1,0 +1,78 @@
+.bar {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin-top: auto;
+  padding: 12px 16px;
+  border: 1px solid var(--nebula-border-strong);
+  border-radius: 16px;
+  background: var(--nebula-surface-soft);
+  box-shadow: var(--nebula-composer-shadow);
+  color: var(--nebula-ink);
+
+  :global(.ant-checkbox-wrapper) {
+    color: var(--nebula-ink);
+  }
+
+  :global(.ant-checkbox-inner) {
+    border-color: var(--nebula-border-strong);
+    background: var(--nebula-input-surface, var(--nebula-surface-soft));
+  }
+
+  :global(.ant-checkbox-checked .ant-checkbox-inner),
+  :global(.ant-checkbox-indeterminate .ant-checkbox-inner) {
+    background: var(--nebula-nav-accent);
+    border-color: var(--nebula-nav-accent);
+  }
+
+  :global(.ant-checkbox-checked .ant-checkbox-inner::after),
+  :global(.ant-checkbox-indeterminate .ant-checkbox-inner::after) {
+    border-color: var(--nebula-surface-card, #fff);
+  }
+
+  :global(.ant-btn-text) {
+    color: var(--nebula-ink-muted);
+
+    &:hover:not(:disabled) {
+      color: var(--nebula-ink) !important;
+      background: var(--nebula-btn-hover-bg) !important;
+    }
+  }
+
+  :global(.ant-btn-primary) {
+    background: var(--nebula-btn-primary-bg) !important;
+    border-color: var(--nebula-btn-primary-border) !important;
+    color: var(--nebula-btn-primary-ink) !important;
+    box-shadow: none;
+
+    &:hover:not(:disabled) {
+      background: var(--nebula-nav-active-bg) !important;
+      border-color: var(--nebula-nav-accent) !important;
+      color: var(--nebula-nav-active-ink) !important;
+    }
+
+    &:disabled {
+      background: var(--nebula-btn-bg) !important;
+      border-color: var(--nebula-btn-border) !important;
+      color: var(--nebula-ink-muted) !important;
+      opacity: 0.55;
+    }
+  }
+}
+
+.count {
+  flex: 1;
+  color: var(--nebula-ink-muted);
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

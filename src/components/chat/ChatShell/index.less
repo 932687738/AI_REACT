@@ -136,6 +136,35 @@
   }
 }
 
+.messageRowShare {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
+}
+
+.shareCheckbox {
+  margin-top: 10px;
+
+  :global(.ant-checkbox-inner) {
+    border-color: var(--nebula-border-strong);
+    background: var(--nebula-surface-soft);
+  }
+
+  :global(.ant-checkbox-checked .ant-checkbox-inner) {
+    background: var(--nebula-nav-accent);
+    border-color: var(--nebula-nav-accent);
+  }
+
+  :global(.ant-checkbox-checked .ant-checkbox-inner::after) {
+    border-color: var(--nebula-surface-card, #fff);
+  }
+}
+
+.shareCheckboxSpacer {
+  width: 28px;
+}
+
 .messageRow {
   display: flex;
   justify-content: flex-start;

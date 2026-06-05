@@ -5,11 +5,11 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/@umijs/plugins/node_modules/react-intl';
+} from 'D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/node_modules/react-intl';
 import { getPluginManager } from '../core/plugin';
-import EventEmitter from 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/event-emitter';
+import EventEmitter from 'D:/cache/workspace/AI_REACT/node_modules/event-emitter';
 // @ts-ignore
-import warning from 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/warning';
+import warning from 'D:/cache/workspace/AI_REACT/node_modules/warning';
 
 export {
   createIntl,
@@ -34,7 +34,7 @@ export {
   defineMessages,
   injectIntl,
   useIntl,
-} from 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/@umijs/plugins/node_modules/react-intl';
+} from 'D:/cache/workspace/AI_REACT/node_modules/@umijs/plugins/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
@@ -46,9 +46,9 @@ export const event = new EventEmitter();
 export const LANG_CHANGE_EVENT = Symbol('LANG_CHANGE');
 
 import enUS0 from 'antd/es/locale/en_US';
-import lang_enUS0 from "D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/src/locales/en-US.ts";
+import lang_enUS0 from "D:/cache/workspace/AI_REACT/src/locales/en-US.ts";
 import zhCN0 from 'antd/es/locale/zh_CN';
-import lang_zhCN0 from "D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/src/locales/zh-CN.ts";
+import lang_zhCN0 from "D:/cache/workspace/AI_REACT/src/locales/zh-CN.ts";
 
 const flattenMessages=(
   nestedMessages: Record<string, any>,

@@ -10,6 +10,7 @@ export const API_PATHS = {
     conversationConfigKnowledgeRetrievalThreshold:
       '/api/agent-hub/conversation-config/knowledge-retrieval-threshold',
     conversations: '/api/agent-hub/conversations',
+    shares: '/api/agent-hub/shares',
   },
   superAgents: {
     chat: '/api/super-agents/chat',

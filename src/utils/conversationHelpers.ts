@@ -8,6 +8,7 @@ export type NormalizedConversation = ConversationSummary & {
   preview: string;
   mode: ChatMode;
   updatedAt: number;
+  pinned: boolean;
 };
 
 export function createConversationId(): string {
@@ -91,6 +92,7 @@ export function normalizeConversationItem(
     preview,
     mode: (mode as ChatMode) || CHAT_MODE.KNOWLEDGE,
     updatedAt: Number(item.updatedAt) || Date.now(),
+    pinned: Boolean(item.pinned),
   };
 }
 

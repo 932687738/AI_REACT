@@ -4,8 +4,8 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
 
-import moment from 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/moment';
-import 'D:/downlod/cache/workspace/code/zaxk-code/AI_REACT/node_modules/moment/locale/zh-cn';
+import moment from 'D:/cache/workspace/AI_REACT/node_modules/moment';
+import 'D:/cache/workspace/AI_REACT/node_modules/moment/locale/zh-cn';
 import { RawIntlProvider, getLocale, getDirection , setIntl, getIntl, localeInfo, event, LANG_CHANGE_EVENT } from './localeExports';
 
 

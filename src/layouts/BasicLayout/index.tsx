@@ -15,6 +15,7 @@ import { Avatar, Button, Dropdown, Layout } from 'antd';
 import { ROUTES, isChatRoute } from '@/constants/routes';
 import { chatModeFromPath } from '@/utils/chatModeFromPath';
 import { ChatSessionProvider, useChatSession } from '@/context/ChatSessionProvider';
+import { ShareModeProvider } from '@/context/ShareModeProvider';
 import ConversationHistoryPanel from './ConversationHistoryPanel';
 import { resolveModuleIdFromPath, SIDEBAR_MODULES } from './menuConfig';
 import type { SidebarModuleGroup, SidebarModuleId } from './types';
@@ -293,7 +294,9 @@ function BasicLayoutFrame() {
 export default function BasicLayout() {
   return (
     <ChatSessionProvider>
-      <BasicLayoutFrame />
+      <ShareModeProvider>
+        <BasicLayoutFrame />
+      </ShareModeProvider>
     </ChatSessionProvider>
   );
 }

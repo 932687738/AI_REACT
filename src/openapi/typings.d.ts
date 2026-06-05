@@ -76,6 +76,8 @@ export interface ConversationSummary {
   preview?: string;
   mode?: string;
   updatedAt?: number;
+  pinned?: boolean;
+  pinnedAt?: number | null;
 }
 
 export interface ConversationUpsertRequest {

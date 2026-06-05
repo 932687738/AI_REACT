@@ -1,10 +1,11 @@
-import { MoreOutlined, PlusOutlined } from '@ant-design/icons';
+import { MoreOutlined, PlusOutlined, PushpinFilled } from '@ant-design/icons';
 import { useEffect, useRef, useState } from 'react';
 import { useIntl } from '@umijs/max';
 import { Dropdown, Input, Spin, Typography } from 'antd';
 import type { InputRef } from 'antd';
 import { CHAT_MODE, type ChatMode } from '@/constants/chatMode';
 import { useChatSession } from '@/context/ChatSessionProvider';
+import { useShareMode } from '@/context/ShareModeProvider';
 import { useConversationHistory } from '@/hooks/useConversationHistory';
 import { truncateTitle } from '@/utils/conversationHelpers';
 import styles from './ConversationHistoryPanel.less';
@@ -28,7 +29,8 @@ export default function ConversationHistoryPanel({
 }: ConversationHistoryPanelProps) {
   const intl = useIntl();
   const { conversationId, setConversationId, startNewConversation } = useChatSession();
-  const { items, isLoading, renameConversation, deleteConversation } =
+  const shareMode = useShareMode();
+  const { items, isLoading, renameConversation, pinConversation, deleteConversation } =
     useConversationHistory(chatMode);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState('');
@@ -121,7 +123,10 @@ export default function ConversationHistoryPanel({
                     <span className={styles.modeBadge}>
                       {intl.formatMessage({ id: modeBadgeId(chatMode) })}
                     </span>
-                    <span className={styles.itemTitle}>{item.title}</span>
+                    <span className={styles.itemTitle}>
+                      {item.pinned ? <PushpinFilled className={styles.pinMark} aria-hidden /> : null}
+                      {item.title}
+                    </span>
                   </button>
                   <Dropdown
                     trigger={['click']}
@@ -133,6 +138,21 @@ export default function ConversationHistoryPanel({
                           onClick: () => {
                             setRenamingId(item.id);
                             setRenameValue(item.title || '');
+                          },
+                        },
+                        {
+                          key: 'pin',
+                          label: intl.formatMessage({
+                            id: item.pinned ? 'layout.history.unpin' : 'layout.history.pin',
+                          }),
+                          onClick: () => void pinConversation({ id: item.id, pinned: !item.pinned }),
+                        },
+                        {
+                          key: 'share',
+                          label: intl.formatMessage({ id: 'layout.history.share' }),
+                          onClick: () => {
+                            shareMode.enter(item.id);
+                            setConversationId(item.id);
                           },
                         },
                         {

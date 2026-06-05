@@ -11,6 +11,7 @@ export const ROUTES = {
   AGENT_HUB_TOOLS: '/agent-hub/tools',
   AGENT_HUB_MCP: '/agent-hub/mcp',
   SETTINGS: '/settings',
+  SHARE: '/share',
 } as const;
 
 export type AppRoute = (typeof ROUTES)[keyof typeof ROUTES];
