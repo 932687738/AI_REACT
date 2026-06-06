@@ -17,6 +17,9 @@ playwright-report
 dist-ssr
 *.local
 
+# CodeGraph (local index; see AetherStack make codegraph-init)
+.codegraph/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
