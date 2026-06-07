@@ -26,6 +26,12 @@ export const API_PATHS = {
     modelProvidersRefresh: '/api/super-agents/model-providers/refresh',
     uncoveredIntents: '/api/super-agents/uncovered-intents',
     mcpRefresh: '/api/super-agents/mcp/refresh',
+    suspendedWorkflows: '/api/super-agents/hooks/suspended',
+    suspendedWorkflow: (resumeToken: string) =>
+      `/api/super-agents/hooks/suspended/${encodeURIComponent(resumeToken)}`,
+    suspendedWorkflowClose: (resumeToken: string) =>
+      `/api/super-agents/hooks/suspended/${encodeURIComponent(resumeToken)}/close`,
+    hooksResume: '/api/super-agents/hooks/resume',
   },
   humanLoop: {
     base: '/springai/demo/alibaba-graph/human-loop',

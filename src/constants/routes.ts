@@ -14,6 +14,7 @@ export const ROUTES = {
   AGENT_HUB_PLATFORM_TOOLS: '/agent-hub/platform-tools',
   AGENT_HUB_MODEL_PROVIDERS: '/agent-hub/model-providers',
   AGENT_HUB_UNCOVERED_INTENTS: '/agent-hub/uncovered-intents',
+  AGENT_HUB_SUSPENDED_WORKFLOWS: '/agent-hub/suspended-workflows',
   SETTINGS: '/settings',
   SHARE: '/share',
 } as const;

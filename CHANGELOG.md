@@ -1,5 +1,18 @@
 # Changelog
 
+## [2026-06-07] - 挂起工作流管理
+
+### Added
+
+- 挂起工作流管理页 `/agent-hub/suspended-workflows`（列表、搜索、详情、恢复 SSE、关闭、删除）
+- `platformSuspendedWorkflowService` + `ApiPaths` Webhook 管理端点
+- Agent Hub 侧栏「挂起工作流」菜单项
+
+### Backend (ai)
+
+- `SuperAgentWebhookController` 扩展 GET 列表/详情、POST close、DELETE
+- `WorkflowSuspendQueryService` / `WorkflowSuspendAdminService`；Flyway `V17` 增加 `closed_at` 与索引
+
 ## [2026-06-07] - SuperAgents 前端接口补全
 
 ### Added

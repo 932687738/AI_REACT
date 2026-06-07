@@ -33,6 +33,7 @@ export const SIDEBAR_MODULES: SidebarModuleGroup[] = [
       { key: 'platform-tools', path: ROUTES.AGENT_HUB_PLATFORM_TOOLS, labelId: 'layout.nav.platformTools' },
       { key: 'model-providers', path: ROUTES.AGENT_HUB_MODEL_PROVIDERS, labelId: 'layout.nav.modelProviders' },
       { key: 'uncovered-intents', path: ROUTES.AGENT_HUB_UNCOVERED_INTENTS, labelId: 'layout.nav.uncoveredIntents' },
+      { key: 'suspended-workflows', path: ROUTES.AGENT_HUB_SUSPENDED_WORKFLOWS, labelId: 'layout.nav.suspendedWorkflows' },
       { key: 'agents', path: ROUTES.AGENT_HUB_AGENTS, labelId: 'layout.nav.agents' },
       { key: 'tools', path: ROUTES.AGENT_HUB_TOOLS, labelId: 'layout.nav.tools' },
       { key: 'mcp', path: ROUTES.AGENT_HUB_MCP, labelId: 'layout.nav.mcp' },

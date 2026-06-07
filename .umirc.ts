@@ -58,6 +58,7 @@ export default defineConfig({
         { path: '/agent-hub/platform-tools', component: './agent-hub/platform-tools' },
         { path: '/agent-hub/model-providers', component: './agent-hub/model-providers' },
         { path: '/agent-hub/uncovered-intents', component: './agent-hub/uncovered-intents' },
+        { path: '/agent-hub/suspended-workflows', component: './agent-hub/suspended-workflows' },
         { path: '/settings', component: './settings' },
       ],
     },

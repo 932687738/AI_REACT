@@ -48,6 +48,7 @@ e2e/                        # Playwright 冒烟
 | `/agent-hub/platform-tools` | **平台 Tool 摘要**（GET tools） |
 | `/agent-hub/model-providers` | **ModelProvider 开关** |
 | `/agent-hub/uncovered-intents` | **未覆盖意图**复盘 |
+| `/agent-hub/suspended-workflows` | **挂起工作流**管理（列表 / 恢复 / 关闭 / 删除） |
 | `/agent-hub/agents` … `/mcp` | Agent Hub 运行时浏览（status 快照）；MCP 页顶栏含平台 refresh |
 | `/settings` | 设置（主题/语言/阈值） |
 
@@ -68,6 +69,8 @@ e2e/                        # Playwright 冒烟
 | `POST /api/super-agents/model-providers/refresh` | `platformModelProviderService.refreshModelProviders` |
 | `GET /api/super-agents/uncovered-intents` | `platformUncoveredIntentService` |
 | `POST /api/super-agents/mcp/refresh` | `platformMcpAdminService` |
+| `GET /api/super-agents/hooks/suspended` 等 | `platformSuspendedWorkflowService` |
+| `POST /api/super-agents/hooks/resume` | `platformSuspendedWorkflowService.resumeSuspendedWorkflow` |
 | 租户 / Admin Key Header | `platformAdminCommon`（各 SuperAgents 管理 service 共用） |
 | `/api/agent-hub/knowledge-bases` CRUD | `knowledgeService` |
 | `POST .../knowledge/upload` | `knowledgeService.uploadDocument` |
