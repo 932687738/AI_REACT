@@ -20,6 +20,12 @@ export const API_PATHS = {
     skillStatus: (name: string, version: number) =>
       `/api/super-agents/skills/${encodeURIComponent(name)}/versions/${version}/status`,
     tools: '/api/super-agents/tools',
+    modelProviders: '/api/super-agents/model-providers',
+    modelProvider: (providerId: string) =>
+      `/api/super-agents/model-providers/${encodeURIComponent(providerId)}`,
+    modelProvidersRefresh: '/api/super-agents/model-providers/refresh',
+    uncoveredIntents: '/api/super-agents/uncovered-intents',
+    mcpRefresh: '/api/super-agents/mcp/refresh',
   },
   humanLoop: {
     base: '/springai/demo/alibaba-graph/human-loop',

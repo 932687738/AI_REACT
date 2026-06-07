@@ -1,3 +1,30 @@
+import {
+  getStoredAdminApiKey,
+  getStoredTenantId,
+  platformHeaders,
+  platformWriteRequestOptions,
+  setStoredAdminApiKey,
+  setStoredTenantId,
+} from '@/services/platformAdminCommon';
+
+export {
+  getStoredAdminApiKey,
+  getStoredTenantId,
+  platformHeaders,
+  setStoredAdminApiKey,
+  setStoredTenantId,
+};
+
+export type {
+  PlatformSkill,
+  PlatformSkillListResponse,
+  PlatformSkillStatus,
+  PlatformSkillStatusTarget,
+  PlatformSkillStep,
+  PublishPlatformSkillInput,
+} from '@/types/platformSkill';
+export { SKILL_STATUS_TRANSITIONS } from '@/types/platformSkill';
+
 import { request } from '@/openapi/request';
 import { API_PATHS } from '@/constants/ApiPaths';
 import type {
@@ -6,42 +33,6 @@ import type {
   PlatformSkillStatusTarget,
   PublishPlatformSkillInput,
 } from '@/types/platformSkill';
-
-const ADMIN_KEY_STORAGE = 'aether.platform.adminApiKey';
-const TENANT_STORAGE = 'aether.platform.tenantId';
-
-export function getStoredAdminApiKey(): string {
-  if (typeof sessionStorage === 'undefined') {
-    return '';
-  }
-  return sessionStorage.getItem(ADMIN_KEY_STORAGE) ?? '';
-}
-
-export function setStoredAdminApiKey(value: string) {
-  sessionStorage.setItem(ADMIN_KEY_STORAGE, value.trim());
-}
-
-export function getStoredTenantId(): string {
-  if (typeof sessionStorage === 'undefined') {
-    return 'default';
-  }
-  return sessionStorage.getItem(TENANT_STORAGE) ?? 'default';
-}
-
-export function setStoredTenantId(value: string) {
-  sessionStorage.setItem(TENANT_STORAGE, value.trim() || 'default');
-}
-
-function platformHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    'X-Tenant-Id': getStoredTenantId(),
-  };
-  const apiKey = getStoredAdminApiKey();
-  if (apiKey) {
-    headers['X-Admin-Api-Key'] = apiKey;
-  }
-  return headers;
-}
 
 export async function listPlatformSkills(): Promise<PlatformSkill[]> {
   const res = await request<PlatformSkillListResponse>(API_PATHS.superAgents.skills, {
@@ -58,6 +49,7 @@ export async function publishPlatformSkill(
     method: 'POST',
     headers: platformHeaders(),
     data: input,
+    ...platformWriteRequestOptions,
   });
 }
 
@@ -70,5 +62,6 @@ export async function transitionPlatformSkillStatus(
     method: 'PATCH',
     headers: platformHeaders(),
     data: { targetStatus },
+    ...platformWriteRequestOptions,
   });
 }

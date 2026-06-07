@@ -73,6 +73,10 @@ function darkThemeConfig(themeCode: ThemeCode): ThemeConfig {
       Empty: {
         colorTextDescription: '#94a3b8',
       },
+      Switch: {
+        colorPrimary: '#22c55e',
+        handleBg: '#f8fafc',
+      },
     },
   };
 }

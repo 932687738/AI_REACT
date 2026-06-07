@@ -1,5 +1,24 @@
 # Changelog
 
+## [2026-06-07] - SuperAgents 前端接口补全
+
+### Added
+
+- 平台 Agent 注册表 `/agent-hub/platform-agents`（列表、注册、健康探测）
+- 平台 Tool 摘要 `/agent-hub/platform-tools`（搜索与来源筛选）
+- ModelProvider 管理 `/agent-hub/model-providers`（Switch + 重建绑定）
+- 未覆盖意图 `/agent-hub/uncovered-intents`
+- MCP 页顶栏 `PlatformMcpOpsBar`（POST `/api/super-agents/mcp/refresh`）
+- `platformAdminCommon` + 5 个 SuperAgents 管理 service；共享 `PlatformAdminSettingsDrawer`
+
+### Changed
+
+- `platformSkillService` 抽取公共 Header 至 `platformAdminCommon`
+- Agent Hub 侧栏新增 4 个「平台 API」菜单项；agents/tools/mcp 快照页行为不变
+- ModelProvider 页 Switch 深色主题对比度修复（轨道/边框 + 开/关文案）
+- SuperAgents 写操作 service 加 `skipErrorHandler`，避免与全局 errorHandler 重复 toast
+- Skill 管理台 publish/status 401 对齐 `handlePlatformUnauthorized`
+
 ## [2026-06-03] - 智能体 SSE 进度时间线（P2-SSE）
 
 ### Added

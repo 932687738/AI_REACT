@@ -6,6 +6,10 @@ const headings = {
   humanReview: /人工审核工作台|Human Review Workbench/i,
   kbManager: /知识库管理|Knowledge bases/i,
   skills: /Skill 管理台|Skill console/i,
+  platformAgents: /平台 Agent 注册表|Platform agent registry/i,
+  platformTools: /平台 Tool 摘要|Platform tool catalog/i,
+  modelProviders: /模型厂商|Model providers/i,
+  uncoveredIntents: /未覆盖意图|Uncovered intents/i,
   settings: /Nebula 用户|Nebula user/i,
 };
 
@@ -23,6 +27,10 @@ test.describe('Nebula Desk smoke', () => {
       { path: '/chat/human-review', heading: headings.humanReview, level: 1 as const },
       { path: '/knowledge/bases', heading: headings.kbManager },
       { path: '/agent-hub/skills', heading: headings.skills, level: 1 as const },
+      { path: '/agent-hub/platform-agents', heading: headings.platformAgents, level: 1 as const },
+      { path: '/agent-hub/platform-tools', heading: headings.platformTools, level: 1 as const },
+      { path: '/agent-hub/model-providers', heading: headings.modelProviders, level: 1 as const },
+      { path: '/agent-hub/uncovered-intents', heading: headings.uncoveredIntents, level: 1 as const },
       { path: '/settings', heading: headings.settings, level: 1 as const },
     ];
 

@@ -1,0 +1,176 @@
+.screen {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 8px 32px 4px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.headerCopy {
+  min-width: min(100%, 320px);
+}
+
+.title {
+  margin: 0 !important;
+  color: var(--nebula-ink, #f8fafc) !important;
+  font-size: clamp(1.5rem, 2.5vw, 2rem) !important;
+  text-wrap: balance;
+}
+
+.subtitle {
+  margin: 8px 0 0 !important;
+  color: var(--nebula-ink-muted, #94a3b8) !important;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.filterSearch {
+  flex: 1 1 220px;
+  max-width: 360px;
+}
+
+.tableCard,
+.drawerSection,
+.opsBar {
+  border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%));
+  border-radius: 14px;
+  background: var(--nebula-surface-card, rgb(21 34 56 / 96%));
+  box-shadow: 0 14px 36px rgb(0 0 0 / 16%);
+}
+
+.tableCard {
+  padding: 4px 0 8px;
+  overflow: hidden;
+}
+
+.opsBar {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.opsBarCopy {
+  color: var(--nebula-ink-muted, #94a3b8);
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 48ch;
+}
+
+.nameCell strong {
+  display: block;
+  color: var(--nebula-ink, #e8eef9);
+  font-size: 14px;
+}
+
+.nameCell span {
+  color: var(--nebula-ink-muted, #94a3b8);
+  font-size: 12px;
+}
+
+.descCell {
+  color: var(--nebula-ink-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.drawerSection {
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.tableCard :global(.ant-table) {
+  background: transparent !important;
+}
+
+.tableCard :global(.ant-table-thead > tr > th) {
+  background: var(--nebula-table-head-bg, #1a2942) !important;
+  color: var(--nebula-ink, #e2e8f0) !important;
+  font-weight: 600;
+  border-bottom: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 28%)) !important;
+}
+
+.tableCard :global(.ant-table-tbody > tr > td) {
+  border-bottom: 1px solid var(--nebula-border, rgb(148 163 184 / 18%)) !important;
+  color: var(--nebula-ink, #e2e8f0) !important;
+  vertical-align: top;
+}
+
+.tableCard :global(.ant-table-tbody > tr:hover > td) {
+  background: rgb(56 189 248 / 6%) !important;
+}
+
+.enableCell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tableCard :global(.ant-switch) {
+  min-width: 52px;
+  background: rgb(100 116 139 / 55%) !important;
+  border: 1px solid var(--nebula-border-strong, rgb(148 163 184 / 35%));
+}
+
+.tableCard :global(.ant-switch:not(.ant-switch-checked):hover:not(.ant-switch-disabled)) {
+  background: rgb(100 116 139 / 72%) !important;
+}
+
+.tableCard :global(.ant-switch.ant-switch-checked) {
+  background: rgb(34 197 94 / 88%) !important;
+  border-color: rgb(34 197 94 / 45%);
+}
+
+.tableCard :global(.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled)) {
+  background: rgb(34 197 94 / 96%) !important;
+}
+
+.tableCard :global(.ant-switch .ant-switch-handle::before) {
+  background: #fff !important;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 35%);
+}
+
+.tableCard :global(.ant-switch .ant-switch-inner) {
+  color: rgb(248 250 252 / 92%);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.drawerSection :global(.ant-input),
+.drawerSection :global(.ant-input-affix-wrapper),
+.filters :global(.ant-input-affix-wrapper) {
+  background: var(--nebula-input-bg, #132038) !important;
+  border-color: var(--nebula-border-strong, rgb(148 163 184 / 28%)) !important;
+  color: var(--nebula-ink, #e8eef9) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tableCard :global(.ant-table-tbody > tr) {
+    transition: none;
+  }
+}

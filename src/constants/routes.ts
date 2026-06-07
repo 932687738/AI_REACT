@@ -10,6 +10,10 @@ export const ROUTES = {
   AGENT_HUB_AGENTS: '/agent-hub/agents',
   AGENT_HUB_TOOLS: '/agent-hub/tools',
   AGENT_HUB_MCP: '/agent-hub/mcp',
+  AGENT_HUB_PLATFORM_AGENTS: '/agent-hub/platform-agents',
+  AGENT_HUB_PLATFORM_TOOLS: '/agent-hub/platform-tools',
+  AGENT_HUB_MODEL_PROVIDERS: '/agent-hub/model-providers',
+  AGENT_HUB_UNCOVERED_INTENTS: '/agent-hub/uncovered-intents',
   SETTINGS: '/settings',
   SHARE: '/share',
 } as const;

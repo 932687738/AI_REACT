@@ -44,7 +44,11 @@ e2e/                        # Playwright 冒烟
 | `/knowledge/bases` | 知识库 CRUD |
 | `/knowledge/upload` | 文档上传 |
 | `/agent-hub/skills` | **Skill 管理台**（SuperAgents 发布 / 生命周期） |
-| `/agent-hub/agents` … `/mcp` | Agent Hub 运行时浏览 |
+| `/agent-hub/platform-agents` | **平台 Agent 注册表**（SuperAgents GET/POST agents） |
+| `/agent-hub/platform-tools` | **平台 Tool 摘要**（GET tools） |
+| `/agent-hub/model-providers` | **ModelProvider 开关** |
+| `/agent-hub/uncovered-intents` | **未覆盖意图**复盘 |
+| `/agent-hub/agents` … `/mcp` | Agent Hub 运行时浏览（status 快照）；MCP 页顶栏含平台 refresh |
 | `/settings` | 设置（主题/语言/阈值） |
 
 ## Services 与契约映射
@@ -57,6 +61,14 @@ e2e/                        # Playwright 冒烟
 | `GET /api/agent-hub/status` | `agentHubService.getAgentHubStatus` |
 | `GET/POST /api/super-agents/skills` | `platformSkillService` |
 | `PATCH /api/super-agents/skills/{name}/versions/{v}/status` | `platformSkillService.transitionPlatformSkillStatus` |
+| `GET/POST /api/super-agents/agents` | `platformAgentRegistryService` |
+| `POST /api/super-agents/agents/{name}/health` | `platformAgentRegistryService.probePlatformAgentHealth` |
+| `GET /api/super-agents/tools` | `platformToolCatalogService` |
+| `GET/PATCH /api/super-agents/model-providers` | `platformModelProviderService` |
+| `POST /api/super-agents/model-providers/refresh` | `platformModelProviderService.refreshModelProviders` |
+| `GET /api/super-agents/uncovered-intents` | `platformUncoveredIntentService` |
+| `POST /api/super-agents/mcp/refresh` | `platformMcpAdminService` |
+| 租户 / Admin Key Header | `platformAdminCommon`（各 SuperAgents 管理 service 共用） |
 | `/api/agent-hub/knowledge-bases` CRUD | `knowledgeService` |
 | `POST .../knowledge/upload` | `knowledgeService.uploadDocument` |
 | `POST .../batch-delete` | `knowledgeService.batchDeleteDocuments` |

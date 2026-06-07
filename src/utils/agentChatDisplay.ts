@@ -28,23 +28,6 @@ export function stripAgentStreamDecorations(text: string): string {
     .trim();
 }
 
-export function parseAgentAssistantText(text: string): {
-  routing: AgentRoutingDisplay | null;
-  body: string;
-} {
-  const withoutProgress = stripAgentStreamDecorations(text);
-  const trimmed = withoutProgress.trim();
-  if (!trimmed.startsWith('【路由】')) {
-    return { routing: null, body: trimmed };
-  }
-
-  const firstLineEnd = trimmed.indexOf('\n');
-  const routingPayload =
-    firstLineEnd === -1 ? trimmed.slice('【路由】'.length) : trimmed.slice('【路由】'.length, firstLineEnd);
-  const body = firstLineEnd === -1 ? '' : trimmed.slice(firstLineEnd + 1).trim();
-  return { routing: parseRoutingLine(routingPayload.trim()), body };
-}
-
 function parseRoutingLine(line: string): AgentRoutingDisplay | null {
   if (!line) {
     return null;
@@ -78,4 +61,21 @@ function parseRoutingLine(line: string): AgentRoutingDisplay | null {
   }
 
   return result;
+}
+
+export function parseAgentAssistantText(text: string): {
+  routing: AgentRoutingDisplay | null;
+  body: string;
+} {
+  const withoutProgress = stripAgentStreamDecorations(text);
+  const trimmed = withoutProgress.trim();
+  if (!trimmed.startsWith('【路由】')) {
+    return { routing: null, body: trimmed };
+  }
+
+  const firstLineEnd = trimmed.indexOf('\n');
+  const routingPayload =
+    firstLineEnd === -1 ? trimmed.slice('【路由】'.length) : trimmed.slice('【路由】'.length, firstLineEnd);
+  const body = firstLineEnd === -1 ? '' : trimmed.slice(firstLineEnd + 1).trim();
+  return { routing: parseRoutingLine(routingPayload.trim()), body };
 }

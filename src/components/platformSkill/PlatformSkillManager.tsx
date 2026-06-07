@@ -20,14 +20,12 @@ import {
   message,
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
+import PlatformAdminSettingsDrawer from '@/components/platformAdmin/PlatformAdminSettingsDrawer';
+import { usePlatformAdminConfig } from '@/hooks/usePlatformAdminConfig';
 import {
-  getStoredAdminApiKey,
-  getStoredTenantId,
   listPlatformSkills,
   publishPlatformSkill,
-  setStoredAdminApiKey,
-  setStoredTenantId,
   transitionPlatformSkillStatus,
 } from '@/services/platformSkillService';
 import type {
@@ -38,6 +36,10 @@ import type {
   PublishPlatformSkillInput,
 } from '@/types/platformSkill';
 import { SKILL_STATUS_TRANSITIONS } from '@/types/platformSkill';
+import {
+  getPlatformErrorMessage,
+  handlePlatformUnauthorized,
+} from '@/utils/platformUnauthorized';
 import styles from './platformSkill.less';
 
 const SKILLS_QUERY_KEY = ['platform-skills'] as const;
@@ -73,19 +75,12 @@ function normalizeStatus(raw: string): PlatformSkillStatus {
 export default function PlatformSkillManager() {
   const intl = useIntl();
   const queryClient = useQueryClient();
+  const admin = usePlatformAdminConfig();
   const [publishOpen, setPublishOpen] = useState(false);
-  const [configOpen, setConfigOpen] = useState(false);
-  const [tenantId, setTenantId] = useState(getStoredTenantId);
-  const [adminKey, setAdminKey] = useState(getStoredAdminApiKey);
   const [publishForm] = Form.useForm<PublishPlatformSkillInput>();
 
-  useEffect(() => {
-    setStoredTenantId(tenantId);
-    setStoredAdminApiKey(adminKey);
-  }, [tenantId, adminKey]);
-
   const { data: skills = [], isLoading, isError, refetch } = useQuery({
-    queryKey: [...SKILLS_QUERY_KEY, tenantId],
+    queryKey: [...SKILLS_QUERY_KEY, admin.tenantId],
     queryFn: listPlatformSkills,
   });
 
@@ -101,8 +96,19 @@ export default function PlatformSkillManager() {
       publishForm.resetFields();
       invalidate();
     },
-    onError: (err: { message?: string }) => {
-      message.error(err?.message || intl.formatMessage({ id: 'platformSkill.publishFailed' }));
+    onError: (err: unknown) => {
+      if (
+        handlePlatformUnauthorized(
+          err,
+          admin.openConfig,
+          intl.formatMessage({ id: 'platformAdmin.unauthorized' }),
+        )
+      ) {
+        return;
+      }
+      message.error(
+        getPlatformErrorMessage(err, intl.formatMessage({ id: 'platformSkill.publishFailed' })),
+      );
     },
   });
 
@@ -120,8 +126,19 @@ export default function PlatformSkillManager() {
       message.success(intl.formatMessage({ id: 'platformSkill.statusSuccess' }));
       invalidate();
     },
-    onError: (err: { message?: string }) => {
-      message.error(err?.message || intl.formatMessage({ id: 'platformSkill.statusFailed' }));
+    onError: (err: unknown) => {
+      if (
+        handlePlatformUnauthorized(
+          err,
+          admin.openConfig,
+          intl.formatMessage({ id: 'platformAdmin.unauthorized' }),
+        )
+      ) {
+        return;
+      }
+      message.error(
+        getPlatformErrorMessage(err, intl.formatMessage({ id: 'platformSkill.statusFailed' })),
+      );
     },
   });
 
@@ -234,7 +251,7 @@ export default function PlatformSkillManager() {
           </Typography.Paragraph>
         </div>
         <div className={styles.toolbar}>
-          <Button icon={<SettingOutlined />} onClick={() => setConfigOpen(true)}>
+          <Button icon={<SettingOutlined />} onClick={() => admin.setConfigOpen(true)}>
             {intl.formatMessage({ id: 'platformSkill.config' })}
           </Button>
           <Button icon={<ReloadOutlined />} loading={isLoading} onClick={() => void refetch()}>
@@ -272,32 +289,14 @@ export default function PlatformSkillManager() {
         />
       </div>
 
-      <Drawer
-        title={intl.formatMessage({ id: 'platformSkill.configTitle' })}
-        open={configOpen}
-        onClose={() => setConfigOpen(false)}
-        width={400}
-      >
-        <Form layout="vertical">
-          <Form.Item label={intl.formatMessage({ id: 'platformSkill.tenantId' })}>
-            <Input
-              value={tenantId}
-              onChange={(e) => setTenantId(e.target.value)}
-              placeholder="default"
-            />
-          </Form.Item>
-          <Form.Item
-            label={intl.formatMessage({ id: 'platformSkill.adminKey' })}
-            extra={intl.formatMessage({ id: 'platformSkill.adminKeyHint' })}
-          >
-            <Input.Password
-              value={adminKey}
-              onChange={(e) => setAdminKey(e.target.value)}
-              autoComplete="off"
-            />
-          </Form.Item>
-        </Form>
-      </Drawer>
+      <PlatformAdminSettingsDrawer
+        open={admin.configOpen}
+        onClose={() => admin.setConfigOpen(false)}
+        tenantId={admin.tenantId}
+        adminKey={admin.adminKey}
+        onTenantIdChange={admin.setTenantId}
+        onAdminKeyChange={admin.setAdminKey}
+      />
 
       <Drawer
         title={intl.formatMessage({ id: 'platformSkill.publishTitle' })}
