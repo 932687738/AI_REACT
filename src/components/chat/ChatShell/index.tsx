@@ -251,6 +251,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                     item={item}
                     scrollToBottom={scrollToBottom}
                     onCitationNavigate={handleCitationNavigate}
+                    onSendUserMessage={(text) => {
+                      void sendMessage(text);
+                    }}
                   />
                 ) : item.role === 'assistant' && (item.text || item.pending) ? (
                   <>

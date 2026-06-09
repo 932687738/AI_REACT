@@ -1,5 +1,5 @@
 import { API_CHAT_MODE, CHAT_MODE, type ChatMode } from '@/constants/chatMode';
-import type { ConversationSummary, ConversationMessage, KnowledgeChatMeta } from '@/openapi/typings';
+import type { ConversationSummary, ConversationMessage, KnowledgeChatMeta, KnowledgeCitation } from '@/openapi/typings';
 import { normalizeCitation } from '@/utils/KnowledgeCitation';
 
 export type NormalizedConversation = ConversationSummary & {
@@ -57,16 +57,36 @@ function normalizeHistoryMeta(rawMeta: KnowledgeChatMeta | undefined) {
     return undefined;
   }
   const citations = Array.isArray(rawMeta.citations)
-    ? rawMeta.citations.map(normalizeCitation).filter(Boolean)
+    ? rawMeta.citations.map(normalizeCitation).filter((item): item is KnowledgeCitation => item !== null)
     : [];
-  if (citations.length === 0 && (rawMeta.knowledgeBaseCount === null || rawMeta.knowledgeBaseCount === undefined)) {
+  const artifacts = Array.isArray(rawMeta.artifacts)
+    ? rawMeta.artifacts.filter((item) => item && typeof item === 'object')
+    : [];
+  const text2sqlSessionId =
+    typeof rawMeta.text2sqlSessionId === 'string' && rawMeta.text2sqlSessionId.trim()
+      ? rawMeta.text2sqlSessionId.trim()
+      : undefined;
+  const hasKnowledgeMeta =
+    citations.length > 0 ||
+    (rawMeta.knowledgeBaseCount !== null && rawMeta.knowledgeBaseCount !== undefined);
+  if (!hasKnowledgeMeta && artifacts.length === 0 && !text2sqlSessionId) {
     return undefined;
   }
-  return {
-    knowledgeBaseCount: rawMeta.knowledgeBaseCount ?? 0,
-    knowledgeBaseNames: Array.isArray(rawMeta.knowledgeBaseNames) ? rawMeta.knowledgeBaseNames : [],
-    citations,
-  };
+  const meta: KnowledgeChatMeta = {};
+  if (hasKnowledgeMeta) {
+    meta.knowledgeBaseCount = rawMeta.knowledgeBaseCount ?? 0;
+    meta.knowledgeBaseNames = Array.isArray(rawMeta.knowledgeBaseNames) ? rawMeta.knowledgeBaseNames : [];
+    if (citations.length > 0) {
+      meta.citations = citations;
+    }
+  }
+  if (artifacts.length > 0) {
+    meta.artifacts = artifacts;
+  }
+  if (text2sqlSessionId) {
+    meta.text2sqlSessionId = text2sqlSessionId;
+  }
+  return meta;
 }
 
 export function normalizeConversationItem(

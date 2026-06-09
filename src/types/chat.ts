@@ -1,5 +1,5 @@
 import type { KnowledgeChatMeta } from '@/openapi/typings';
-import type { SuperAgentProgressEvent } from '@/utils/SuperAgentSse';
+import type { SuperAgentArtifactEvent, SuperAgentMetaEvent, SuperAgentProgressEvent } from '@/utils/SuperAgentSse';
 
 /** SSE 流式回调（非 OpenAPI DTO） */
 export interface ChatStreamHandlers {
@@ -7,7 +7,8 @@ export interface ChatStreamHandlers {
   includeInFullText?: (chunk: string) => boolean;
   onChunk?: (chunk: string) => void;
   onProgress?: (event: SuperAgentProgressEvent) => void;
-  onMeta?: (meta: KnowledgeChatMeta) => void;
+  onArtifact?: (event: SuperAgentArtifactEvent) => void;
+  onMeta?: (meta: KnowledgeChatMeta | SuperAgentMetaEvent) => void;
   onComplete?: (fullText: string) => void;
 }
 

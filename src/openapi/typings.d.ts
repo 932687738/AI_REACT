@@ -145,6 +145,9 @@ export interface KnowledgeChatMeta {
   knowledgeBaseNames?: string[];
   knowledgeBaseCount?: number;
   citations?: KnowledgeCitation[];
+  /** SuperAgents artifact 持久化（扩展字段） */
+  artifacts?: Array<Record<string, unknown>>;
+  text2sqlSessionId?: string;
 }
 
 export interface KnowledgeRetrievalThreshold {

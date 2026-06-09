@@ -146,6 +146,8 @@ export async function postStream(
         handlers.onChunk?.(text);
       },
       handlers.onProgress,
+      handlers.onArtifact,
+      handlers.onMeta,
     );
     if (handled) {
       return;

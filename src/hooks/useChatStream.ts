@@ -9,8 +9,8 @@ import {
   fetchNormalizedMessages,
   persistAgentTurn,
 } from '@/services/conversationPersist';
-import type { AgentProgressStep, ConversationMessage } from '@/openapi/typings';
-import type { SuperAgentProgressEvent } from '@/utils/SuperAgentSse';
+import type { AgentProgressStep, ConversationMessage, KnowledgeChatMeta } from '@/openapi/typings';
+import type { SuperAgentArtifactEvent, SuperAgentMetaEvent, SuperAgentProgressEvent, ChatArtifactPayload } from '@/utils/SuperAgentSse';
 import { stripAgentStreamDecorations } from '@/utils/agentChatDisplay';
 import { stripKnowledgeMetaFromText } from '@/utils/KnowledgeCitation';
 import { conversationHistoryKey } from '@/hooks/useConversationHistory';
@@ -51,6 +51,7 @@ export function useChatStream(chatMode: ChatMode) {
   const [isSending, setIsSending] = useState(false);
   const conversationRef = useRef(conversationId);
   const assistantMetaRef = useRef<ConversationMessage['meta']>();
+  const assistantArtifactsRef = useRef<ChatArtifactPayload[]>([]);
 
   conversationRef.current = conversationId;
 
@@ -118,6 +119,7 @@ export function useChatStream(chatMode: ChatMode) {
       setIsSending(true);
       setMessages(nextMessages);
       assistantMetaRef.current = undefined;
+      assistantArtifactsRef.current = [];
 
       void ensureConversationOnServer({
         conversationId: activeConversationId,
@@ -149,13 +151,35 @@ export function useChatStream(chatMode: ChatMode) {
               );
             },
             onMeta: (meta) => {
-              if (!meta || meta.event !== 'meta') {
+              if (!meta) {
                 return;
               }
+              if ('type' in meta && meta.type === 'meta') {
+                const superMeta = meta as SuperAgentMetaEvent;
+                if (superMeta.text2sqlSessionId) {
+                  assistantMetaRef.current = {
+                    ...(assistantMetaRef.current || {}),
+                    text2sqlSessionId: superMeta.text2sqlSessionId,
+                  };
+                  setMessages((current) =>
+                    current.map((item) =>
+                      item.id === assistantMessageId
+                        ? { ...item, meta: assistantMetaRef.current }
+                        : item,
+                    ),
+                  );
+                }
+                return;
+              }
+              if ('event' in meta && meta.event !== 'meta') {
+                return;
+              }
+              const knowledgeMeta = meta as KnowledgeChatMeta;
               assistantMetaRef.current = {
-                knowledgeBaseCount: meta.knowledgeBaseCount,
-                knowledgeBaseNames: meta.knowledgeBaseNames,
-                citations: meta.citations,
+                ...(assistantMetaRef.current || {}),
+                knowledgeBaseCount: knowledgeMeta.knowledgeBaseCount,
+                knowledgeBaseNames: knowledgeMeta.knowledgeBaseNames,
+                citations: knowledgeMeta.citations,
               };
               setMessages((current) =>
                 current.map((item) =>
@@ -195,6 +219,28 @@ export function useChatStream(chatMode: ChatMode) {
                           agentProgress: duplicate ? prev : [...prev, step],
                         };
                       }),
+                    );
+                  }
+                : undefined,
+            onArtifact:
+              chatMode === CHAT_MODE.AGENT
+                ? (event: SuperAgentArtifactEvent) => {
+                    assistantArtifactsRef.current = [
+                      ...assistantArtifactsRef.current,
+                      event.artifact,
+                    ];
+                    assistantMetaRef.current = {
+                      ...(assistantMetaRef.current || {}),
+                      artifacts: assistantArtifactsRef.current as unknown as Array<
+                        Record<string, unknown>
+                      >,
+                    };
+                    setMessages((current) =>
+                      current.map((item) =>
+                        item.id === assistantMessageId
+                          ? { ...item, meta: assistantMetaRef.current }
+                          : item,
+                      ),
                     );
                   }
                 : undefined,

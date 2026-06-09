@@ -4,7 +4,9 @@ import AgentProgressTimeline from '@/components/chat/AgentProgressTimeline';
 import AgentRoutingMeta from '@/components/chat/AgentRoutingMeta';
 import KnowledgeCitationPanel from '@/components/chat/KnowledgeCitationPanel';
 import TypewriterText from '@/components/chat/TypewriterText';
+import ArtifactRenderer from '@/components/artifacts/ArtifactRenderer';
 import type { ConversationMessage, KnowledgeCitation } from '@/openapi/typings';
+import type { ChatArtifactPayload } from '@/utils/SuperAgentSse';
 import { extractProgressFromText, parseAgentAssistantText } from '@/utils/agentChatDisplay';
 import styles from './ChatShell/index.less';
 
@@ -12,12 +14,14 @@ export interface AgentAssistantMessageContentProps {
   item: ConversationMessage;
   scrollToBottom: () => void;
   onCitationNavigate: (citation: KnowledgeCitation) => void;
+  onSendUserMessage?: (message: string) => void;
 }
 
 export default function AgentAssistantMessageContent({
   item,
   scrollToBottom,
   onCitationNavigate,
+  onSendUserMessage,
 }: AgentAssistantMessageContentProps) {
   const intl = useIntl();
 
@@ -38,9 +42,18 @@ export default function AgentAssistantMessageContent({
   const hasBody = Boolean(body.trim());
   const compactProgress = showProgress && hasBody && !item.pending;
 
+  const artifacts = (item.meta?.artifacts || []) as unknown as ChatArtifactPayload[];
+
   return (
     <>
       {routing ? <AgentRoutingMeta routing={routing} /> : null}
+      {artifacts.length ? (
+        <ArtifactRenderer
+          artifacts={artifacts}
+          onSqlConfirm={() => onSendUserMessage?.('确认执行')}
+          onSqlRevise={() => onSendUserMessage?.('修改：请补充筛选条件')}
+        />
+      ) : null}
       {showProgress ? (
         <AgentProgressTimeline steps={progressSteps} compact={compactProgress} />
       ) : null}
