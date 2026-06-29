@@ -378,6 +378,7 @@ export default {
   'chat.variables.open': 'Conversation variables',
   'chat.variables.agentTag': '{agent} · {count} vars',
   'chat.variables.welcomeHint': 'This agent has conversation variables. Fill them in before chatting.',
+  'chat.variables.routeFirstHint': 'Send a message first so routing can determine which variables to fill in.',
   'platformTool.title': 'Platform tool catalog',
   'platformTool.subtitle': 'SuperAgents tool summaries. Local Bean snapshot: Tools menu.',
   'platformTool.empty': 'No tool summaries',

@@ -93,3 +93,17 @@ export function parseAgentAssistantText(text: string): {
   const body = firstLineEnd === -1 ? '' : trimmed.slice(firstLineEnd + 1).trim();
   return { routing: parseRoutingLine(routingPayload.trim()), body };
 }
+
+/** 从助手消息路由行解析注册表 Agent 名（不含展示名括号部分）。 */
+export function extractRoutedAgentNameFromText(text: string): string | null {
+  const { routing } = parseAgentAssistantText(text);
+  if (!routing?.agentLabel) {
+    return null;
+  }
+  const label = routing.agentLabel.trim();
+  if (label.startsWith('混合意图') || label.includes('平台总路由')) {
+    return null;
+  }
+  const registryName = label.split('（')[0].split('(')[0].trim();
+  return registryName || null;
+}

@@ -6,6 +6,7 @@ import type {
   PlatformAgentRegistryItem,
   PlatformAgentRegistryListResponse,
   RegisterPlatformAgentInput,
+  SuperAgentChatPrepPreview,
   UpdateAgentVariablesInput,
 } from '@/types/platformAgentRegistry';
 
@@ -45,5 +46,21 @@ export async function updateAgentVariables(
     headers: platformHeaders(),
     data: input,
     ...platformWriteRequestOptions,
+  });
+}
+
+/** 同步 prep 路由预览：返回预计子 Agent 与应用变量定义。 */
+export async function previewSuperAgentChatRoute(params: {
+  conversationId: string;
+  message: string;
+}): Promise<SuperAgentChatPrepPreview> {
+  return request<SuperAgentChatPrepPreview>(API_PATHS.superAgents.chatPrep, {
+    method: 'POST',
+    headers: platformHeaders(),
+    data: {
+      conversationId: params.conversationId,
+      message: params.message,
+      sessionVariables: {},
+    },
   });
 }

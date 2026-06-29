@@ -18,7 +18,7 @@ import RetrievalThresholdSettings from '@/components/settings/RetrievalThreshold
 import { useChatSession } from '@/context/ChatSessionProvider';
 import { useChatStream } from '@/hooks/useChatStream';
 import { listQuickCommands } from '@/services/promptMarketplaceService';
-import { listPlatformAgents } from '@/services/platformAgentRegistryService';
+import { listPlatformAgents, previewSuperAgentChatRoute } from '@/services/platformAgentRegistryService';
 import { DEFAULT_PLATFORM_AGENT_NAME } from '@/constants/platformAgents';
 import type { QuickCommand } from '@/types/promptMarketplace';
 import type { PlatformAgentRegistryItem } from '@/types/platformAgentRegistry';
@@ -31,6 +31,7 @@ import {
   setAgentSessionVariables,
 } from '@/utils/agentSessionVariables';
 import type { KnowledgeCitation } from '@/openapi/typings';
+import { extractRoutedAgentNameFromText } from '@/utils/agentChatDisplay';
 import styles from './index.less';
 
 // Lazy-load heavy drawers
@@ -106,7 +107,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const [quickCommandsOpen, setQuickCommandsOpen] = useState(false);
   const [quickCommands, setQuickCommands] = useState<QuickCommand[]>([]);
   const [platformAgentName, setPlatformAgentName] = useState(DEFAULT_PLATFORM_AGENT_NAME);
-  const [platformAgent, setPlatformAgent] = useState<PlatformAgentRegistryItem | null>(null);
+  const [registeredAgents, setRegisteredAgents] = useState<PlatformAgentRegistryItem[]>([]);
+  const [variableAgent, setVariableAgent] = useState<PlatformAgentRegistryItem | null>(null);
+  const [variableAgentName, setVariableAgentName] = useState('');
   const [variableModalOpen, setVariableModalOpen] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
 
@@ -126,6 +129,8 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   useEffect(() => {
     setInputValue('');
     setActiveMessageId(null);
+    setVariableAgent(null);
+    setVariableAgentName('');
   }, [conversationId]);
 
   useEffect(() => {
@@ -148,70 +153,132 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const userNavItems = useMemo(() => buildUserMessageNavItems(messages), [messages]);
   const showMessageNav = userNavItems.length > 0;
 
-  const agentVariableCount = platformAgent?.variables?.length ?? 0;
-  const sessionVariablesConfigured = hasAgentSessionVariablesConfigured(
-    conversationId,
-    platformAgentName,
+  const agentVariableCount = variableAgent?.variables?.length ?? 0;
+  const sessionVariablesConfigured = variableAgentName
+    ? hasAgentSessionVariablesConfigured(conversationId, variableAgentName)
+    : false;
+
+  const resolveVariableAgentFromRegistry = useCallback(
+    (name: string, variables?: PlatformAgentRegistryItem['variables']) => {
+      const existing = registeredAgents.find((item) => item.name === name);
+      const resolvedVariables = existing?.variables?.length ? existing.variables : variables;
+      if (!resolvedVariables?.length) {
+        return null;
+      }
+      if (existing) {
+        return existing.variables?.length ? existing : { ...existing, variables: resolvedVariables };
+      }
+      return {
+        name,
+        displayName: name,
+        status: 'active',
+        version: '',
+        variables: resolvedVariables,
+      } satisfies PlatformAgentRegistryItem;
+    },
+    [registeredAgents],
+  );
+
+  const shouldPromptForVariables = useCallback(
+    (agent: PlatformAgentRegistryItem) => {
+      if (!agent.variables?.length) {
+        return false;
+      }
+      if (!hasAgentSessionVariablesConfigured(conversationId, agent.name)) {
+        return true;
+      }
+      const cached = getAgentSessionVariables(conversationId, agent.name);
+      return findMissingRequiredVariables(agent.variables, cached).length > 0;
+    },
+    [conversationId],
   );
 
   useEffect(() => {
     if (chatMode !== CHAT_MODE.AGENT) {
       setQuickCommands([]);
+      setRegisteredAgents([]);
+      setVariableAgent(null);
+      setVariableAgentName('');
       return;
     }
     listPlatformAgents()
       .then((agents) => {
-        const withVariables = agents.filter(
-          (item) => item.status === 'active' && (item.variables?.length ?? 0) > 0,
-        );
+        setRegisteredAgents(agents);
         const activeAgent =
-          withVariables[0] ??
-          agents.find((item) => item.status === 'active') ??
-          agents[0];
+          agents.find((item) => item.status === 'active') ?? agents[0];
         const resolved = activeAgent?.name ?? DEFAULT_PLATFORM_AGENT_NAME;
         setPlatformAgentName(resolved);
-        setPlatformAgent(activeAgent ?? null);
         return reloadQuickCommands(resolved);
       })
       .catch(() => reloadQuickCommands(DEFAULT_PLATFORM_AGENT_NAME));
-  }, [chatMode, conversationId, reloadQuickCommands]);
+  }, [chatMode, reloadQuickCommands]);
 
   useEffect(() => {
-    if (chatMode !== CHAT_MODE.AGENT || agentVariableCount === 0) {
+    if (chatMode !== CHAT_MODE.AGENT || isLoadingHistory || registeredAgents.length === 0) {
+      return;
+    }
+    for (let index = messages.length - 1; index >= 0; index -= 1) {
+      const item = messages[index];
+      if (item.role !== 'assistant' || !item.text) {
+        continue;
+      }
+      const routedName = extractRoutedAgentNameFromText(item.text);
+      if (!routedName) {
+        continue;
+      }
+      const agent = resolveVariableAgentFromRegistry(routedName);
+      if (agent?.variables?.length) {
+        setVariableAgent(agent);
+        setVariableAgentName(agent.name);
+      } else {
+        setVariableAgent(null);
+        setVariableAgentName('');
+      }
+      return;
+    }
+  }, [
+    chatMode,
+    conversationId,
+    isLoadingHistory,
+    messages,
+    registeredAgents,
+    resolveVariableAgentFromRegistry,
+  ]);
+
+  useEffect(() => {
+    if (chatMode !== CHAT_MODE.AGENT || agentVariableCount === 0 || !variableAgent) {
       return;
     }
     if (sessionVariablesConfigured) {
       return;
     }
     setVariableModalOpen(true);
-  }, [chatMode, agentVariableCount, conversationId, sessionVariablesConfigured]);
+  }, [chatMode, agentVariableCount, conversationId, sessionVariablesConfigured, variableAgent]);
 
   const openVariableModal = useCallback(async () => {
-    try {
-      const agents = await listPlatformAgents();
-      const agent =
-        agents.find((item) => item.name === platformAgentName) ??
-        agents.find((item) => item.status === 'active');
-      if (agent) {
-        setPlatformAgent(agent);
-        setPlatformAgentName(agent.name);
+    if (variableAgent?.variables?.length) {
+      setVariableModalOpen(true);
+      return;
+    }
+    for (let index = messages.length - 1; index >= 0; index -= 1) {
+      const item = messages[index];
+      if (item.role !== 'assistant' || !item.text) {
+        continue;
       }
-    } catch {
-      // 保留当前内存中的 Agent 快照
+      const routedName = extractRoutedAgentNameFromText(item.text);
+      if (!routedName) {
+        continue;
+      }
+      const agent = resolveVariableAgentFromRegistry(routedName);
+      if (agent?.variables?.length) {
+        setVariableAgent(agent);
+        setVariableAgentName(agent.name);
+        setVariableModalOpen(true);
+        return;
+      }
     }
-    setVariableModalOpen(true);
-  }, [platformAgentName]);
-
-  const shouldPromptForVariables = useCallback(() => {
-    if (!platformAgent?.variables?.length) {
-      return false;
-    }
-    if (!sessionVariablesConfigured) {
-      return true;
-    }
-    const cached = getAgentSessionVariables(conversationId, platformAgentName);
-    return findMissingRequiredVariables(platformAgent.variables, cached).length > 0;
-  }, [conversationId, platformAgent, platformAgentName, sessionVariablesConfigured]);
+    message.info(intl.formatMessage({ id: 'chat.variables.routeFirstHint' }));
+  }, [intl, messages, resolveVariableAgentFromRegistry, variableAgent]);
 
   useEffect(() => {
     if (!quickCommandsOpen && chatMode === CHAT_MODE.AGENT) {
@@ -302,50 +369,66 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
 
   const handleSubmit = useCallback(
     async (raw?: string) => {
-      const message = (raw ?? inputValue).trim();
-      if (!message) {
+      const messageText = (raw ?? inputValue).trim();
+      if (!messageText) {
         return;
       }
 
-      if (chatMode === CHAT_MODE.AGENT && shouldPromptForVariables()) {
-        setPendingMessage(message);
-        setVariableModalOpen(true);
-        return;
+      if (chatMode === CHAT_MODE.AGENT) {
+        try {
+          const preview = await previewSuperAgentChatRoute({
+            conversationId,
+            message: messageText,
+          });
+          const routedAgent = preview.subAgentName
+            ? resolveVariableAgentFromRegistry(preview.subAgentName, preview.variables)
+            : null;
+          if (routedAgent?.variables?.length) {
+            setVariableAgent(routedAgent);
+            setVariableAgentName(routedAgent.name);
+            if (shouldPromptForVariables(routedAgent)) {
+              setPendingMessage(messageText);
+              setVariableModalOpen(true);
+              return;
+            }
+            const cached = mergeVariableDefaults(
+              routedAgent.variables,
+              getAgentSessionVariables(conversationId, routedAgent.name),
+            );
+            await dispatchMessage(messageText, cached);
+            return;
+          }
+        } catch {
+          // prep 失败时降级为无变量发送
+        }
       }
 
-      if (chatMode === CHAT_MODE.AGENT && platformAgent?.variables?.length) {
-        const cached = mergeVariableDefaults(
-          platformAgent.variables,
-          getAgentSessionVariables(conversationId, platformAgentName),
-        );
-        await dispatchMessage(message, cached);
-        return;
-      }
-
-      await dispatchMessage(message);
+      await dispatchMessage(messageText);
     },
     [
       chatMode,
       conversationId,
       dispatchMessage,
       inputValue,
-      platformAgent,
-      platformAgentName,
+      resolveVariableAgentFromRegistry,
       shouldPromptForVariables,
     ],
   );
 
   const handleVariableModalSubmit = useCallback(
     async (values: Record<string, string>) => {
-      setAgentSessionVariables(conversationId, platformAgentName, values);
+      if (!variableAgentName) {
+        return;
+      }
+      setAgentSessionVariables(conversationId, variableAgentName, values);
       setVariableModalOpen(false);
-      const message = pendingMessage;
+      const messageText = pendingMessage;
       setPendingMessage(null);
-      if (message) {
-        await dispatchMessage(message, values);
+      if (messageText) {
+        await dispatchMessage(messageText, values);
       }
     },
-    [conversationId, dispatchMessage, pendingMessage, platformAgentName],
+    [conversationId, dispatchMessage, pendingMessage, variableAgentName],
   );
 
   return (
@@ -364,7 +447,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
               {intl.formatMessage(
                 { id: 'chat.variables.agentTag' },
                 {
-                  agent: platformAgent?.displayName || platformAgentName,
+                  agent: variableAgent?.displayName || variableAgentName,
                   count: agentVariableCount,
                 },
               )}
@@ -579,12 +662,12 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           />
         ) : null}
       </Suspense>
-      {chatMode === CHAT_MODE.AGENT && platformAgent?.variables?.length ? (
+      {chatMode === CHAT_MODE.AGENT && variableAgent?.variables?.length ? (
         <ChatVariableFormModal
           open={variableModalOpen}
-          agentDisplayName={platformAgent.displayName || platformAgent.name}
-          variables={platformAgent.variables}
-          initialValues={getAgentSessionVariables(conversationId, platformAgentName)}
+          agentDisplayName={variableAgent.displayName || variableAgent.name}
+          variables={variableAgent.variables}
+          initialValues={getAgentSessionVariables(conversationId, variableAgentName)}
           onCancel={() => {
             setVariableModalOpen(false);
             setPendingMessage(null);

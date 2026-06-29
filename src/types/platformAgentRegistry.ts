@@ -39,6 +39,14 @@ export interface AgentHealthResponse {
   checkedAt: string;
 }
 
+/** POST /api/super-agents/chat/prep 响应 */
+export interface SuperAgentChatPrepPreview {
+  streamRoute: string;
+  subAgentName?: string | null;
+  displayName?: string | null;
+  variables?: AgentAppVariable[];
+}
+
 export const AGENT_VARIABLE_MAX_VALUE_LENGTH = 1024;
 
 export const AGENT_VARIABLE_NAME_PATTERN = /^[a-zA-Z][a-zA-Z0-9_]*$/;

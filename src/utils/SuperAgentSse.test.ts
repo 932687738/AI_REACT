@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { dispatchSuperAgentSsePayload, parsePlainAgentMetaPayload, parseSuperAgentSsePayload } from '@/utils/SuperAgentSse';
-import { parseAgentAssistantText } from '@/utils/agentChatDisplay';
+import { parseAgentAssistantText, extractRoutedAgentNameFromText } from '@/utils/agentChatDisplay';
 
 describe('SuperAgentSse artifact', () => {
   it('parses artifact event', () => {
@@ -76,5 +76,16 @@ describe('SuperAgentSse artifact', () => {
     expect(parsed.routing?.modelLabel).toBe('qwen-plus');
     expect(parsed.routing?.routingModelLabel).toBe('qwen-turbo');
     expect(parsed.body).toBe('你好');
+  });
+
+  it('extracts registry agent name from routing line', () => {
+    expect(
+      extractRoutedAgentNameFromText(
+        '【路由】智能体：data-analyst（数据分析） | Skill：无 | 工具：子 Agent 内置能力\n\n结果',
+      ),
+    ).toBe('data-analyst');
+    expect(
+      extractRoutedAgentNameFromText('【路由】智能体：平台总路由（通用对话） | Skill：无\n\n'),
+    ).toBeNull();
   });
 });

@@ -376,6 +376,7 @@ export default {
   'chat.variables.open': '对话变量',
   'chat.variables.agentTag': '{agent} · {count} 个变量',
   'chat.variables.welcomeHint': '当前 Agent 配置了对话变量，请先填写后再开始聊天。',
+  'chat.variables.routeFirstHint': '请先发送一条消息，系统将根据路由确定需要填写的变量。',
   'platformTool.title': '平台 Tool 摘要',
   'platformTool.subtitle': 'SuperAgents 平台 Tool 描述摘要；本地 Bean 快照见「工具」菜单',
   'platformTool.empty': '暂无 Tool 摘要',
