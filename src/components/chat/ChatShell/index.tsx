@@ -276,7 +276,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                 activeMessageId === item.id ? styles.messageRowTarget : ''
               } ${shareActiveForConversation ? styles.messageRowShare : ''}`}
             >
-              {showShareCheckbox ? (
+              {showShareCheckbox && groupId ? (
                 <Checkbox
                   className={`${styles.shareCheckbox} nebula-share-checkbox`}
                   checked={shareMode.isSelected(groupId)}

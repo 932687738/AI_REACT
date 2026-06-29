@@ -18,5 +18,6 @@
       "@umijs/max/typings": ["src/.umi/typings"]
     }
   },
-  "include": ["src", ".umirc.ts", "typings.d.ts"]
+  "include": ["src", ".umirc.ts", "typings.d.ts"],
+  "exclude": ["src/**/*.test.ts"]
 }

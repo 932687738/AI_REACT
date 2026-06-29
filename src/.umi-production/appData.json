@@ -47,7 +47,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -60,7 +60,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 9
+        "register": 8
       },
       "enableBy": "register"
     },
@@ -73,7 +73,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -90,7 +90,7 @@
             0
           ]
         },
-        "register": 6
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -124,7 +124,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -151,7 +151,7 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            123
+            113
           ]
         },
         "register": 21
@@ -204,7 +204,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1100,10 +1100,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            0
+            1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1129,7 +1129,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 80
+        "register": 77
       },
       "enableBy": "register"
     },
@@ -1142,7 +1142,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 35
       },
       "enableBy": "config"
     },
@@ -1172,7 +1172,7 @@
             1
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1211,7 +1211,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 32
+        "register": 30
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/mpa/mpa": {
@@ -1223,7 +1223,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -1236,7 +1236,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/overrides/overrides": {
@@ -1248,7 +1248,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1275,10 +1275,10 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            1
+            0
           ]
         },
-        "register": 1
+        "register": 2
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
@@ -1303,7 +1303,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1316,7 +1316,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -1329,7 +1329,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1355,7 +1355,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1368,7 +1368,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1381,7 +1381,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/ssr/ssr": {
@@ -1419,7 +1419,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1432,7 +1432,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1470,7 +1470,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 20
+        "register": 19
       },
       "enableBy": "config"
     },
@@ -1549,7 +1549,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1599,7 +1599,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
@@ -1611,7 +1611,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 43
+        "register": 28
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/forget/forget": {
@@ -1623,7 +1623,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1649,7 +1649,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 5
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1662,7 +1662,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 41
+        "register": 32
       },
       "enableBy": "register"
     },
@@ -1675,7 +1675,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 41
+        "register": 34
       }
     },
     "./node_modules/@umijs/preset-umi/dist/commands/help": {
@@ -1687,7 +1687,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1700,7 +1700,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1739,7 +1739,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1752,7 +1752,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1765,7 +1765,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1778,7 +1778,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1791,7 +1791,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1804,7 +1804,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1830,7 +1830,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1856,7 +1856,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1869,7 +1869,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1882,7 +1882,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1895,7 +1895,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1921,7 +1921,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 19
+        "register": 20
       },
       "enableBy": "register"
     },
@@ -1947,7 +1947,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1975,7 +1975,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       }
     },
     "./node_modules/@umijs/plugins/dist/antd": {
@@ -1997,7 +1997,7 @@
             0
           ]
         },
-        "register": 8
+        "register": 7
       }
     },
     "./node_modules/@umijs/plugins/dist/dva": {
@@ -2009,7 +2009,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 7
       },
       "enableBy": "config"
     },
@@ -2022,7 +2022,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -2037,7 +2037,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2063,7 +2063,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2076,7 +2076,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2089,7 +2089,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2242,7 +2242,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -2255,7 +2255,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -2288,9 +2288,9 @@
       "baseSeparator": "-"
     },
     "define": {
-      "__MOCK_CHAT__": "\"false\"",
+      "__MOCK_CHAT__": "\"true\"",
       "process.env.API_BASE": "''",
-      "process.env.MOCK_CHAT": "\"false\"",
+      "process.env.MOCK_CHAT": "\"true\"",
       "process.env.SUPER_AGENTS_TENANT_ID": "\"default\""
     },
     "proxy": {
@@ -2428,9 +2428,9 @@
       "baseSeparator": "-"
     },
     "define": {
-      "__MOCK_CHAT__": "\"false\"",
+      "__MOCK_CHAT__": "\"true\"",
       "process.env.API_BASE": "''",
-      "process.env.MOCK_CHAT": "\"false\"",
+      "process.env.MOCK_CHAT": "\"true\"",
       "process.env.SUPER_AGENTS_TENANT_ID": "\"default\""
     },
     "proxy": {
@@ -3461,7 +3461,7 @@
       "file": "@/layouts/BasicLayout/index.tsx",
       "id": "2",
       "absPath": "/",
-      "__content": "import {\r\n  CommentOutlined,\r\n  DatabaseOutlined,\r\n  DownOutlined,\r\n  MenuFoldOutlined,\r\n  MenuUnfoldOutlined,\r\n  RobotOutlined,\r\n  SettingOutlined,\r\n} from '@ant-design/icons';\r\nimport { useEffect, useState } from 'react';\r\nimport { resolveBrandMark } from '@/constants/theme';\r\nimport { useAppStore, selectSidebarCollapsed, selectTheme } from '@/models/useAppStore';\r\nimport { history, Outlet, useIntl, useLocation, SelectLang } from '@umijs/max';\r\nimport { Avatar, Button, Dropdown, Layout } from 'antd';\r\nimport { ROUTES, isChatRoute } from '@/constants/routes';\r\nimport { chatModeFromPath } from '@/utils/chatModeFromPath';\r\nimport { ChatSessionProvider, useChatSession } from '@/context/ChatSessionProvider';\r\nimport { ShareModeProvider } from '@/context/ShareModeProvider';\r\nimport ConversationHistoryPanel from './ConversationHistoryPanel';\r\nimport { resolveModuleIdFromPath, SIDEBAR_MODULES } from './menuConfig';\r\nimport type { SidebarModuleGroup, SidebarModuleId } from './types';\r\nimport styles from './index.less';\r\n\r\nconst { Sider, Header, Content } = Layout;\r\n\r\nfunction moduleIcon(id: SidebarModuleGroup['id']) {\r\n  if (id === 'knowledge') {\r\n    return <DatabaseOutlined aria-hidden />;\r\n  }\r\n  if (id === 'agentHub') {\r\n    return <RobotOutlined aria-hidden />;\r\n  }\r\n  return <CommentOutlined aria-hidden />;\r\n}\r\n\r\nfunction isNavItemActive(activePath: string, itemPath: string) {\r\n  return activePath === itemPath || activePath.startsWith(`${itemPath}/`);\r\n}\r\n\r\nfunction SidebarModuleSection({\r\n  module,\r\n  collapsed,\r\n  expanded,\r\n  activePath,\r\n  onToggle,\r\n  onNavigate,\r\n}: {\r\n  module: SidebarModuleGroup;\r\n  collapsed: boolean;\r\n  expanded: boolean;\r\n  activePath: string;\r\n  onToggle: () => void;\r\n  onNavigate: (path: string) => void;\r\n}) {\r\n  const intl = useIntl();\r\n  const moduleTitle = intl.formatMessage({ id: module.titleId });\r\n  const hasActiveChild = module.items.some((item) => isNavItemActive(activePath, item.path));\r\n\r\n  if (collapsed) {\r\n    return (\r\n      <section className={styles.module} aria-label={moduleTitle}>\r\n        <Dropdown\r\n          trigger={['click']}\r\n          placement=\"rightTop\"\r\n          align={{ offset: [10, 0] }}\r\n          getPopupContainer={() => document.body}\r\n          overlayClassName={`${styles.moduleDropdownOverlay} nebula-sidebar-module-dropdown`}\r\n          dropdownRender={() => (\r\n            <div className={styles.moduleDropdownPanel}>\r\n              <div className={styles.moduleDropdownHeader}>{moduleTitle}</div>\r\n              <div className={styles.moduleDropdownList} role=\"menu\">\r\n                {module.items.map((item) => {\r\n                  const isActive = isNavItemActive(activePath, item.path);\r\n                  const label = intl.formatMessage({ id: item.labelId });\r\n                  return (\r\n                    <button\r\n                      key={item.key}\r\n                      type=\"button\"\r\n                      role=\"menuitem\"\r\n                      className={`${styles.moduleDropdownItem} nebula-nav-item ${isActive ? `${styles.moduleDropdownItemActive} nebula-nav-item-active` : ''}`}\r\n                      aria-current={isActive ? 'page' : undefined}\r\n                      onClick={() => onNavigate(item.path)}\r\n                    >\r\n                      {label}\r\n                    </button>\r\n                  );\r\n                })}\r\n              </div>\r\n            </div>\r\n          )}\r\n        >\r\n          <button\r\n            type=\"button\"\r\n            className={`${styles.moduleTrigger} ${styles.moduleTriggerCollapsed} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n            aria-label={moduleTitle}\r\n            aria-haspopup=\"menu\"\r\n          >\r\n            <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n          </button>\r\n        </Dropdown>\r\n      </section>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <section\r\n      className={`${styles.module} ${expanded ? styles.moduleExpanded : ''}`}\r\n      aria-label={moduleTitle}\r\n    >\r\n      <button\r\n        type=\"button\"\r\n        className={`${styles.moduleTrigger} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n        aria-expanded={expanded}\r\n        onClick={onToggle}\r\n      >\r\n        <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n        <span className={styles.moduleTriggerTitle}>{moduleTitle}</span>\r\n        <DownOutlined\r\n          className={`${styles.moduleTriggerArrow} ${expanded ? styles.moduleTriggerArrowOpen : ''}`}\r\n          aria-hidden\r\n        />\r\n      </button>\r\n      {expanded ? (\r\n        <nav className={styles.moduleNav} aria-label={moduleTitle}>\r\n          {module.items.map((item) => {\r\n            const isActive = isNavItemActive(activePath, item.path);\r\n            return (\r\n              <button\r\n                key={item.key}\r\n                type=\"button\"\r\n                className={`${styles.navItem} nebula-nav-item ${isActive ? `${styles.navItemActive} nebula-nav-item-active` : ''}`}\r\n                aria-current={isActive ? 'page' : undefined}\r\n                onClick={() => onNavigate(item.path)}\r\n              >\r\n                {intl.formatMessage({ id: item.labelId })}\r\n              </button>\r\n            );\r\n          })}\r\n        </nav>\r\n      ) : null}\r\n    </section>\r\n  );\r\n}\r\n\r\nfunction HistorySlot({ visible }: { visible: boolean }) {\r\n  const chatMode = chatModeFromPath(useLocation().pathname);\r\n  if (!visible) {\r\n    return null;\r\n  }\r\n  return <ConversationHistoryPanel chatMode={chatMode} />;\r\n}\r\n\r\nfunction BasicLayoutFrame() {\r\n  const intl = useIntl();\r\n  const location = useLocation();\r\n  const theme = useAppStore(selectTheme);\r\n  const collapsed = useAppStore(selectSidebarCollapsed);\r\n  const setSidebarCollapsed = useAppStore((state) => state.setSidebarCollapsed);\r\n  const toggleSidebarCollapsed = useAppStore((state) => state.toggleSidebarCollapsed);\r\n  const [expandedModuleId, setExpandedModuleId] = useState<SidebarModuleId | null>(() =>\r\n    resolveModuleIdFromPath(location.pathname),\r\n  );\r\n\r\n  useEffect(() => {\r\n    setExpandedModuleId(resolveModuleIdFromPath(location.pathname));\r\n  }, [location.pathname]);\r\n\r\n  const { startNewConversationForMode } = useChatSession();\r\n  const showHistory = isChatRoute(location.pathname);\r\n  const fillViewport = isChatRoute(location.pathname);\r\n\r\n  const handleNavigate = (path: string) => {\r\n    if (isChatRoute(path)) {\r\n      startNewConversationForMode(chatModeFromPath(path));\r\n    }\r\n    if (location.pathname !== path) {\r\n      history.push(path);\r\n    }\r\n    setExpandedModuleId(resolveModuleIdFromPath(path));\r\n  };\r\n\r\n  const profileMenu = {\r\n    items: [\r\n      {\r\n        key: 'settings',\r\n        icon: <SettingOutlined />,\r\n        label: intl.formatMessage({ id: 'layout.profile.settings' }),\r\n        onClick: () => history.push(ROUTES.SETTINGS),\r\n      },\r\n      {\r\n        key: 'logout',\r\n        label: intl.formatMessage({ id: 'layout.profile.logout' }),\r\n        disabled: true,\r\n      },\r\n    ],\r\n  };\r\n\r\n  return (\r\n      <Layout className={`${styles.shell} nebula-layout`}>\r\n      <Sider\r\n        className={`${styles.sider} nebula-sider`}\r\n        width={260}\r\n        collapsedWidth={72}\r\n        collapsible\r\n        collapsed={collapsed}\r\n        onCollapse={setSidebarCollapsed}\r\n        trigger={null}\r\n        breakpoint=\"lg\"\r\n        onBreakpoint={(broken) => setSidebarCollapsed(broken)}\r\n      >\r\n        <div className={styles.siderInner}>\r\n        <div className={`${styles.brand} nebula-brand`}>\r\n          <Avatar\r\n            className={styles.brandMark}\r\n            shape=\"square\"\r\n            size={40}\r\n            src={resolveBrandMark(theme)}\r\n            alt={intl.formatMessage({ id: 'layout.appName' })}\r\n          />\r\n          {!collapsed ? (\r\n            <div className={styles.brandCopy}>\r\n              <strong>{intl.formatMessage({ id: 'layout.appName' })}</strong>\r\n              <span>{intl.formatMessage({ id: 'layout.brandTagline' })}</span>\r\n            </div>\r\n          ) : null}\r\n        </div>\r\n\r\n        <div className={styles.sidebarScroll}>\r\n          {SIDEBAR_MODULES.map((module) => (\r\n            <SidebarModuleSection\r\n              key={module.id}\r\n              module={module}\r\n              collapsed={collapsed}\r\n              expanded={!collapsed && expandedModuleId === module.id}\r\n              activePath={location.pathname}\r\n              onToggle={() =>\r\n                setExpandedModuleId((current) => (current === module.id ? null : module.id))\r\n              }\r\n              onNavigate={handleNavigate}\r\n            />\r\n          ))}\r\n\r\n          {!collapsed ? <HistorySlot visible={showHistory} /> : null}\r\n        </div>\r\n\r\n        <div className={`${styles.profile} nebula-profile`}>\r\n          <Dropdown menu={profileMenu} trigger={['click']} placement=\"topLeft\">\r\n            <button type=\"button\" className={`${styles.profileTrigger} nebula-profile-trigger`}>\r\n              <Avatar\r\n                size={32}\r\n                className={styles.profileAvatar}\r\n                src={resolveBrandMark(theme)}\r\n                alt={intl.formatMessage({ id: 'layout.profile.name' })}\r\n              />\r\n              {!collapsed ? (\r\n                <span className={`${styles.profileName} nebula-profile-name`}>\r\n                  {intl.formatMessage({ id: 'layout.profile.name' })}\r\n                </span>\r\n              ) : null}\r\n            </button>\r\n          </Dropdown>\r\n        </div>\r\n        </div>\r\n      </Sider>\r\n\r\n      <Layout className={styles.main}>\r\n        <Header className={styles.header}>\r\n          <Button\r\n            type=\"text\"\r\n            className={styles.collapseTrigger}\r\n            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}\r\n            aria-label={intl.formatMessage({ id: 'layout.top.toggleSidebar' })}\r\n            onClick={() => toggleSidebarCollapsed()}\r\n          />\r\n          <div className={styles.headerSpacer} />\r\n          <div className={styles.headerActions}>\r\n            <SelectLang />\r\n            <Button\r\n              type=\"text\"\r\n              icon={<SettingOutlined />}\r\n              aria-label={intl.formatMessage({ id: 'layout.top.settings' })}\r\n              onClick={() => history.push(ROUTES.SETTINGS)}\r\n            />\r\n          </div>\r\n        </Header>\r\n        <Content className={`${styles.content} ${fillViewport ? styles.contentFill : ''}`}>\r\n          <Outlet />\r\n        </Content>\r\n      </Layout>\r\n    </Layout>\r\n  );\r\n}\r\n\r\nexport default function BasicLayout() {\r\n  return (\r\n    <ChatSessionProvider>\r\n      <ShareModeProvider>\r\n        <BasicLayoutFrame />\r\n      </ShareModeProvider>\r\n    </ChatSessionProvider>\r\n  );\r\n}\r\n",
+      "__content": "import {\r\n  CommentOutlined,\r\n  DatabaseOutlined,\r\n  DownOutlined,\r\n  MenuFoldOutlined,\r\n  MenuUnfoldOutlined,\r\n  RobotOutlined,\r\n  SettingOutlined,\r\n} from '@ant-design/icons';\r\nimport { useEffect, useState } from 'react';\r\nimport { resolveBrandMark } from '@/constants/theme';\r\nimport { useAppStore, selectSidebarCollapsed, selectTheme } from '@/models/useAppStore';\r\nimport { history, Outlet, useIntl, useLocation, SelectLang } from '@umijs/max';\r\nimport { Avatar, Button, Dropdown, Layout } from 'antd';\r\nimport { ROUTES, isChatRoute } from '@/constants/routes';\r\nimport { chatModeFromPath } from '@/utils/chatModeFromPath';\r\nimport { ChatSessionProvider, useChatSession } from '@/context/ChatSessionProvider';\r\nimport { ShareModeProvider } from '@/context/ShareModeProvider';\r\nimport ConversationHistoryPanel from './ConversationHistoryPanel';\r\nimport { resolveModuleIdFromPath, SIDEBAR_MODULES } from './menuConfig';\r\nimport type { SidebarModuleGroup, SidebarModuleId } from './types';\r\nimport styles from './index.less';\r\n\r\nconst { Sider, Header, Content } = Layout;\r\n\r\nfunction moduleIcon(id: SidebarModuleGroup['id']) {\r\n  if (id === 'knowledge') {\r\n    return <DatabaseOutlined aria-hidden />;\r\n  }\r\n  if (id === 'agentHub') {\r\n    return <RobotOutlined aria-hidden />;\r\n  }\r\n  return <CommentOutlined aria-hidden />;\r\n}\r\n\r\nfunction isNavItemActive(activePath: string, itemPath: string) {\r\n  return activePath === itemPath || activePath.startsWith(`${itemPath}/`);\r\n}\r\n\r\nfunction SidebarModuleSection({\r\n  module,\r\n  collapsed,\r\n  expanded,\r\n  activePath,\r\n  onToggle,\r\n  onNavigate,\r\n}: {\r\n  module: SidebarModuleGroup;\r\n  collapsed: boolean;\r\n  expanded: boolean;\r\n  activePath: string;\r\n  onToggle: () => void;\r\n  onNavigate: (path: string) => void;\r\n}) {\r\n  const intl = useIntl();\r\n  const moduleTitle = intl.formatMessage({ id: module.titleId });\r\n  const hasActiveChild = module.items.some((item) => isNavItemActive(activePath, item.path));\r\n\r\n  if (collapsed) {\r\n    return (\r\n      <section className={styles.module} aria-label={moduleTitle}>\r\n        <Dropdown\r\n          trigger={['click']}\r\n          placement=\"topRight\"\r\n          align={{ offset: [10, 0] }}\r\n          getPopupContainer={() => document.body}\r\n          overlayClassName={`${styles.moduleDropdownOverlay} nebula-sidebar-module-dropdown`}\r\n          dropdownRender={() => (\r\n            <div className={styles.moduleDropdownPanel}>\r\n              <div className={styles.moduleDropdownHeader}>{moduleTitle}</div>\r\n              <div className={styles.moduleDropdownList} role=\"menu\">\r\n                {module.items.map((item) => {\r\n                  const isActive = isNavItemActive(activePath, item.path);\r\n                  const label = intl.formatMessage({ id: item.labelId });\r\n                  return (\r\n                    <button\r\n                      key={item.key}\r\n                      type=\"button\"\r\n                      role=\"menuitem\"\r\n                      className={`${styles.moduleDropdownItem} nebula-nav-item ${isActive ? `${styles.moduleDropdownItemActive} nebula-nav-item-active` : ''}`}\r\n                      aria-current={isActive ? 'page' : undefined}\r\n                      onClick={() => onNavigate(item.path)}\r\n                    >\r\n                      {label}\r\n                    </button>\r\n                  );\r\n                })}\r\n              </div>\r\n            </div>\r\n          )}\r\n        >\r\n          <button\r\n            type=\"button\"\r\n            className={`${styles.moduleTrigger} ${styles.moduleTriggerCollapsed} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n            aria-label={moduleTitle}\r\n            aria-haspopup=\"menu\"\r\n          >\r\n            <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n          </button>\r\n        </Dropdown>\r\n      </section>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <section\r\n      className={`${styles.module} ${expanded ? styles.moduleExpanded : ''}`}\r\n      aria-label={moduleTitle}\r\n    >\r\n      <button\r\n        type=\"button\"\r\n        className={`${styles.moduleTrigger} nebula-module-trigger ${hasActiveChild ? `${styles.moduleTriggerActive} nebula-module-trigger-active` : ''}`}\r\n        aria-expanded={expanded}\r\n        onClick={onToggle}\r\n      >\r\n        <span className={styles.moduleTriggerIcon}>{moduleIcon(module.id)}</span>\r\n        <span className={styles.moduleTriggerTitle}>{moduleTitle}</span>\r\n        <DownOutlined\r\n          className={`${styles.moduleTriggerArrow} ${expanded ? styles.moduleTriggerArrowOpen : ''}`}\r\n          aria-hidden\r\n        />\r\n      </button>\r\n      {expanded ? (\r\n        <nav className={styles.moduleNav} aria-label={moduleTitle}>\r\n          {module.items.map((item) => {\r\n            const isActive = isNavItemActive(activePath, item.path);\r\n            return (\r\n              <button\r\n                key={item.key}\r\n                type=\"button\"\r\n                className={`${styles.navItem} nebula-nav-item ${isActive ? `${styles.navItemActive} nebula-nav-item-active` : ''}`}\r\n                aria-current={isActive ? 'page' : undefined}\r\n                onClick={() => onNavigate(item.path)}\r\n              >\r\n                {intl.formatMessage({ id: item.labelId })}\r\n              </button>\r\n            );\r\n          })}\r\n        </nav>\r\n      ) : null}\r\n    </section>\r\n  );\r\n}\r\n\r\nfunction HistorySlot({ visible }: { visible: boolean }) {\r\n  const chatMode = chatModeFromPath(useLocation().pathname);\r\n  if (!visible) {\r\n    return null;\r\n  }\r\n  return <ConversationHistoryPanel chatMode={chatMode} />;\r\n}\r\n\r\nfunction BasicLayoutFrame() {\r\n  const intl = useIntl();\r\n  const location = useLocation();\r\n  const theme = useAppStore(selectTheme);\r\n  const collapsed = useAppStore(selectSidebarCollapsed);\r\n  const setSidebarCollapsed = useAppStore((state) => state.setSidebarCollapsed);\r\n  const toggleSidebarCollapsed = useAppStore((state) => state.toggleSidebarCollapsed);\r\n  const [expandedModuleId, setExpandedModuleId] = useState<SidebarModuleId | null>(() =>\r\n    resolveModuleIdFromPath(location.pathname),\r\n  );\r\n\r\n  useEffect(() => {\r\n    setExpandedModuleId(resolveModuleIdFromPath(location.pathname));\r\n  }, [location.pathname]);\r\n\r\n  const { startNewConversationForMode } = useChatSession();\r\n  const showHistory = isChatRoute(location.pathname);\r\n  const fillViewport = isChatRoute(location.pathname);\r\n\r\n  const handleNavigate = (path: string) => {\r\n    if (isChatRoute(path)) {\r\n      startNewConversationForMode(chatModeFromPath(path));\r\n    }\r\n    if (location.pathname !== path) {\r\n      history.push(path);\r\n    }\r\n    setExpandedModuleId(resolveModuleIdFromPath(path));\r\n  };\r\n\r\n  const profileMenu = {\r\n    items: [\r\n      {\r\n        key: 'settings',\r\n        icon: <SettingOutlined />,\r\n        label: intl.formatMessage({ id: 'layout.profile.settings' }),\r\n        onClick: () => history.push(ROUTES.SETTINGS),\r\n      },\r\n      {\r\n        key: 'logout',\r\n        label: intl.formatMessage({ id: 'layout.profile.logout' }),\r\n        disabled: true,\r\n      },\r\n    ],\r\n  };\r\n\r\n  return (\r\n      <Layout className={`${styles.shell} nebula-layout`}>\r\n      <Sider\r\n        className={`${styles.sider} nebula-sider`}\r\n        width={260}\r\n        collapsedWidth={72}\r\n        collapsible\r\n        collapsed={collapsed}\r\n        onCollapse={setSidebarCollapsed}\r\n        trigger={null}\r\n        breakpoint=\"lg\"\r\n        onBreakpoint={(broken) => setSidebarCollapsed(broken)}\r\n      >\r\n        <div className={styles.siderInner}>\r\n        <div className={`${styles.brand} nebula-brand`}>\r\n          <Avatar\r\n            className={styles.brandMark}\r\n            shape=\"square\"\r\n            size={40}\r\n            src={resolveBrandMark(theme)}\r\n            alt={intl.formatMessage({ id: 'layout.appName' })}\r\n          />\r\n          {!collapsed ? (\r\n            <div className={styles.brandCopy}>\r\n              <strong>{intl.formatMessage({ id: 'layout.appName' })}</strong>\r\n              <span>{intl.formatMessage({ id: 'layout.brandTagline' })}</span>\r\n            </div>\r\n          ) : null}\r\n        </div>\r\n\r\n        <div className={styles.sidebarScroll}>\r\n          {SIDEBAR_MODULES.map((module) => (\r\n            <SidebarModuleSection\r\n              key={module.id}\r\n              module={module}\r\n              collapsed={collapsed}\r\n              expanded={!collapsed && expandedModuleId === module.id}\r\n              activePath={location.pathname}\r\n              onToggle={() =>\r\n                setExpandedModuleId((current) => (current === module.id ? null : module.id))\r\n              }\r\n              onNavigate={handleNavigate}\r\n            />\r\n          ))}\r\n\r\n          {!collapsed ? <HistorySlot visible={showHistory} /> : null}\r\n        </div>\r\n\r\n        <div className={`${styles.profile} nebula-profile`}>\r\n          <Dropdown menu={profileMenu} trigger={['click']} placement=\"topLeft\">\r\n            <button type=\"button\" className={`${styles.profileTrigger} nebula-profile-trigger`}>\r\n              <Avatar\r\n                size={32}\r\n                className={styles.profileAvatar}\r\n                src={resolveBrandMark(theme)}\r\n                alt={intl.formatMessage({ id: 'layout.profile.name' })}\r\n              />\r\n              {!collapsed ? (\r\n                <span className={`${styles.profileName} nebula-profile-name`}>\r\n                  {intl.formatMessage({ id: 'layout.profile.name' })}\r\n                </span>\r\n              ) : null}\r\n            </button>\r\n          </Dropdown>\r\n        </div>\r\n        </div>\r\n      </Sider>\r\n\r\n      <Layout className={styles.main}>\r\n        <Header className={styles.header}>\r\n          <Button\r\n            type=\"text\"\r\n            className={styles.collapseTrigger}\r\n            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}\r\n            aria-label={intl.formatMessage({ id: 'layout.top.toggleSidebar' })}\r\n            onClick={() => toggleSidebarCollapsed()}\r\n          />\r\n          <div className={styles.headerSpacer} />\r\n          <div className={styles.headerActions}>\r\n            <SelectLang />\r\n            <Button\r\n              type=\"text\"\r\n              icon={<SettingOutlined />}\r\n              aria-label={intl.formatMessage({ id: 'layout.top.settings' })}\r\n              onClick={() => history.push(ROUTES.SETTINGS)}\r\n            />\r\n          </div>\r\n        </Header>\r\n        <Content className={`${styles.content} ${fillViewport ? styles.contentFill : ''}`}>\r\n          <Outlet />\r\n        </Content>\r\n      </Layout>\r\n    </Layout>\r\n  );\r\n}\r\n\r\nexport default function BasicLayout() {\r\n  return (\r\n    <ChatSessionProvider>\r\n      <ShareModeProvider>\r\n        <BasicLayoutFrame />\r\n      </ShareModeProvider>\r\n    </ChatSessionProvider>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "D:/cache/workspace/ai_react/src/layouts/BasicLayout/index.tsx"
     },

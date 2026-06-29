@@ -53,17 +53,21 @@ function normalizeModule(item: unknown, locale: string) {
   };
 }
 
-function normalizeEntity(item: unknown, locale: string, extra: Record<string, unknown> = {}) {
+function normalizeEntity<T extends Record<string, unknown> = Record<string, never>>(
+  item: unknown,
+  locale: string,
+  extra?: T,
+) {
   const row = item as Record<string, unknown>;
-  return {
+  const base = {
     name: String(row.name || '').trim(),
     description:
       resolveLocalizedText(row.description, locale) ||
       resolveLocalizedText(row.promptAugmentation, locale),
     examples: normalizeExamples(row.examples, locale),
     toolCount: Number(row.toolCount) || 0,
-    ...extra,
   };
+  return { ...base, ...(extra ?? ({} as T)) };
 }
 
 function normalizeLocalTool(item: unknown, locale: string) {

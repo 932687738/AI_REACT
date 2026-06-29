@@ -61,7 +61,7 @@ function SidebarModuleSection({
       <section className={styles.module} aria-label={moduleTitle}>
         <Dropdown
           trigger={['click']}
-          placement="rightTop"
+          placement="topRight"
           align={{ offset: [10, 0] }}
           getPopupContainer={() => document.body}
           overlayClassName={`${styles.moduleDropdownOverlay} nebula-sidebar-module-dropdown`}

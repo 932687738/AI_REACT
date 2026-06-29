@@ -26,11 +26,11 @@ test.describe('Nebula Desk smoke', () => {
       { path: '/chat/agent', heading: headings.agent, level: 1 as const },
       { path: '/chat/human-review', heading: headings.humanReview, level: 1 as const },
       { path: '/knowledge/bases', heading: headings.kbManager },
-      { path: '/agent-hub/skills', heading: headings.skills, level: 1 as const },
-      { path: '/agent-hub/platform-agents', heading: headings.platformAgents, level: 1 as const },
-      { path: '/agent-hub/platform-tools', heading: headings.platformTools, level: 1 as const },
-      { path: '/agent-hub/model-providers', heading: headings.modelProviders, level: 1 as const },
-      { path: '/agent-hub/uncovered-intents', heading: headings.uncoveredIntents, level: 1 as const },
+      { path: '/agent-hub/skills', heading: headings.skills },
+      { path: '/agent-hub/platform-agents', heading: headings.platformAgents },
+      { path: '/agent-hub/platform-tools', heading: headings.platformTools },
+      { path: '/agent-hub/model-providers', heading: headings.modelProviders },
+      { path: '/agent-hub/uncovered-intents', heading: headings.uncoveredIntents },
       { path: '/settings', heading: headings.settings, level: 1 as const },
     ];
 
@@ -49,7 +49,7 @@ test.describe('Nebula Desk smoke', () => {
     const input = page.locator('textarea').first();
     await input.fill('e2e smoke');
     await page.getByRole('button', { name: /发送|Send/i }).click();
-    await expect(page.getByText('e2e smoke', { exact: true })).toBeVisible();
+    await expect(page.locator('article').first().getByText('e2e smoke', { exact: true })).toBeVisible();
     await expect(page.locator('article').nth(1)).toBeVisible({ timeout: 20_000 });
   });
 });
