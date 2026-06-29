@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useIntl } from '@umijs/max';
+import { history, useIntl } from '@umijs/max';
 import {
   Button,
   Card,
@@ -30,6 +30,7 @@ import {
   generatePromptStream,
 } from '@/services/promptMarketplaceService';
 import type { PromptTemplate } from '@/types/promptMarketplace';
+import { ROUTES } from '@/constants/routes';
 import styles from './index.less';
 
 const { TextArea } = Input;
@@ -170,6 +171,11 @@ export default function PromptMarketplacePage({ open, onClose, agentName }: Prom
       open={open}
       onClose={onClose}
       className={styles.drawer}
+      extra={
+        <Button type="link" onClick={() => history.push(ROUTES.AGENT_HUB_PROMPT_MANAGEMENT)}>
+          {intl.formatMessage({ id: 'promptMarketplace.manageLink', defaultMessage: '管理模板' })}
+        </Button>
+      }
     >
       <Tabs
         activeKey={activeTab}

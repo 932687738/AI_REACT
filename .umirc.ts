@@ -60,6 +60,7 @@ export default defineConfig({
         { path: '/agent-hub/models', component: './agent-hub/models' },
         { path: '/agent-hub/uncovered-intents', component: './agent-hub/uncovered-intents' },
         { path: '/agent-hub/suspended-workflows', component: './agent-hub/suspended-workflows' },
+        { path: '/agent-hub/prompt-management', component: './prompt-management' },
         { path: '/settings', component: './settings' },
       ],
     },

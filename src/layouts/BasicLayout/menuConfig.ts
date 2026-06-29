@@ -30,6 +30,7 @@ export const SIDEBAR_MODULES: SidebarModuleGroup[] = [
     items: [
       { key: 'skills', path: ROUTES.AGENT_HUB_SKILLS, labelId: 'layout.nav.skills' },
       { key: 'platform-agents', path: ROUTES.AGENT_HUB_PLATFORM_AGENTS, labelId: 'layout.nav.platformAgents' },
+      { key: 'prompt-management', path: ROUTES.AGENT_HUB_PROMPT_MANAGEMENT, labelId: 'layout.nav.promptManagement' },
       { key: 'platform-tools', path: ROUTES.AGENT_HUB_PLATFORM_TOOLS, labelId: 'layout.nav.platformTools' },
       { key: 'model-providers', path: ROUTES.AGENT_HUB_MODEL_PROVIDERS, labelId: 'layout.nav.modelProviders' },
       { key: 'uncovered-intents', path: ROUTES.AGENT_HUB_UNCOVERED_INTENTS, labelId: 'layout.nav.uncoveredIntents' },

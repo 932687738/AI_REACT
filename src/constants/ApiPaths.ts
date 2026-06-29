@@ -42,6 +42,17 @@ export const API_PATHS = {
     promptsMarketplaceUse: '/api/super-agents/prompts/marketplace/use',
     promptsMarketplaceSaveGenerated: '/api/super-agents/prompts/marketplace/save-generated',
     promptsGenerate: '/api/super-agents/prompts/generate',
+    promptsTemplates: '/api/super-agents/prompts/templates',
+    promptTemplate: (name: string) =>
+      `/api/super-agents/prompts/templates/${encodeURIComponent(name)}`,
+    promptTemplateVersions: (name: string) =>
+      `/api/super-agents/prompts/templates/${encodeURIComponent(name)}/versions`,
+    promptTemplateRollback: (name: string) =>
+      `/api/super-agents/prompts/templates/${encodeURIComponent(name)}/rollback`,
+    promptExperiment: (sceneKey: string) =>
+      `/api/super-agents/prompts/experiments/${encodeURIComponent(sceneKey)}`,
+    promptTemplateInvokes: (name: string) =>
+      `/api/super-agents/prompts/templates/${encodeURIComponent(name)}/invokes`,
     quickCommands: (agentName: string) =>
       `/api/super-agents/agents/${encodeURIComponent(agentName)}/quick-commands`,
     quickCommand: (agentName: string, id: number) =>

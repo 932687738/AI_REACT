@@ -28,6 +28,7 @@ export interface ToggleFavoriteResponse {
 export interface UsePromptRequest {
   templateId: number;
   agentName: string;
+  sceneKey?: string;
 }
 
 export interface SaveGeneratedPromptRequest {

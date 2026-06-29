@@ -4,7 +4,7 @@
 import React from 'react';
 
 export async function getRoutes() {
-  const routes = {"1":{"path":"/share/:shareId","layout":false,"id":"1"},"2":{"path":"/","id":"2"},"3":{"path":"/","redirect":"/chat/knowledge","parentId":"2","id":"3"},"4":{"path":"/chat/knowledge","parentId":"2","id":"4"},"5":{"path":"/chat/agent","parentId":"2","id":"5"},"6":{"path":"/chat/requirement-dev","parentId":"2","id":"6"},"7":{"path":"/chat/human-review","parentId":"2","id":"7"},"8":{"path":"/knowledge/upload","parentId":"2","id":"8"},"9":{"path":"/knowledge/bases","parentId":"2","id":"9"},"10":{"path":"/agent-hub/skills","parentId":"2","id":"10"},"11":{"path":"/agent-hub/agents","parentId":"2","id":"11"},"12":{"path":"/agent-hub/tools","parentId":"2","id":"12"},"13":{"path":"/agent-hub/mcp","parentId":"2","id":"13"},"14":{"path":"/agent-hub/platform-agents","parentId":"2","id":"14"},"15":{"path":"/agent-hub/platform-tools","parentId":"2","id":"15"},"16":{"path":"/agent-hub/model-providers","parentId":"2","id":"16"},"17":{"path":"/agent-hub/models","parentId":"2","id":"17"},"18":{"path":"/agent-hub/uncovered-intents","parentId":"2","id":"18"},"19":{"path":"/agent-hub/suspended-workflows","parentId":"2","id":"19"},"20":{"path":"/settings","parentId":"2","id":"20"}} as const;
+  const routes = {"1":{"path":"/share/:shareId","layout":false,"id":"1"},"2":{"path":"/","id":"2"},"3":{"path":"/","redirect":"/chat/knowledge","parentId":"2","id":"3"},"4":{"path":"/chat/knowledge","parentId":"2","id":"4"},"5":{"path":"/chat/agent","parentId":"2","id":"5"},"6":{"path":"/chat/requirement-dev","parentId":"2","id":"6"},"7":{"path":"/chat/human-review","parentId":"2","id":"7"},"8":{"path":"/knowledge/upload","parentId":"2","id":"8"},"9":{"path":"/knowledge/bases","parentId":"2","id":"9"},"10":{"path":"/agent-hub/skills","parentId":"2","id":"10"},"11":{"path":"/agent-hub/agents","parentId":"2","id":"11"},"12":{"path":"/agent-hub/tools","parentId":"2","id":"12"},"13":{"path":"/agent-hub/mcp","parentId":"2","id":"13"},"14":{"path":"/agent-hub/platform-agents","parentId":"2","id":"14"},"15":{"path":"/agent-hub/platform-tools","parentId":"2","id":"15"},"16":{"path":"/agent-hub/model-providers","parentId":"2","id":"16"},"17":{"path":"/agent-hub/models","parentId":"2","id":"17"},"18":{"path":"/agent-hub/uncovered-intents","parentId":"2","id":"18"},"19":{"path":"/agent-hub/suspended-workflows","parentId":"2","id":"19"},"20":{"path":"/agent-hub/prompt-management","parentId":"2","id":"20"},"21":{"path":"/settings","parentId":"2","id":"21"}} as const;
   return {
     routes,
     routeComponents: {
@@ -27,7 +27,8 @@ export async function getRoutes() {
 '17': React.lazy(() => import(/* webpackChunkName: "p__agent-hub__models__index" */'@/pages/agent-hub/models/index.tsx')),
 '18': React.lazy(() => import(/* webpackChunkName: "p__agent-hub__uncovered-intents__index" */'@/pages/agent-hub/uncovered-intents/index.tsx')),
 '19': React.lazy(() => import(/* webpackChunkName: "p__agent-hub__suspended-workflows__index" */'@/pages/agent-hub/suspended-workflows/index.tsx')),
-'20': React.lazy(() => import(/* webpackChunkName: "p__settings__index" */'@/pages/settings/index.tsx')),
+'20': React.lazy(() => import(/* webpackChunkName: "p__prompt-management__index" */'@/pages/prompt-management/index.tsx')),
+'21': React.lazy(() => import(/* webpackChunkName: "p__settings__index" */'@/pages/settings/index.tsx')),
 },
   };
 }
