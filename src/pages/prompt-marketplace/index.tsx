@@ -31,6 +31,7 @@ import {
 } from '@/services/promptMarketplaceService';
 import type { PromptTemplate } from '@/types/promptMarketplace';
 import { ROUTES } from '@/constants/routes';
+import { DEFAULT_PROMPT_EXPERIMENT_SCENE } from '@/constants/promptManagement';
 import styles from './index.less';
 
 const { TextArea } = Input;
@@ -113,7 +114,11 @@ export default function PromptMarketplacePage({ open, onClose, agentName }: Prom
       return;
     }
     try {
-      await applyPromptTemplate({ templateId: template.id, agentName });
+      await applyPromptTemplate({
+        templateId: template.id,
+        agentName,
+        sceneKey: DEFAULT_PROMPT_EXPERIMENT_SCENE,
+      });
       message.success(`已选用「${template.name}」到 ${agentName}`);
       onClose();
     } catch {

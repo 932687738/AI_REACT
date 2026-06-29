@@ -33,12 +33,11 @@ import {
   savePromptExperiment,
   updatePromptTemplate,
 } from '@/services/promptManagementService';
+import { DEFAULT_PROMPT_EXPERIMENT_SCENE } from '@/constants/promptManagement';
 import styles from './index.less';
 
 const { TextArea } = Input;
 const { Paragraph } = Typography;
-
-const DEFAULT_SCENE = 'agent.system.default';
 
 export default function PromptManagementPage() {
   const intl = useIntl();
@@ -58,7 +57,7 @@ export default function PromptManagementPage() {
   const [invokeLogs, setInvokeLogs] = useState<PromptInvokeLog[]>([]);
   const [invokeTotal, setInvokeTotal] = useState(0);
   const [experimentVariants, setExperimentVariants] = useState<PromptExperimentVariant[]>([]);
-  const [experimentScene, setExperimentScene] = useState(DEFAULT_SCENE);
+  const [experimentScene, setExperimentScene] = useState(DEFAULT_PROMPT_EXPERIMENT_SCENE);
 
   const fetchList = useCallback(async () => {
     setLoading(true);
@@ -184,7 +183,7 @@ export default function PromptManagementPage() {
   };
 
   useEffect(() => {
-    void loadExperiment(DEFAULT_SCENE);
+    void loadExperiment(DEFAULT_PROMPT_EXPERIMENT_SCENE);
   }, []);
 
   const weightTotal = experimentVariants.reduce((sum, v) => sum + (v.weightPercent ?? 0), 0);
