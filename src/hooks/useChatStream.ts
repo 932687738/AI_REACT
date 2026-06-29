@@ -101,7 +101,10 @@ export function useChatStream(chatMode: ChatMode) {
   }, [pendingScrollMessageId, conversationId]);
 
   const sendMessage = useCallback(
-    async (rawMessage: string) => {
+    async (
+      rawMessage: string,
+      options?: { sessionVariables?: Record<string, string> },
+    ) => {
       const message = rawMessage.trim();
       if (!message || isSending) {
         return;
@@ -135,6 +138,7 @@ export function useChatStream(chatMode: ChatMode) {
             message,
             language,
             mode: chatMode,
+            sessionVariables: options?.sessionVariables,
           },
           {
             onChunk: (chunk) => {

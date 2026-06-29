@@ -13,6 +13,7 @@ export interface KnowledgeChatRequest {
 export interface AgentChatRequest {
   conversationId: string;
   message: string;
+  sessionVariables?: Record<string, string>;
 }
 
 export interface RequirementDevChatRequest {

@@ -19,6 +19,7 @@ export const API_PATHS = {
     chat: '/api/super-agents/chat',
     agents: '/api/super-agents/agents',
     agentHealth: (name: string) => `/api/super-agents/agents/${encodeURIComponent(name)}/health`,
+    agentVariables: (name: string) => `/api/super-agents/agents/${encodeURIComponent(name)}/variables`,
     skills: '/api/super-agents/skills',
     skillStatus: (name: string, version: number) =>
       `/api/super-agents/skills/${encodeURIComponent(name)}/versions/${version}/status`,

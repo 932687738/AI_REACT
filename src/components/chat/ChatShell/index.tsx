@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { history, useIntl } from '@umijs/max';
-import { Button, Checkbox, Input, message } from 'antd';
-import { AppstoreOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Input, message, Tag } from 'antd';
+import { AppstoreOutlined, FormOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import ConversationShareBar from '@/components/chat/ConversationShareBar';
 import { useShareMode } from '@/context/ShareModeProvider';
 import { buildConversationGroups } from '@/utils/conversationShareGroups';
@@ -21,6 +21,15 @@ import { listQuickCommands } from '@/services/promptMarketplaceService';
 import { listPlatformAgents } from '@/services/platformAgentRegistryService';
 import { DEFAULT_PLATFORM_AGENT_NAME } from '@/constants/platformAgents';
 import type { QuickCommand } from '@/types/promptMarketplace';
+import type { PlatformAgentRegistryItem } from '@/types/platformAgentRegistry';
+import ChatVariableFormModal from '@/components/chat/ChatVariableFormModal';
+import {
+  findMissingRequiredVariables,
+  getAgentSessionVariables,
+  hasAgentSessionVariablesConfigured,
+  mergeVariableDefaults,
+  setAgentSessionVariables,
+} from '@/utils/agentSessionVariables';
 import type { KnowledgeCitation } from '@/openapi/typings';
 import styles from './index.less';
 
@@ -97,6 +106,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const [quickCommandsOpen, setQuickCommandsOpen] = useState(false);
   const [quickCommands, setQuickCommands] = useState<QuickCommand[]>([]);
   const [platformAgentName, setPlatformAgentName] = useState(DEFAULT_PLATFORM_AGENT_NAME);
+  const [platformAgent, setPlatformAgent] = useState<PlatformAgentRegistryItem | null>(null);
+  const [variableModalOpen, setVariableModalOpen] = useState(false);
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
 
   const reloadQuickCommands = useCallback(async (agentName: string) => {
     if (!agentName) {
@@ -136,6 +148,12 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const userNavItems = useMemo(() => buildUserMessageNavItems(messages), [messages]);
   const showMessageNav = userNavItems.length > 0;
 
+  const agentVariableCount = platformAgent?.variables?.length ?? 0;
+  const sessionVariablesConfigured = hasAgentSessionVariablesConfigured(
+    conversationId,
+    platformAgentName,
+  );
+
   useEffect(() => {
     if (chatMode !== CHAT_MODE.AGENT) {
       setQuickCommands([]);
@@ -143,13 +161,57 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
     }
     listPlatformAgents()
       .then((agents) => {
-        const active = agents.find((item) => item.status === 'active')?.name;
-        const resolved = active ?? DEFAULT_PLATFORM_AGENT_NAME;
+        const withVariables = agents.filter(
+          (item) => item.status === 'active' && (item.variables?.length ?? 0) > 0,
+        );
+        const activeAgent =
+          withVariables[0] ??
+          agents.find((item) => item.status === 'active') ??
+          agents[0];
+        const resolved = activeAgent?.name ?? DEFAULT_PLATFORM_AGENT_NAME;
         setPlatformAgentName(resolved);
+        setPlatformAgent(activeAgent ?? null);
         return reloadQuickCommands(resolved);
       })
       .catch(() => reloadQuickCommands(DEFAULT_PLATFORM_AGENT_NAME));
   }, [chatMode, conversationId, reloadQuickCommands]);
+
+  useEffect(() => {
+    if (chatMode !== CHAT_MODE.AGENT || agentVariableCount === 0) {
+      return;
+    }
+    if (sessionVariablesConfigured) {
+      return;
+    }
+    setVariableModalOpen(true);
+  }, [chatMode, agentVariableCount, conversationId, sessionVariablesConfigured]);
+
+  const openVariableModal = useCallback(async () => {
+    try {
+      const agents = await listPlatformAgents();
+      const agent =
+        agents.find((item) => item.name === platformAgentName) ??
+        agents.find((item) => item.status === 'active');
+      if (agent) {
+        setPlatformAgent(agent);
+        setPlatformAgentName(agent.name);
+      }
+    } catch {
+      // 保留当前内存中的 Agent 快照
+    }
+    setVariableModalOpen(true);
+  }, [platformAgentName]);
+
+  const shouldPromptForVariables = useCallback(() => {
+    if (!platformAgent?.variables?.length) {
+      return false;
+    }
+    if (!sessionVariablesConfigured) {
+      return true;
+    }
+    const cached = getAgentSessionVariables(conversationId, platformAgentName);
+    return findMissingRequiredVariables(platformAgent.variables, cached).length > 0;
+  }, [conversationId, platformAgent, platformAgentName, sessionVariablesConfigured]);
 
   useEffect(() => {
     if (!quickCommandsOpen && chatMode === CHAT_MODE.AGENT) {
@@ -229,17 +291,61 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
     );
   }, []);
 
+  const dispatchMessage = useCallback(
+    async (message: string, sessionVariables?: Record<string, string>) => {
+      setInputValue('');
+      await sendMessage(message, sessionVariables ? { sessionVariables } : undefined);
+      scrollToBottom();
+    },
+    [sendMessage, scrollToBottom],
+  );
+
   const handleSubmit = useCallback(
     async (raw?: string) => {
       const message = (raw ?? inputValue).trim();
       if (!message) {
         return;
       }
-      setInputValue('');
-      await sendMessage(message);
-      scrollToBottom();
+
+      if (chatMode === CHAT_MODE.AGENT && shouldPromptForVariables()) {
+        setPendingMessage(message);
+        setVariableModalOpen(true);
+        return;
+      }
+
+      if (chatMode === CHAT_MODE.AGENT && platformAgent?.variables?.length) {
+        const cached = mergeVariableDefaults(
+          platformAgent.variables,
+          getAgentSessionVariables(conversationId, platformAgentName),
+        );
+        await dispatchMessage(message, cached);
+        return;
+      }
+
+      await dispatchMessage(message);
     },
-    [inputValue, sendMessage, scrollToBottom],
+    [
+      chatMode,
+      conversationId,
+      dispatchMessage,
+      inputValue,
+      platformAgent,
+      platformAgentName,
+      shouldPromptForVariables,
+    ],
+  );
+
+  const handleVariableModalSubmit = useCallback(
+    async (values: Record<string, string>) => {
+      setAgentSessionVariables(conversationId, platformAgentName, values);
+      setVariableModalOpen(false);
+      const message = pendingMessage;
+      setPendingMessage(null);
+      if (message) {
+        await dispatchMessage(message, values);
+      }
+    },
+    [conversationId, dispatchMessage, pendingMessage, platformAgentName],
   );
 
   return (
@@ -252,6 +358,22 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           <p>{intl.formatMessage({ id: headerIds.subtitle })}</p>
         </div>
         {chatMode === CHAT_MODE.KNOWLEDGE ? <RetrievalThresholdSettings /> : null}
+        {chatMode === CHAT_MODE.AGENT && agentVariableCount > 0 ? (
+          <div className={styles.topbarActions}>
+            <Tag color={sessionVariablesConfigured ? 'success' : 'warning'}>
+              {intl.formatMessage(
+                { id: 'chat.variables.agentTag' },
+                {
+                  agent: platformAgent?.displayName || platformAgentName,
+                  count: agentVariableCount,
+                },
+              )}
+            </Tag>
+            <Button icon={<FormOutlined />} onClick={() => void openVariableModal()}>
+              {intl.formatMessage({ id: 'chat.variables.open' })}
+            </Button>
+          </div>
+        ) : null}
       </header>
 
       {messages.length === 0 ? (
@@ -261,6 +383,14 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           </div>
           <h2>{intl.formatMessage({ id: welcomeIds.title })}</h2>
           <p>{intl.formatMessage({ id: welcomeIds.body })}</p>
+          {chatMode === CHAT_MODE.AGENT && agentVariableCount > 0 && !sessionVariablesConfigured ? (
+            <p className={styles.variableHint}>
+              {intl.formatMessage({ id: 'chat.variables.welcomeHint' })}
+              <Button type="link" size="small" onClick={() => void openVariableModal()}>
+                {intl.formatMessage({ id: 'chat.variables.open' })}
+              </Button>
+            </p>
+          ) : null}
         </section>
       ) : (
         <div className={styles.thread} ref={listRef}>
@@ -299,7 +429,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                     scrollToBottom={scrollToBottom}
                     onCitationNavigate={handleCitationNavigate}
                     onSendUserMessage={(text) => {
-                      void sendMessage(text);
+                      void handleSubmit(text);
                     }}
                   />
                 ) : item.role === 'assistant' && (item.text || item.pending) ? (
@@ -449,6 +579,21 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           />
         ) : null}
       </Suspense>
+      {chatMode === CHAT_MODE.AGENT && platformAgent?.variables?.length ? (
+        <ChatVariableFormModal
+          open={variableModalOpen}
+          agentDisplayName={platformAgent.displayName || platformAgent.name}
+          variables={platformAgent.variables}
+          initialValues={getAgentSessionVariables(conversationId, platformAgentName)}
+          onCancel={() => {
+            setVariableModalOpen(false);
+            setPendingMessage(null);
+          }}
+          onSubmit={(values) => {
+            void handleVariableModalSubmit(values);
+          }}
+        />
+      ) : null}
     </section>
   );
 }

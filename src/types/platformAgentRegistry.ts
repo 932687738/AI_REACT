@@ -1,8 +1,19 @@
+export type AgentAppVariableType = 'STRING' | 'NUMBER' | 'BOOLEAN';
+
+export interface AgentAppVariable {
+  name: string;
+  type: AgentAppVariableType;
+  defaultValue?: string;
+  description?: string;
+  required: boolean;
+}
+
 export interface PlatformAgentRegistryItem {
   name: string;
   displayName: string;
   status: string;
   version: string;
+  variables?: AgentAppVariable[];
 }
 
 export interface PlatformAgentRegistryListResponse {
@@ -18,8 +29,16 @@ export interface RegisterPlatformAgentInput {
   permissionTags?: string[];
 }
 
+export interface UpdateAgentVariablesInput {
+  variables: AgentAppVariable[];
+}
+
 export interface AgentHealthResponse {
   name: string;
   status: string;
   checkedAt: string;
 }
+
+export const AGENT_VARIABLE_MAX_VALUE_LENGTH = 1024;
+
+export const AGENT_VARIABLE_NAME_PATTERN = /^[a-zA-Z][a-zA-Z0-9_]*$/;

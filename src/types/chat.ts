@@ -19,4 +19,5 @@ export interface ChatPayload {
   knowledgeBaseIds?: string[];
   language?: string;
   mode?: string;
+  sessionVariables?: Record<string, string>;
 }

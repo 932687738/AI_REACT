@@ -6,6 +6,7 @@ import type {
   PlatformAgentRegistryItem,
   PlatformAgentRegistryListResponse,
   RegisterPlatformAgentInput,
+  UpdateAgentVariablesInput,
 } from '@/types/platformAgentRegistry';
 
 export async function listPlatformAgents(): Promise<PlatformAgentRegistryItem[]> {
@@ -31,6 +32,18 @@ export async function probePlatformAgentHealth(name: string): Promise<AgentHealt
   return request<AgentHealthResponse>(API_PATHS.superAgents.agentHealth(name), {
     method: 'POST',
     headers: platformHeaders(),
+    ...platformWriteRequestOptions,
+  });
+}
+
+export async function updateAgentVariables(
+  name: string,
+  input: UpdateAgentVariablesInput,
+): Promise<PlatformAgentRegistryItem> {
+  return request<PlatformAgentRegistryItem>(API_PATHS.superAgents.agentVariables(name), {
+    method: 'PUT',
+    headers: platformHeaders(),
+    data: input,
     ...platformWriteRequestOptions,
   });
 }

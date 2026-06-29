@@ -92,6 +92,9 @@ export async function sendAgentChat(payload: ChatPayload, handlers: ChatStreamHa
     conversationId: payload.conversationId,
     message: payload.message,
   };
+  if (payload.sessionVariables && Object.keys(payload.sessionVariables).length > 0) {
+    body.sessionVariables = payload.sessionVariables;
+  }
 
   return postStream(API_PATHS.superAgents.chat, body, {
     ...handlers,
