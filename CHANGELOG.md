@@ -1,5 +1,29 @@
 # Changelog
 
+## [2026-06-29] - 聊天路由展示模型
+
+### Added
+
+- 智能体聊天路由卡片新增「模型」字段（正文模型 + 路由模型，含厂商）
+- SSE `meta` 事件下发 `modelName` / `modelProvider` 等（plain 与 structured 双模式）
+
+### Fixed
+
+- 模型展示与执行链路接入 DB 动态配置 + 厂商开关（不再固定 qwen-turbo）
+
+## [2026-06-29] - Prompt 市场 / 快捷指令
+
+### Added
+
+- Prompt 市场弹窗（分类浏览、搜索、收藏、选用、AI 生成 Tab）
+- 快捷指令管理抽屉 + 对话面板快捷按钮组
+- `promptMarketplaceService` + `usePromptStore` + `types/promptMarketplace`
+- ChatShell 集成「Prompt 市场」「快捷指令」入口
+
+### Backend (ai)
+
+- Flyway `V25__prompt_marketplace.sql`；Prompt/QuickCommand/Favorite 全套 API
+
 ## [2026-06-07] - 挂起工作流管理
 
 ### Added

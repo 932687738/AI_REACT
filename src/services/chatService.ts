@@ -6,6 +6,7 @@ import type {
   RequirementDevChatRequest,
 } from '@/openapi/typings';
 import { postStream } from '@/utils/StreamSse';
+import { isAgentMetaPayload } from '@/utils/SuperAgentSse';
 import {
   isKnowledgeMetaPayload,
   parseKnowledgeMetaPayload,
@@ -13,6 +14,7 @@ import {
 } from '@/utils/KnowledgeCitation';
 import type { ChatPayload, ChatStreamHandlers } from '@/types/chat';
 import { resolveEnvString } from '@/utils/envString';
+import { getStoredUserId } from '@/services/platformAdminCommon';
 
 const STREAM_DELAY_MS = 32;
 declare const __MOCK_CHAT__: string;
@@ -93,9 +95,11 @@ export async function sendAgentChat(payload: ChatPayload, handlers: ChatStreamHa
 
   return postStream(API_PATHS.superAgents.chat, body, {
     ...handlers,
+    includeInFullText: (chunk) => !isAgentMetaPayload(chunk),
     headers: {
       ...(handlers.headers || {}),
       'X-Tenant-Id': SUPER_AGENTS_TENANT_ID,
+      'X-User-Id': getStoredUserId(),
     },
   });
 }

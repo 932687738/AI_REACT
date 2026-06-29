@@ -25,6 +25,22 @@ export default function AgentRoutingMeta({ routing }: AgentRoutingMetaProps) {
           <dt>{intl.formatMessage({ id: 'chat.routing.tools' })}</dt>
           <dd>{routing.toolsLabel}</dd>
         </div>
+        {routing.modelLabel ? (
+          <div className={styles.row}>
+            <dt>{intl.formatMessage({ id: 'chat.routing.model' })}</dt>
+            <dd>
+              {routing.modelLabel}
+              {routing.routingModelLabel &&
+              routing.routingModelLabel !== routing.modelLabel ? (
+                <span className={styles.subtle}>
+                  {' '}
+                  ({intl.formatMessage({ id: 'chat.routing.routingModel' })}:{' '}
+                  {routing.routingModelLabel})
+                </span>
+              ) : null}
+            </dd>
+          </div>
+        ) : null}
       </dl>
     </div>
   );

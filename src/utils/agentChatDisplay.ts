@@ -6,6 +6,8 @@ export interface AgentRoutingDisplay {
   agentLabel: string;
   skillLabel: string;
   toolsLabel: string;
+  modelLabel?: string;
+  routingModelLabel?: string;
 }
 
 const PROGRESS_LINE = /^【进度】[^\n]*\n?/gm;
@@ -53,6 +55,18 @@ function parseRoutingLine(line: string): AgentRoutingDisplay | null {
     const toolsMatch = segment.match(/^工具[：:]\s*(.+)$/);
     if (toolsMatch) {
       result.toolsLabel = toolsMatch[1].trim();
+      continue;
+    }
+    const modelMatch = segment.match(/^模型[：:]\s*(.+)$/);
+    if (modelMatch) {
+      const modelText = modelMatch[1].trim();
+      const routingInModel = modelText.match(/^(.+?)（路由[：:]\s*(.+?)）$/);
+      if (routingInModel) {
+        result.modelLabel = routingInModel[1].trim();
+        result.routingModelLabel = routingInModel[2].trim();
+      } else {
+        result.modelLabel = modelText;
+      }
     }
   }
 

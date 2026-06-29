@@ -156,10 +156,16 @@ export function useChatStream(chatMode: ChatMode) {
               }
               if ('type' in meta && meta.type === 'meta') {
                 const superMeta = meta as SuperAgentMetaEvent;
-                if (superMeta.text2sqlSessionId) {
+                if (superMeta.text2sqlSessionId || superMeta.modelName || superMeta.routingModelName) {
                   assistantMetaRef.current = {
                     ...(assistantMetaRef.current || {}),
-                    text2sqlSessionId: superMeta.text2sqlSessionId,
+                    ...(superMeta.text2sqlSessionId
+                      ? { text2sqlSessionId: superMeta.text2sqlSessionId }
+                      : {}),
+                    ...(superMeta.modelName ? { modelName: superMeta.modelName } : {}),
+                    ...(superMeta.routingModelName
+                      ? { routingModelName: superMeta.routingModelName }
+                      : {}),
                   };
                   setMessages((current) =>
                     current.map((item) =>

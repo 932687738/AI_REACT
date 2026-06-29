@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { history, useIntl } from '@umijs/max';
 import { Button, Checkbox, Input, message } from 'antd';
+import { AppstoreOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import ConversationShareBar from '@/components/chat/ConversationShareBar';
 import { useShareMode } from '@/context/ShareModeProvider';
 import { buildConversationGroups } from '@/utils/conversationShareGroups';
@@ -16,8 +17,16 @@ import { scrollThreadToMessage } from '@/utils/scrollThreadToMessage';
 import RetrievalThresholdSettings from '@/components/settings/RetrievalThresholdSettings';
 import { useChatSession } from '@/context/ChatSessionProvider';
 import { useChatStream } from '@/hooks/useChatStream';
+import { listQuickCommands } from '@/services/promptMarketplaceService';
+import { listPlatformAgents } from '@/services/platformAgentRegistryService';
+import { DEFAULT_PLATFORM_AGENT_NAME } from '@/constants/platformAgents';
+import type { QuickCommand } from '@/types/promptMarketplace';
 import type { KnowledgeCitation } from '@/openapi/typings';
 import styles from './index.less';
+
+// Lazy-load heavy drawers
+const PromptMarketplacePage = lazy(() => import('@/pages/prompt-marketplace'));
+const QuickCommandsPage = lazy(() => import('@/pages/quick-commands'));
 
 const { TextArea } = Input;
 
@@ -84,6 +93,23 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   }, [shareGroups]);
   const [inputValue, setInputValue] = useState('');
   const [activeMessageId, setActiveMessageId] = useState<string | null>(null);
+  const [marketplaceOpen, setMarketplaceOpen] = useState(false);
+  const [quickCommandsOpen, setQuickCommandsOpen] = useState(false);
+  const [quickCommands, setQuickCommands] = useState<QuickCommand[]>([]);
+  const [platformAgentName, setPlatformAgentName] = useState(DEFAULT_PLATFORM_AGENT_NAME);
+
+  const reloadQuickCommands = useCallback(async (agentName: string) => {
+    if (!agentName) {
+      setQuickCommands([]);
+      return;
+    }
+    try {
+      const items = await listQuickCommands(agentName);
+      setQuickCommands(items);
+    } catch {
+      setQuickCommands([]);
+    }
+  }, []);
 
   useEffect(() => {
     setInputValue('');
@@ -109,6 +135,27 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
 
   const userNavItems = useMemo(() => buildUserMessageNavItems(messages), [messages]);
   const showMessageNav = userNavItems.length > 0;
+
+  useEffect(() => {
+    if (chatMode !== CHAT_MODE.AGENT) {
+      setQuickCommands([]);
+      return;
+    }
+    listPlatformAgents()
+      .then((agents) => {
+        const active = agents.find((item) => item.status === 'active')?.name;
+        const resolved = active ?? DEFAULT_PLATFORM_AGENT_NAME;
+        setPlatformAgentName(resolved);
+        return reloadQuickCommands(resolved);
+      })
+      .catch(() => reloadQuickCommands(DEFAULT_PLATFORM_AGENT_NAME));
+  }, [chatMode, conversationId, reloadQuickCommands]);
+
+  useEffect(() => {
+    if (!quickCommandsOpen && chatMode === CHAT_MODE.AGENT) {
+      void reloadQuickCommands(platformAgentName);
+    }
+  }, [quickCommandsOpen, chatMode, platformAgentName, reloadQuickCommands]);
 
   const registerMessageRef = useCallback((messageId: string, node: HTMLElement | null) => {
     if (node) {
@@ -327,17 +374,47 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
         />
         <div className={styles.toolbar}>
           <div className={styles.shortcuts}>
-            {quickActionIds.map((id) => (
-              <button
-                key={id}
-                type="button"
-                className={styles.shortcut}
-                disabled={isSending}
-                onClick={() => void handleSubmit(intl.formatMessage({ id }))}
-              >
-                {intl.formatMessage({ id })}
-              </button>
-            ))}
+            {chatMode === CHAT_MODE.AGENT ? (
+              <>
+                <button
+                  type="button"
+                  className={styles.shortcut}
+                  onClick={() => setMarketplaceOpen(true)}
+                >
+                  <AppstoreOutlined /> Prompt 市场
+                </button>
+                <button
+                  type="button"
+                  className={styles.shortcut}
+                  onClick={() => setQuickCommandsOpen(true)}
+                >
+                  <ThunderboltOutlined /> 快捷指令
+                </button>
+                {quickCommands.map((cmd) => (
+                  <button
+                    key={cmd.id}
+                    type="button"
+                    className={styles.shortcut}
+                    disabled={isSending}
+                    onClick={() => void handleSubmit(cmd.content)}
+                  >
+                    {cmd.icon ? `${cmd.icon} ` : ''}{cmd.name}
+                  </button>
+                ))}
+              </>
+            ) : (
+              quickActionIds.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  className={styles.shortcut}
+                  disabled={isSending}
+                  onClick={() => void handleSubmit(intl.formatMessage({ id }))}
+                >
+                  {intl.formatMessage({ id })}
+                </button>
+              ))
+            )}
           </div>
           <Button type="primary" htmlType="submit" loading={isSending} disabled={isSending}>
             {isSending
@@ -356,6 +433,22 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           onNavigate={scrollToMessage}
         />
       ) : null}
+      <Suspense fallback={null}>
+        {marketplaceOpen ? (
+          <PromptMarketplacePage
+            open={marketplaceOpen}
+            onClose={() => setMarketplaceOpen(false)}
+            agentName={platformAgentName}
+          />
+        ) : null}
+        {quickCommandsOpen ? (
+          <QuickCommandsPage
+            open={quickCommandsOpen}
+            onClose={() => setQuickCommandsOpen(false)}
+            agentName={platformAgentName}
+          />
+        ) : null}
+      </Suspense>
     </section>
   );
 }

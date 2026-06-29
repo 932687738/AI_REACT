@@ -35,6 +35,15 @@ export const API_PATHS = {
     suspendedWorkflowClose: (resumeToken: string) =>
       `/api/super-agents/hooks/suspended/${encodeURIComponent(resumeToken)}/close`,
     hooksResume: '/api/super-agents/hooks/resume',
+    promptsMarketplace: '/api/super-agents/prompts/marketplace',
+    promptsMarketplaceFavorites: '/api/super-agents/prompts/marketplace/favorites',
+    promptsMarketplaceUse: '/api/super-agents/prompts/marketplace/use',
+    promptsMarketplaceSaveGenerated: '/api/super-agents/prompts/marketplace/save-generated',
+    promptsGenerate: '/api/super-agents/prompts/generate',
+    quickCommands: (agentName: string) =>
+      `/api/super-agents/agents/${encodeURIComponent(agentName)}/quick-commands`,
+    quickCommand: (agentName: string, id: number) =>
+      `/api/super-agents/agents/${encodeURIComponent(agentName)}/quick-commands/${id}`,
   },
   humanLoop: {
     base: '/springai/demo/alibaba-graph/human-loop',

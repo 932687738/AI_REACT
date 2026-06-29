@@ -70,6 +70,8 @@ export default {
   'chat.routing.agent': 'Agent',
   'chat.routing.skill': 'Skill',
   'chat.routing.tools': 'Tools',
+  'chat.routing.model': 'Model',
+  'chat.routing.routingModel': 'Routing',
   'chat.welcome.agent.title': 'Start an agent chat',
   'chat.welcome.agent.body': 'Intent routing to sub-agents and tools. No knowledge retrieval.',
   'chat.welcome.requirementDev.title': 'Start a delivery chat',

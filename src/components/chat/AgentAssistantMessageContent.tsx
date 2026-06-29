@@ -25,10 +25,25 @@ export default function AgentAssistantMessageContent({
 }: AgentAssistantMessageContentProps) {
   const intl = useIntl();
 
-  const { routing, body } = useMemo(
-    () => parseAgentAssistantText(item.text || ''),
-    [item.text],
-  );
+  const { routing, body } = useMemo(() => {
+    const parsed = parseAgentAssistantText(item.text || '');
+    if (!parsed.routing) {
+      return parsed;
+    }
+    const modelName = (item.meta as { modelName?: string } | undefined)?.modelName;
+    const routingModelName = (item.meta as { routingModelName?: string } | undefined)?.routingModelName;
+    if (!parsed.routing.modelLabel && modelName) {
+      return {
+        ...parsed,
+        routing: {
+          ...parsed.routing,
+          modelLabel: modelName,
+          routingModelLabel: routingModelName,
+        },
+      };
+    }
+    return parsed;
+  }, [item.text, item.meta]);
 
   const progressSteps = useMemo(() => {
     const structured = item.agentProgress ?? [];

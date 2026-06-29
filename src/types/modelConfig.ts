@@ -37,7 +37,7 @@ export interface ModelConfigCreateRequest {
   params?: Record<string, unknown>;
 }
 
-export interface ModelConfigUpdateRequest extends ModelConfigCreateRequest {}
+export type ModelConfigUpdateRequest = ModelConfigCreateRequest;
 
 export interface ModelTestResult {
   success: boolean;

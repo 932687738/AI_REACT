@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { dispatchSuperAgentSsePayload, parseSuperAgentSsePayload } from '@/utils/SuperAgentSse';
+import { dispatchSuperAgentSsePayload, parsePlainAgentMetaPayload, parseSuperAgentSsePayload } from '@/utils/SuperAgentSse';
+import { parseAgentAssistantText } from '@/utils/agentChatDisplay';
 
 describe('SuperAgentSse artifact', () => {
   it('parses artifact event', () => {
@@ -59,5 +60,21 @@ describe('SuperAgentSse artifact', () => {
       },
     );
     expect(metas).toEqual(['42']);
+  });
+
+  it('parses plain meta model lines', () => {
+    const raw = '[Meta] modelName=qwen-plus\n[Meta] routingModelName=qwen-turbo\n';
+    const meta = parsePlainAgentMetaPayload(raw);
+    expect(meta?.modelName).toBe('qwen-plus');
+    expect(meta?.routingModelName).toBe('qwen-turbo');
+  });
+
+  it('parses routing model segment from assistant text', () => {
+    const parsed = parseAgentAssistantText(
+      '【路由】智能体：customer-service | Skill：无 | 工具：子 Agent 内置能力 | 模型：qwen-plus（路由：qwen-turbo）\n\n你好',
+    );
+    expect(parsed.routing?.modelLabel).toBe('qwen-plus');
+    expect(parsed.routing?.routingModelLabel).toBe('qwen-turbo');
+    expect(parsed.body).toBe('你好');
   });
 });

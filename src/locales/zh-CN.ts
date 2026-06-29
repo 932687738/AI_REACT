@@ -72,6 +72,8 @@ export default {
   'chat.routing.agent': '智能体',
   'chat.routing.skill': 'Skill',
   'chat.routing.tools': '工具',
+  'chat.routing.model': '模型',
+  'chat.routing.routingModel': '路由',
   'chat.welcome.requirementDev.title': '开始一段需求开发对话',
   'chat.welcome.requirementDev.body': '描述你的开发需求，项目经理会先制定计划，再按阶段调度各专业子智能体完成交付。',
   'chat.placeholder.knowledge': '向知识库提问…',
