@@ -47,6 +47,8 @@ export interface SuperAgentChatPrepPreview {
   displayName?: string | null;
   flowId?: number | null;
   variables?: AgentAppVariable[];
+  multiAgentChain?: string[];
+  stickyFollowUp?: boolean;
 }
 
 export interface AgentFlowBinding {

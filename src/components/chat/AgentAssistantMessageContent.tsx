@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useIntl } from '@umijs/max';
+import AgentCollaborationTimeline from '@/components/chat/AgentCollaborationTimeline';
 import AgentProgressTimeline from '@/components/chat/AgentProgressTimeline';
 import AgentRoutingMeta from '@/components/chat/AgentRoutingMeta';
 import KnowledgeCitationPanel from '@/components/chat/KnowledgeCitationPanel';
@@ -25,7 +26,7 @@ export default function AgentAssistantMessageContent({
 }: AgentAssistantMessageContentProps) {
   const intl = useIntl();
 
-  const { routing, body } = useMemo(() => {
+  const { routing, compressionNotice, collaborationSteps, body } = useMemo(() => {
     const parsed = parseAgentAssistantText(item.text || '');
     if (!parsed.routing) {
       return parsed;
@@ -62,6 +63,14 @@ export default function AgentAssistantMessageContent({
   return (
     <>
       {routing ? <AgentRoutingMeta routing={routing} /> : null}
+      {compressionNotice ? (
+        <p className={styles.meta} role="note">
+          {compressionNotice.replace(/^【提示】/, '')}
+        </p>
+      ) : null}
+      {collaborationSteps.length ? (
+        <AgentCollaborationTimeline steps={collaborationSteps} />
+      ) : null}
       {artifacts.length ? (
         <ArtifactRenderer
           artifacts={artifacts}
