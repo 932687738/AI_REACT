@@ -114,6 +114,7 @@ export interface AgentProgressStep {
   thought?: string;
   toolName?: string;
   toolResultSummary?: string;
+  errorMessage?: string;
 }
 
 export interface ConversationMessage {

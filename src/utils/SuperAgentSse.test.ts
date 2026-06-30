@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { dispatchSuperAgentSsePayload, parsePlainAgentMetaPayload, parseSuperAgentSsePayload } from '@/utils/SuperAgentSse';
-import { parseAgentAssistantText, extractRoutedAgentNameFromText } from '@/utils/agentChatDisplay';
+import { parseAgentAssistantText, extractRoutedAgentNameFromText, extractProgressFromText } from '@/utils/agentChatDisplay';
 
 describe('SuperAgentSse artifact', () => {
   it('parses artifact event', () => {
@@ -87,5 +87,30 @@ describe('SuperAgentSse artifact', () => {
     expect(
       extractRoutedAgentNameFromText('【路由】智能体：平台总路由（通用对话） | Skill：无\n\n'),
     ).toBeNull();
+  });
+
+  it('dispatches progress with errorMessage', () => {
+    const errors: string[] = [];
+    dispatchSuperAgentSsePayload(
+      JSON.stringify({
+        type: 'progress',
+        step: 'tool_call',
+        status: 'failed',
+        toolName: 'searchKnowledge',
+        errorMessage: 'timeout',
+      }),
+      () => undefined,
+      (event) => {
+        if (event.errorMessage) {
+          errors.push(event.errorMessage);
+        }
+      },
+    );
+    expect(errors).toEqual(['timeout']);
+  });
+
+  it('extracts plain progress lines from chunk text', () => {
+    const steps = extractProgressFromText('【进度】routing：running\n');
+    expect(steps).toEqual([{ step: 'routing', status: 'running' }]);
   });
 });

@@ -22,6 +22,7 @@
       "@ant-design/icons": "^5.6.1",
       "@tanstack/react-query": "^5.66.9",
       "@umijs/max": "^4.4.5",
+      "@xyflow/react": "^12.11.1",
       "antd": "^5.24.1",
       "react": "^18.3.1",
       "react-dom": "^18.3.1",
@@ -31,9 +32,9 @@
       "@playwright/test": "^1.51.1",
       "@types/react": "^18.3.18",
       "@types/react-dom": "^18.3.5",
+      "@vitejs/plugin-react": "^6.0.1",
       "typescript": "^5.7.3",
-      "vite": "^8.0.12",
-      "@vitejs/plugin-react": "^6.0.1"
+      "vite": "^8.0.12"
     }
   },
   "pkgPath": "D:\\cache\\workspace\\ai_react\\package.json",
@@ -47,7 +48,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -104,7 +105,7 @@
       "time": {
         "hooks": {
           "onStart": [
-            3
+            2
           ]
         },
         "register": 2
@@ -151,10 +152,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            189
+            123
           ]
         },
-        "register": 20
+        "register": 21
       },
       "enableBy": "register"
     },
@@ -187,7 +188,7 @@
             1
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -217,7 +218,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -234,7 +235,7 @@
             0
           ]
         },
-        "register": 6
+        "register": 7
       },
       "enableBy": "register"
     },
@@ -1100,7 +1101,7 @@
       "time": {
         "hooks": {
           "onStart": [
-            0
+            1
           ]
         },
         "register": 1
@@ -1129,7 +1130,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 76
+        "register": 78
       },
       "enableBy": "register"
     },
@@ -1142,7 +1143,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 35
+        "register": 36
       },
       "enableBy": "config"
     },
@@ -1155,7 +1156,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 15
+        "register": 14
       },
       "enableBy": "config"
     },
@@ -1172,7 +1173,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1211,7 +1212,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 30
+        "register": 32
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/mpa/mpa": {
@@ -1236,7 +1237,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/overrides/overrides": {
@@ -1278,7 +1279,7 @@
             1
           ]
         },
-        "register": 1
+        "register": 2
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
@@ -1290,7 +1291,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1303,7 +1304,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1316,7 +1317,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -1329,7 +1330,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1381,7 +1382,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/ssr/ssr": {
@@ -1393,7 +1394,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -1470,7 +1471,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 20
+        "register": 21
       },
       "enableBy": "config"
     },
@@ -1520,7 +1521,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "config"
     },
@@ -1562,7 +1563,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 3
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/mako/mako": {
@@ -1599,7 +1600,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 2
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
@@ -1611,7 +1612,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 27
+        "register": 30
       }
     },
     "./node_modules/@umijs/preset-umi/dist/features/forget/forget": {
@@ -1636,7 +1637,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1649,7 +1650,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1662,7 +1663,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 31
+        "register": 33
       },
       "enableBy": "register"
     },
@@ -1675,7 +1676,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 33
+        "register": 35
       }
     },
     "./node_modules/@umijs/preset-umi/dist/commands/help": {
@@ -1687,7 +1688,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1700,7 +1701,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1765,7 +1766,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1778,7 +1779,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1791,7 +1792,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1804,7 +1805,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1817,7 +1818,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1830,7 +1831,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1843,7 +1844,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1856,7 +1857,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1869,7 +1870,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1882,7 +1883,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1895,7 +1896,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1908,7 +1909,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1921,7 +1922,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 19
+        "register": 20
       },
       "enableBy": "register"
     },
@@ -1947,7 +1948,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1975,7 +1976,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       }
     },
     "./node_modules/@umijs/plugins/dist/antd": {
@@ -1997,7 +1998,7 @@
             0
           ]
         },
-        "register": 7
+        "register": 8
       }
     },
     "./node_modules/@umijs/plugins/dist/dva": {
@@ -2022,7 +2023,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2063,7 +2064,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2076,7 +2077,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2089,7 +2090,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2205,7 +2206,7 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            0
+            1
           ]
         },
         "register": 1
@@ -2239,10 +2240,10 @@
       "time": {
         "hooks": {
           "onCheckPkgJSON": [
-            1
+            0
           ]
         },
-        "register": 0
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -2255,7 +2256,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -2384,6 +2385,22 @@
           {
             "path": "/agent-hub/prompt-management",
             "component": "./prompt-management"
+          },
+          {
+            "path": "/agent-hub/flow-management",
+            "component": "./flow-management"
+          },
+          {
+            "path": "/agent-hub/flow-executions",
+            "component": "./flow-executions"
+          },
+          {
+            "path": "/agent-hub/flow-executions/:executionId",
+            "component": "./flow-executions/detail"
+          },
+          {
+            "path": "/agent-hub/flow-designer/:flowId",
+            "component": "./flow-designer"
           },
           {
             "path": "/settings",
@@ -2528,6 +2545,22 @@
           {
             "path": "/agent-hub/prompt-management",
             "component": "./prompt-management"
+          },
+          {
+            "path": "/agent-hub/flow-management",
+            "component": "./flow-management"
+          },
+          {
+            "path": "/agent-hub/flow-executions",
+            "component": "./flow-executions"
+          },
+          {
+            "path": "/agent-hub/flow-executions/:executionId",
+            "component": "./flow-executions/detail"
+          },
+          {
+            "path": "/agent-hub/flow-designer/:flowId",
+            "component": "./flow-designer"
           },
           {
             "path": "/settings",
@@ -3646,15 +3679,55 @@
       "parentId": "2",
       "id": "20",
       "absPath": "/agent-hub/prompt-management",
-      "__content": "import { useCallback, useEffect, useMemo, useState } from 'react';\r\nimport { history, useIntl } from '@umijs/max';\r\nimport {\r\n  Button,\r\n  Card,\r\n  Drawer,\r\n  Form,\r\n  Input,\r\n  InputNumber,\r\n  Modal,\r\n  Popconfirm,\r\n  Select,\r\n  Space,\r\n  Table,\r\n  Tabs,\r\n  Tag,\r\n  Typography,\r\n  message,\r\n} from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport { PlusOutlined, ReloadOutlined } from '@ant-design/icons';\r\nimport { ROUTES } from '@/constants/routes';\r\nimport type { PromptTemplate } from '@/types/promptManagement';\r\nimport type { PromptExperimentVariant, PromptInvokeLog } from '@/types/promptManagement';\r\nimport {\r\n  createPromptTemplate,\r\n  deletePromptTemplate,\r\n  getPromptExperiment,\r\n  listPromptInvokeLogs,\r\n  listPromptTemplateVersions,\r\n  listPromptTemplates,\r\n  rollbackPromptTemplate,\r\n  savePromptExperiment,\r\n  updatePromptTemplate,\r\n} from '@/services/promptManagementService';\r\nimport styles from './index.less';\r\n\r\nconst { TextArea } = Input;\r\nconst { Paragraph } = Typography;\r\n\r\nconst DEFAULT_SCENE = 'agent.system.default';\r\n\r\nexport default function PromptManagementPage() {\r\n  const intl = useIntl();\r\n  const [templates, setTemplates] = useState<PromptTemplate[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [loading, setLoading] = useState(false);\r\n  const [page, setPage] = useState(1);\r\n  const [keyword, setKeyword] = useState('');\r\n  const [category, setCategory] = useState<string | undefined>();\r\n  const [editorOpen, setEditorOpen] = useState(false);\r\n  const [editing, setEditing] = useState<PromptTemplate | null>(null);\r\n  const [form] = Form.useForm();\r\n  const [versionModalOpen, setVersionModalOpen] = useState(false);\r\n  const [versionName, setVersionName] = useState('');\r\n  const [versions, setVersions] = useState<PromptTemplate[]>([]);\r\n  const [invokeDrawerOpen, setInvokeDrawerOpen] = useState(false);\r\n  const [invokeLogs, setInvokeLogs] = useState<PromptInvokeLog[]>([]);\r\n  const [invokeTotal, setInvokeTotal] = useState(0);\r\n  const [experimentVariants, setExperimentVariants] = useState<PromptExperimentVariant[]>([]);\r\n  const [experimentScene, setExperimentScene] = useState(DEFAULT_SCENE);\r\n\r\n  const fetchList = useCallback(async () => {\r\n    setLoading(true);\r\n    try {\r\n      const res = await listPromptTemplates({\r\n        page,\r\n        size: 10,\r\n        keyword: keyword || undefined,\r\n        category,\r\n      });\r\n      setTemplates(res.items ?? []);\r\n      setTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.loadFailed', defaultMessage: '加载失败' }));\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [category, intl, keyword, page]);\r\n\r\n  useEffect(() => {\r\n    void fetchList();\r\n  }, [fetchList]);\r\n\r\n  const categories = useMemo(\r\n    () => Array.from(new Set(templates.map((t) => t.category))).filter(Boolean),\r\n    [templates],\r\n  );\r\n\r\n  const openCreate = () => {\r\n    setEditing(null);\r\n    form.resetFields();\r\n    form.setFieldsValue({ category: '自定义', tags: [] });\r\n    setEditorOpen(true);\r\n  };\r\n\r\n  const openEdit = (record: PromptTemplate) => {\r\n    setEditing(record);\r\n    form.setFieldsValue({\r\n      name: record.name,\r\n      description: record.description,\r\n      category: record.category,\r\n      content: record.content,\r\n      tags: record.tags?.join(', '),\r\n    });\r\n    setEditorOpen(true);\r\n  };\r\n\r\n  const handleSave = async () => {\r\n    const values = await form.validateFields();\r\n    const tags = String(values.tags ?? '')\r\n      .split(',')\r\n      .map((t: string) => t.trim())\r\n      .filter(Boolean);\r\n    try {\r\n      if (editing) {\r\n        await updatePromptTemplate(editing.name, {\r\n          description: values.description,\r\n          category: values.category,\r\n          content: values.content,\r\n          tags,\r\n        });\r\n        message.success(intl.formatMessage({ id: 'promptManagement.updated', defaultMessage: '已保存新版本' }));\r\n      } else {\r\n        await createPromptTemplate({\r\n          name: values.name,\r\n          description: values.description,\r\n          category: values.category,\r\n          content: values.content,\r\n          tags,\r\n        });\r\n        message.success(intl.formatMessage({ id: 'promptManagement.created', defaultMessage: '模板已创建' }));\r\n      }\r\n      setEditorOpen(false);\r\n      void fetchList();\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.saveFailed', defaultMessage: '保存失败' }));\r\n    }\r\n  };\r\n\r\n  const openVersions = async (record: PromptTemplate) => {\r\n    setVersionName(record.name);\r\n    setVersionModalOpen(true);\r\n    try {\r\n      const items = await listPromptTemplateVersions(record.name);\r\n      setVersions(items);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.versionLoadFailed', defaultMessage: '版本加载失败' }));\r\n    }\r\n  };\r\n\r\n  const handleRollback = async (version: number) => {\r\n    try {\r\n      await rollbackPromptTemplate(versionName, { version });\r\n      message.success(intl.formatMessage({ id: 'promptManagement.rollbackDone', defaultMessage: '已回滚' }));\r\n      const items = await listPromptTemplateVersions(versionName);\r\n      setVersions(items);\r\n      void fetchList();\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.rollbackFailed', defaultMessage: '回滚失败' }));\r\n    }\r\n  };\r\n\r\n  const openInvokes = async (record: PromptTemplate) => {\r\n    setVersionName(record.name);\r\n    setInvokeDrawerOpen(true);\r\n    try {\r\n      const res = await listPromptInvokeLogs(record.name, { page: 1, size: 50 });\r\n      setInvokeLogs(res.items ?? []);\r\n      setInvokeTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.invokeLoadFailed', defaultMessage: '调用记录加载失败' }));\r\n    }\r\n  };\r\n\r\n  const loadExperiment = async (sceneKey: string) => {\r\n    setExperimentScene(sceneKey);\r\n    try {\r\n      const res = await getPromptExperiment(sceneKey);\r\n      setExperimentVariants(res.variants ?? []);\r\n    } catch {\r\n      setExperimentVariants([]);\r\n    }\r\n  };\r\n\r\n  useEffect(() => {\r\n    void loadExperiment(DEFAULT_SCENE);\r\n  }, []);\r\n\r\n  const weightTotal = experimentVariants.reduce((sum, v) => sum + (v.weightPercent ?? 0), 0);\r\n\r\n  const saveExperiment = async () => {\r\n    if (weightTotal !== 100) {\r\n      message.warning(intl.formatMessage({ id: 'promptManagement.weightInvalid', defaultMessage: '权重合计须为 100%' }));\r\n      return;\r\n    }\r\n    try {\r\n      await savePromptExperiment(experimentScene, { variants: experimentVariants });\r\n      message.success(intl.formatMessage({ id: 'promptManagement.experimentSaved', defaultMessage: '实验已保存' }));\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.experimentSaveFailed', defaultMessage: '实验保存失败' }));\r\n    }\r\n  };\r\n\r\n  const columns: ColumnsType<PromptTemplate> = [\r\n    { title: 'Name', dataIndex: 'name', key: 'name', width: 180 },\r\n    { title: 'Category', dataIndex: 'category', key: 'category', width: 100 },\r\n    {\r\n      title: 'Version',\r\n      dataIndex: 'version',\r\n      key: 'version',\r\n      width: 80,\r\n      render: (v: number) => <Tag color=\"blue\">v{v}</Tag>,\r\n    },\r\n    {\r\n      title: 'Source',\r\n      dataIndex: 'source',\r\n      key: 'source',\r\n      width: 90,\r\n      render: (s: string) => <Tag>{s}</Tag>,\r\n    },\r\n    {\r\n      title: 'Content',\r\n      dataIndex: 'content',\r\n      key: 'content',\r\n      ellipsis: true,\r\n      render: (text: string) => <Paragraph ellipsis={{ rows: 1 }}>{text}</Paragraph>,\r\n    },\r\n    {\r\n      title: 'Actions',\r\n      key: 'actions',\r\n      width: 280,\r\n      render: (_, record) => (\r\n        <Space wrap>\r\n          <Button size=\"small\" onClick={() => openEdit(record)}>\r\n            {intl.formatMessage({ id: 'promptManagement.edit', defaultMessage: '编辑' })}\r\n          </Button>\r\n          <Button size=\"small\" onClick={() => void openVersions(record)}>\r\n            {intl.formatMessage({ id: 'promptManagement.versions', defaultMessage: '版本' })}\r\n          </Button>\r\n          <Button size=\"small\" onClick={() => void openInvokes(record)}>\r\n            {intl.formatMessage({ id: 'promptManagement.invokes', defaultMessage: '调用' })}\r\n          </Button>\r\n          {record.source !== 'preset' ? (\r\n            <Popconfirm\r\n              title={intl.formatMessage({ id: 'promptManagement.deleteConfirm', defaultMessage: '确认删除？' })}\r\n              onConfirm={async () => {\r\n                try {\r\n                  await deletePromptTemplate(record.name);\r\n                  message.success(intl.formatMessage({ id: 'promptManagement.deleted', defaultMessage: '已删除' }));\r\n                  void fetchList();\r\n                } catch {\r\n                  message.error(intl.formatMessage({ id: 'promptManagement.deleteFailed', defaultMessage: '删除失败' }));\r\n                }\r\n              }}\r\n            >\r\n              <Button size=\"small\" danger>\r\n                {intl.formatMessage({ id: 'promptManagement.delete', defaultMessage: '删除' })}\r\n              </Button>\r\n            </Popconfirm>\r\n          ) : null}\r\n        </Space>\r\n      ),\r\n    },\r\n  ];\r\n\r\n  return (\r\n    <div className={styles.page}>\r\n      <Card\r\n        title={intl.formatMessage({ id: 'promptManagement.title', defaultMessage: 'Prompt 模板管理' })}\r\n        extra={\r\n          <Space>\r\n            <Button onClick={() => history.push(ROUTES.CHAT_AGENT)}>\r\n              {intl.formatMessage({ id: 'promptManagement.backToChat', defaultMessage: '返回对话' })}\r\n            </Button>\r\n            <Button icon={<ReloadOutlined />} onClick={() => void fetchList()} />\r\n            <Button type=\"primary\" icon={<PlusOutlined />} onClick={openCreate}>\r\n              {intl.formatMessage({ id: 'promptManagement.create', defaultMessage: '新建模板' })}\r\n            </Button>\r\n          </Space>\r\n        }\r\n      >\r\n        <Tabs\r\n          items={[\r\n            {\r\n              key: 'templates',\r\n              label: intl.formatMessage({ id: 'promptManagement.tabTemplates', defaultMessage: '模板' }),\r\n              children: (\r\n                <>\r\n                  <Space style={{ marginBottom: 16 }} wrap>\r\n                    <Input.Search\r\n                      placeholder={intl.formatMessage({ id: 'promptManagement.search', defaultMessage: '搜索' })}\r\n                      allowClear\r\n                      onSearch={(v) => {\r\n                        setKeyword(v);\r\n                        setPage(1);\r\n                      }}\r\n                      style={{ width: 220 }}\r\n                    />\r\n                    <Select\r\n                      allowClear\r\n                      placeholder={intl.formatMessage({ id: 'promptManagement.category', defaultMessage: '分类' })}\r\n                      style={{ width: 160 }}\r\n                      options={categories.map((c) => ({ label: c, value: c }))}\r\n                      onChange={(v) => {\r\n                        setCategory(v);\r\n                        setPage(1);\r\n                      }}\r\n                    />\r\n                  </Space>\r\n                  <Table\r\n                    rowKey=\"id\"\r\n                    loading={loading}\r\n                    columns={columns}\r\n                    dataSource={templates}\r\n                    pagination={{\r\n                      current: page,\r\n                      total,\r\n                      pageSize: 10,\r\n                      onChange: setPage,\r\n                      showTotal: (t) => `Total ${t}`,\r\n                    }}\r\n                  />\r\n                </>\r\n              ),\r\n            },\r\n            {\r\n              key: 'experiments',\r\n              label: intl.formatMessage({ id: 'promptManagement.tabExperiments', defaultMessage: 'A/B 实验' }),\r\n              children: (\r\n                <div className={styles.experimentPanel}>\r\n                  <Space direction=\"vertical\" style={{ width: '100%' }} size=\"middle\">\r\n                    <Input\r\n                      addonBefore=\"Scene\"\r\n                      value={experimentScene}\r\n                      onChange={(e) => setExperimentScene(e.target.value)}\r\n                      onBlur={() => void loadExperiment(experimentScene)}\r\n                    />\r\n                    {experimentVariants.map((variant, index) => (\r\n                      <Space key={`${variant.templateName}-${variant.version}`} wrap>\r\n                        <Input\r\n                          placeholder=\"template name\"\r\n                          value={variant.templateName}\r\n                          onChange={(e) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, templateName: e.target.value };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                          style={{ width: 180 }}\r\n                        />\r\n                        <InputNumber\r\n                          min={1}\r\n                          value={variant.version}\r\n                          onChange={(v) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, version: v ?? 1 };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                        />\r\n                        <InputNumber\r\n                          min={0}\r\n                          max={100}\r\n                          addonAfter=\"%\"\r\n                          value={variant.weightPercent}\r\n                          onChange={(v) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, weightPercent: v ?? 0 };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                        />\r\n                        <Button\r\n                          danger\r\n                          onClick={() =>\r\n                            setExperimentVariants(experimentVariants.filter((_, i) => i !== index))\r\n                          }\r\n                        >\r\n                          Remove\r\n                        </Button>\r\n                      </Space>\r\n                    ))}\r\n                    <Space>\r\n                      <Button\r\n                        onClick={() =>\r\n                          setExperimentVariants([\r\n                            ...experimentVariants,\r\n                            { templateName: '', version: 1, weightPercent: 0 },\r\n                          ])\r\n                        }\r\n                      >\r\n                        Add variant\r\n                      </Button>\r\n                      <Tag color={weightTotal === 100 ? 'success' : 'error'}>Total: {weightTotal}%</Tag>\r\n                      <Button type=\"primary\" onClick={() => void saveExperiment()}>\r\n                        Save experiment\r\n                      </Button>\r\n                    </Space>\r\n                  </Space>\r\n                </div>\r\n              ),\r\n            },\r\n          ]}\r\n        />\r\n      </Card>\r\n\r\n      <Drawer\r\n        title={\r\n          editing\r\n            ? intl.formatMessage({ id: 'promptManagement.editTitle', defaultMessage: '编辑模板' })\r\n            : intl.formatMessage({ id: 'promptManagement.createTitle', defaultMessage: '新建模板' })\r\n        }\r\n        width={560}\r\n        open={editorOpen}\r\n        onClose={() => setEditorOpen(false)}\r\n        extra={\r\n          <Button type=\"primary\" onClick={() => void handleSave()}>\r\n            {intl.formatMessage({ id: 'promptManagement.save', defaultMessage: '保存' })}\r\n          </Button>\r\n        }\r\n      >\r\n        <Form form={form} layout=\"vertical\">\r\n          <Form.Item\r\n            name=\"name\"\r\n            label=\"Name\"\r\n            rules={[{ required: true }]}\r\n          >\r\n            <Input disabled={!!editing} />\r\n          </Form.Item>\r\n          <Form.Item name=\"description\" label=\"Description\">\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item name=\"category\" label=\"Category\" rules={[{ required: true }]}>\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item name=\"tags\" label=\"Tags (comma separated)\">\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item\r\n            name=\"content\"\r\n            label=\"Content\"\r\n            rules={[{ required: true }]}\r\n            extra=\"{{variable}} supported\"\r\n          >\r\n            <TextArea rows={12} maxLength={8000} showCount />\r\n          </Form.Item>\r\n        </Form>\r\n      </Drawer>\r\n\r\n      <Modal\r\n        title={`${intl.formatMessage({ id: 'promptManagement.versions', defaultMessage: '版本' })}: ${versionName}`}\r\n        open={versionModalOpen}\r\n        onCancel={() => setVersionModalOpen(false)}\r\n        footer={null}\r\n        width={720}\r\n      >\r\n        <Table\r\n          rowKey=\"id\"\r\n          dataSource={versions}\r\n          pagination={false}\r\n          columns={[\r\n            { title: 'Version', dataIndex: 'version', width: 90 },\r\n            { title: 'Status', dataIndex: 'status', width: 100 },\r\n            { title: 'CreatedBy', dataIndex: 'createdBy', width: 120 },\r\n            {\r\n              title: 'Action',\r\n              render: (_, record) =>\r\n                record.status !== 'active' ? (\r\n                  <Popconfirm\r\n                    title={intl.formatMessage({ id: 'promptManagement.rollbackConfirm', defaultMessage: '回滚到此版本？' })}\r\n                    onConfirm={() => void handleRollback(record.version)}\r\n                  >\r\n                    <Button size=\"small\">Rollback</Button>\r\n                  </Popconfirm>\r\n                ) : (\r\n                  <Tag color=\"green\">active</Tag>\r\n                ),\r\n            },\r\n          ]}\r\n        />\r\n      </Modal>\r\n\r\n      <Drawer\r\n        title={`${intl.formatMessage({ id: 'promptManagement.invokes', defaultMessage: '调用记录' })}: ${versionName}`}\r\n        width={720}\r\n        open={invokeDrawerOpen}\r\n        onClose={() => setInvokeDrawerOpen(false)}\r\n      >\r\n        <Table\r\n          rowKey=\"id\"\r\n          dataSource={invokeLogs}\r\n          pagination={{ total: invokeTotal, pageSize: 50 }}\r\n          columns={[\r\n            { title: 'Version', dataIndex: 'version', width: 80 },\r\n            { title: 'Type', dataIndex: 'invokeType', width: 80 },\r\n            { title: 'Tokens', render: (_, r) => `${r.promptTokens ?? '-'} / ${r.completionTokens ?? '-'}` },\r\n            { title: 'Duration', dataIndex: 'durationMs', width: 90 },\r\n            { title: 'Time', dataIndex: 'createdAt', width: 180 },\r\n          ]}\r\n        />\r\n      </Drawer>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useMemo, useState } from 'react';\r\nimport { history, useIntl } from '@umijs/max';\r\nimport {\r\n  Button,\r\n  Card,\r\n  Drawer,\r\n  Form,\r\n  Input,\r\n  InputNumber,\r\n  Modal,\r\n  Popconfirm,\r\n  Select,\r\n  Space,\r\n  Table,\r\n  Tabs,\r\n  Tag,\r\n  Typography,\r\n  message,\r\n} from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport { PlusOutlined, ReloadOutlined } from '@ant-design/icons';\r\nimport { ROUTES } from '@/constants/routes';\r\nimport type { PromptTemplate } from '@/types/promptManagement';\r\nimport type { PromptExperimentVariant, PromptInvokeLog } from '@/types/promptManagement';\r\nimport {\r\n  createPromptTemplate,\r\n  deletePromptTemplate,\r\n  getPromptExperiment,\r\n  listPromptInvokeLogs,\r\n  listPromptTemplateVersions,\r\n  listPromptTemplates,\r\n  rollbackPromptTemplate,\r\n  savePromptExperiment,\r\n  updatePromptTemplate,\r\n} from '@/services/promptManagementService';\r\nimport { DEFAULT_PROMPT_EXPERIMENT_SCENE } from '@/constants/promptManagement';\r\nimport styles from './index.less';\r\n\r\nconst { TextArea } = Input;\r\nconst { Paragraph } = Typography;\r\n\r\nexport default function PromptManagementPage() {\r\n  const intl = useIntl();\r\n  const [templates, setTemplates] = useState<PromptTemplate[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [loading, setLoading] = useState(false);\r\n  const [page, setPage] = useState(1);\r\n  const [keyword, setKeyword] = useState('');\r\n  const [category, setCategory] = useState<string | undefined>();\r\n  const [editorOpen, setEditorOpen] = useState(false);\r\n  const [editing, setEditing] = useState<PromptTemplate | null>(null);\r\n  const [form] = Form.useForm();\r\n  const [versionModalOpen, setVersionModalOpen] = useState(false);\r\n  const [versionName, setVersionName] = useState('');\r\n  const [versions, setVersions] = useState<PromptTemplate[]>([]);\r\n  const [invokeDrawerOpen, setInvokeDrawerOpen] = useState(false);\r\n  const [invokeLogs, setInvokeLogs] = useState<PromptInvokeLog[]>([]);\r\n  const [invokeTotal, setInvokeTotal] = useState(0);\r\n  const [experimentVariants, setExperimentVariants] = useState<PromptExperimentVariant[]>([]);\r\n  const [experimentScene, setExperimentScene] = useState(DEFAULT_PROMPT_EXPERIMENT_SCENE);\r\n\r\n  const fetchList = useCallback(async () => {\r\n    setLoading(true);\r\n    try {\r\n      const res = await listPromptTemplates({\r\n        page,\r\n        size: 10,\r\n        keyword: keyword || undefined,\r\n        category,\r\n      });\r\n      setTemplates(res.items ?? []);\r\n      setTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.loadFailed', defaultMessage: '加载失败' }));\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [category, intl, keyword, page]);\r\n\r\n  useEffect(() => {\r\n    void fetchList();\r\n  }, [fetchList]);\r\n\r\n  const categories = useMemo(\r\n    () => Array.from(new Set(templates.map((t) => t.category))).filter(Boolean),\r\n    [templates],\r\n  );\r\n\r\n  const openCreate = () => {\r\n    setEditing(null);\r\n    form.resetFields();\r\n    form.setFieldsValue({ category: '自定义', tags: [] });\r\n    setEditorOpen(true);\r\n  };\r\n\r\n  const openEdit = (record: PromptTemplate) => {\r\n    setEditing(record);\r\n    form.setFieldsValue({\r\n      name: record.name,\r\n      description: record.description,\r\n      category: record.category,\r\n      content: record.content,\r\n      tags: record.tags?.join(', '),\r\n    });\r\n    setEditorOpen(true);\r\n  };\r\n\r\n  const handleSave = async () => {\r\n    const values = await form.validateFields();\r\n    const tags = String(values.tags ?? '')\r\n      .split(',')\r\n      .map((t: string) => t.trim())\r\n      .filter(Boolean);\r\n    try {\r\n      if (editing) {\r\n        await updatePromptTemplate(editing.name, {\r\n          description: values.description,\r\n          category: values.category,\r\n          content: values.content,\r\n          tags,\r\n        });\r\n        message.success(intl.formatMessage({ id: 'promptManagement.updated', defaultMessage: '已保存新版本' }));\r\n      } else {\r\n        await createPromptTemplate({\r\n          name: values.name,\r\n          description: values.description,\r\n          category: values.category,\r\n          content: values.content,\r\n          tags,\r\n        });\r\n        message.success(intl.formatMessage({ id: 'promptManagement.created', defaultMessage: '模板已创建' }));\r\n      }\r\n      setEditorOpen(false);\r\n      void fetchList();\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.saveFailed', defaultMessage: '保存失败' }));\r\n    }\r\n  };\r\n\r\n  const openVersions = async (record: PromptTemplate) => {\r\n    setVersionName(record.name);\r\n    setVersionModalOpen(true);\r\n    try {\r\n      const items = await listPromptTemplateVersions(record.name);\r\n      setVersions(items);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.versionLoadFailed', defaultMessage: '版本加载失败' }));\r\n    }\r\n  };\r\n\r\n  const handleRollback = async (version: number) => {\r\n    try {\r\n      await rollbackPromptTemplate(versionName, { version });\r\n      message.success(intl.formatMessage({ id: 'promptManagement.rollbackDone', defaultMessage: '已回滚' }));\r\n      const items = await listPromptTemplateVersions(versionName);\r\n      setVersions(items);\r\n      void fetchList();\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.rollbackFailed', defaultMessage: '回滚失败' }));\r\n    }\r\n  };\r\n\r\n  const openInvokes = async (record: PromptTemplate) => {\r\n    setVersionName(record.name);\r\n    setInvokeDrawerOpen(true);\r\n    try {\r\n      const res = await listPromptInvokeLogs(record.name, { page: 1, size: 50 });\r\n      setInvokeLogs(res.items ?? []);\r\n      setInvokeTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.invokeLoadFailed', defaultMessage: '调用记录加载失败' }));\r\n    }\r\n  };\r\n\r\n  const loadExperiment = async (sceneKey: string) => {\r\n    setExperimentScene(sceneKey);\r\n    try {\r\n      const res = await getPromptExperiment(sceneKey);\r\n      setExperimentVariants(res.variants ?? []);\r\n    } catch {\r\n      setExperimentVariants([]);\r\n    }\r\n  };\r\n\r\n  useEffect(() => {\r\n    void loadExperiment(DEFAULT_PROMPT_EXPERIMENT_SCENE);\r\n  }, []);\r\n\r\n  const weightTotal = experimentVariants.reduce((sum, v) => sum + (v.weightPercent ?? 0), 0);\r\n\r\n  const saveExperiment = async () => {\r\n    if (weightTotal !== 100) {\r\n      message.warning(intl.formatMessage({ id: 'promptManagement.weightInvalid' }));\r\n      return;\r\n    }\r\n    try {\r\n      await savePromptExperiment(experimentScene, { variants: experimentVariants });\r\n      message.success(intl.formatMessage({ id: 'promptManagement.experimentSaved' }));\r\n    } catch {\r\n      message.error(intl.formatMessage({ id: 'promptManagement.experimentSaveFailed' }));\r\n    }\r\n  };\r\n\r\n  const t = (id: string, defaultMessage?: string) =>\r\n    intl.formatMessage({ id, ...(defaultMessage ? { defaultMessage } : {}) });\r\n\r\n  const columns: ColumnsType<PromptTemplate> = useMemo(\r\n    () => [\r\n      { title: t('promptManagement.col.name'), dataIndex: 'name', key: 'name', width: 180 },\r\n      { title: t('promptManagement.col.category'), dataIndex: 'category', key: 'category', width: 100 },\r\n      {\r\n        title: t('promptManagement.col.version'),\r\n        dataIndex: 'version',\r\n        key: 'version',\r\n        width: 80,\r\n        render: (v: number) => <Tag color=\"blue\">v{v}</Tag>,\r\n      },\r\n      {\r\n        title: t('promptManagement.col.source'),\r\n        dataIndex: 'source',\r\n        key: 'source',\r\n        width: 90,\r\n        render: (s: string) => <Tag>{s}</Tag>,\r\n      },\r\n      {\r\n        title: t('promptManagement.col.content'),\r\n        dataIndex: 'content',\r\n        key: 'content',\r\n        ellipsis: true,\r\n        render: (text: string) => <Paragraph ellipsis={{ rows: 1 }}>{text}</Paragraph>,\r\n      },\r\n      {\r\n        title: t('promptManagement.col.actions'),\r\n        key: 'actions',\r\n        width: 280,\r\n        render: (_, record) => (\r\n          <Space wrap>\r\n            <Button size=\"small\" onClick={() => openEdit(record)}>\r\n              {t('promptManagement.edit')}\r\n            </Button>\r\n            <Button size=\"small\" onClick={() => void openVersions(record)}>\r\n              {t('promptManagement.versions')}\r\n            </Button>\r\n            <Button size=\"small\" onClick={() => void openInvokes(record)}>\r\n              {t('promptManagement.invokes')}\r\n            </Button>\r\n            {record.source !== 'preset' ? (\r\n              <Popconfirm\r\n                title={t('promptManagement.deleteConfirm')}\r\n                onConfirm={async () => {\r\n                  try {\r\n                    await deletePromptTemplate(record.name);\r\n                    message.success(t('promptManagement.deleted', '已删除'));\r\n                    void fetchList();\r\n                  } catch {\r\n                    message.error(t('promptManagement.deleteFailed', '删除失败'));\r\n                  }\r\n                }}\r\n              >\r\n                <Button size=\"small\" danger>\r\n                  {t('promptManagement.delete')}\r\n                </Button>\r\n              </Popconfirm>\r\n            ) : null}\r\n          </Space>\r\n        ),\r\n      },\r\n    ],\r\n    [fetchList, intl],\r\n  );\r\n\r\n  return (\r\n    <div className={styles.page}>\r\n      <Card\r\n        title={t('promptManagement.title')}\r\n        extra={\r\n          <Space>\r\n            <Button onClick={() => history.push(ROUTES.CHAT_AGENT)}>\r\n              {t('promptManagement.backToChat')}\r\n            </Button>\r\n            <Button icon={<ReloadOutlined />} onClick={() => void fetchList()} />\r\n            <Button type=\"primary\" icon={<PlusOutlined />} onClick={openCreate}>\r\n              {t('promptManagement.create')}\r\n            </Button>\r\n          </Space>\r\n        }\r\n      >\r\n        <Tabs\r\n          items={[\r\n            {\r\n              key: 'templates',\r\n              label: t('promptManagement.tabTemplates'),\r\n              children: (\r\n                <>\r\n                  <Space style={{ marginBottom: 16 }} wrap>\r\n                    <Input.Search\r\n                      placeholder={t('promptManagement.search')}\r\n                      allowClear\r\n                      onSearch={(v) => {\r\n                        setKeyword(v);\r\n                        setPage(1);\r\n                      }}\r\n                      style={{ width: 220 }}\r\n                    />\r\n                    <Select\r\n                      allowClear\r\n                      placeholder={t('promptManagement.category')}\r\n                      style={{ width: 160 }}\r\n                      options={categories.map((c) => ({ label: c, value: c }))}\r\n                      onChange={(v) => {\r\n                        setCategory(v);\r\n                        setPage(1);\r\n                      }}\r\n                    />\r\n                  </Space>\r\n                  <Table\r\n                    rowKey=\"id\"\r\n                    loading={loading}\r\n                    columns={columns}\r\n                    dataSource={templates}\r\n                    pagination={{\r\n                      current: page,\r\n                      total,\r\n                      pageSize: 10,\r\n                      onChange: setPage,\r\n                      showTotal: (count) =>\r\n                        intl.formatMessage({ id: 'promptManagement.table.total' }, { total: count }),\r\n                    }}\r\n                  />\r\n                </>\r\n              ),\r\n            },\r\n            {\r\n              key: 'experiments',\r\n              label: t('promptManagement.tabExperiments'),\r\n              children: (\r\n                <div className={styles.experimentPanel}>\r\n                  <Space direction=\"vertical\" style={{ width: '100%' }} size=\"middle\">\r\n                    <Input\r\n                      addonBefore={t('promptManagement.experiment.scene')}\r\n                      value={experimentScene}\r\n                      onChange={(e) => setExperimentScene(e.target.value)}\r\n                      onBlur={() => void loadExperiment(experimentScene)}\r\n                    />\r\n                    {experimentVariants.map((variant, index) => (\r\n                      <Space key={`${variant.templateName}-${variant.version}`} wrap>\r\n                        <Input\r\n                          placeholder={t('promptManagement.experiment.templateName')}\r\n                          value={variant.templateName}\r\n                          onChange={(e) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, templateName: e.target.value };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                          style={{ width: 180 }}\r\n                        />\r\n                        <InputNumber\r\n                          min={1}\r\n                          value={variant.version}\r\n                          onChange={(v) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, version: v ?? 1 };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                        />\r\n                        <InputNumber\r\n                          min={0}\r\n                          max={100}\r\n                          addonAfter=\"%\"\r\n                          value={variant.weightPercent}\r\n                          onChange={(v) => {\r\n                            const next = [...experimentVariants];\r\n                            next[index] = { ...variant, weightPercent: v ?? 0 };\r\n                            setExperimentVariants(next);\r\n                          }}\r\n                        />\r\n                        <Button\r\n                          danger\r\n                          onClick={() =>\r\n                            setExperimentVariants(experimentVariants.filter((_, i) => i !== index))\r\n                          }\r\n                        >\r\n                          {t('promptManagement.experiment.remove')}\r\n                        </Button>\r\n                      </Space>\r\n                    ))}\r\n                    <Space>\r\n                      <Button\r\n                        onClick={() =>\r\n                          setExperimentVariants([\r\n                            ...experimentVariants,\r\n                            { templateName: '', version: 1, weightPercent: 0 },\r\n                          ])\r\n                        }\r\n                      >\r\n                        {t('promptManagement.experiment.addVariant')}\r\n                      </Button>\r\n                      <Tag color={weightTotal === 100 ? 'success' : 'error'}>\r\n                        {t('promptManagement.experiment.total')}: {weightTotal}%\r\n                      </Tag>\r\n                      <Button type=\"primary\" onClick={() => void saveExperiment()}>\r\n                        {t('promptManagement.experiment.save')}\r\n                      </Button>\r\n                    </Space>\r\n                  </Space>\r\n                </div>\r\n              ),\r\n            },\r\n          ]}\r\n        />\r\n      </Card>\r\n\r\n      <Drawer\r\n        title={editing ? t('promptManagement.editTitle') : t('promptManagement.createTitle')}\r\n        width={560}\r\n        open={editorOpen}\r\n        onClose={() => setEditorOpen(false)}\r\n        extra={\r\n          <Button type=\"primary\" onClick={() => void handleSave()}>\r\n            {t('promptManagement.save')}\r\n          </Button>\r\n        }\r\n      >\r\n        <Form form={form} layout=\"vertical\">\r\n          <Form.Item name=\"name\" label={t('promptManagement.field.name')} rules={[{ required: true }]}>\r\n            <Input disabled={!!editing} />\r\n          </Form.Item>\r\n          <Form.Item name=\"description\" label={t('promptManagement.field.description')}>\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item name=\"category\" label={t('promptManagement.field.category')} rules={[{ required: true }]}>\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item name=\"tags\" label={t('promptManagement.field.tags')}>\r\n            <Input />\r\n          </Form.Item>\r\n          <Form.Item\r\n            name=\"content\"\r\n            label={t('promptManagement.field.content')}\r\n            rules={[{ required: true }]}\r\n            extra={t('promptManagement.field.contentExtra')}\r\n          >\r\n            <TextArea rows={12} maxLength={8000} showCount />\r\n          </Form.Item>\r\n        </Form>\r\n      </Drawer>\r\n\r\n      <Modal\r\n        title={`${t('promptManagement.versions')}: ${versionName}`}\r\n        open={versionModalOpen}\r\n        onCancel={() => setVersionModalOpen(false)}\r\n        footer={null}\r\n        width={720}\r\n      >\r\n        <Table\r\n          rowKey=\"id\"\r\n          dataSource={versions}\r\n          pagination={false}\r\n          columns={[\r\n            { title: t('promptManagement.col.version'), dataIndex: 'version', width: 90 },\r\n            { title: t('promptManagement.col.status'), dataIndex: 'status', width: 100 },\r\n            { title: t('promptManagement.col.createdBy'), dataIndex: 'createdBy', width: 120 },\r\n            {\r\n              title: t('promptManagement.col.actions'),\r\n              render: (_, record) =>\r\n                record.status !== 'active' ? (\r\n                  <Popconfirm\r\n                    title={t('promptManagement.rollbackConfirm')}\r\n                    onConfirm={() => void handleRollback(record.version)}\r\n                  >\r\n                    <Button size=\"small\">{t('promptManagement.rollback')}</Button>\r\n                  </Popconfirm>\r\n                ) : (\r\n                  <Tag color=\"green\">{t('promptManagement.statusActive')}</Tag>\r\n                ),\r\n            },\r\n          ]}\r\n        />\r\n      </Modal>\r\n\r\n      <Drawer\r\n        title={`${t('promptManagement.invokes')}: ${versionName}`}\r\n        width={720}\r\n        open={invokeDrawerOpen}\r\n        onClose={() => setInvokeDrawerOpen(false)}\r\n      >\r\n        <Table\r\n          rowKey=\"id\"\r\n          dataSource={invokeLogs}\r\n          pagination={{ total: invokeTotal, pageSize: 50 }}\r\n          columns={[\r\n            { title: t('promptManagement.col.version'), dataIndex: 'version', width: 80 },\r\n            { title: t('promptManagement.col.type'), dataIndex: 'invokeType', width: 80 },\r\n            {\r\n              title: t('promptManagement.col.tokens'),\r\n              render: (_, r) => `${r.promptTokens ?? '-'} / ${r.completionTokens ?? '-'}`,\r\n            },\r\n            { title: t('promptManagement.col.duration'), dataIndex: 'durationMs', width: 90 },\r\n            { title: t('promptManagement.col.time'), dataIndex: 'createdAt', width: 180 },\r\n          ]}\r\n        />\r\n      </Drawer>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "D:/cache/workspace/ai_react/src/pages/prompt-management/index.tsx"
     },
     "21": {
+      "path": "/agent-hub/flow-management",
+      "file": "@/pages/flow-management/index.tsx",
+      "parentId": "2",
+      "id": "21",
+      "absPath": "/agent-hub/flow-management",
+      "__content": "import { useCallback, useEffect, useMemo, useState } from 'react';\r\nimport { history, useIntl } from '@umijs/max';\r\nimport {\r\n  Button,\r\n  Form,\r\n  Input,\r\n  Modal,\r\n  Popconfirm,\r\n  Select,\r\n  Space,\r\n  Switch,\r\n  Table,\r\n  Tag,\r\n  Typography,\r\n  message,\r\n} from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport {\r\n  ApartmentOutlined,\r\n  EditOutlined,\r\n  PlusOutlined,\r\n  ReloadOutlined,\r\n} from '@ant-design/icons';\r\nimport { flowDesignerRoute } from '@/constants/routes';\r\nimport {\r\n  createFlow,\r\n  deleteFlow,\r\n  disableFlow,\r\n  enableFlow,\r\n  listFlowVersions,\r\n  listFlows,\r\n  publishFlow,\r\n  registerFlowMcpTool,\r\n  rollbackFlow,\r\n} from '@/services/flowService';\r\nimport type { FlowStatus, FlowSummary, FlowVersionItem } from '@/types/flowManagement';\r\nimport styles from './index.less';\r\n\r\nconst STATUS_OPTIONS: { label: string; value: FlowStatus }[] = [\r\n  { label: 'draft', value: 'draft' },\r\n  { label: 'published', value: 'published' },\r\n  { label: 'disabled', value: 'disabled' },\r\n];\r\n\r\nfunction statusTagClass(status: FlowStatus): string {\r\n  if (status === 'published') {\r\n    return styles.statusPublished;\r\n  }\r\n  if (status === 'disabled') {\r\n    return styles.statusDisabled;\r\n  }\r\n  return styles.statusDraft;\r\n}\r\n\r\nexport default function FlowManagementPage() {\r\n  const intl = useIntl();\r\n  const [items, setItems] = useState<FlowSummary[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [loading, setLoading] = useState(false);\r\n  const [page, setPage] = useState(1);\r\n  const [pageSize] = useState(20);\r\n  const [statusFilter, setStatusFilter] = useState<FlowStatus | undefined>();\r\n  const [nameKeyword, setNameKeyword] = useState('');\r\n  const [createOpen, setCreateOpen] = useState(false);\r\n  const [versionOpen, setVersionOpen] = useState(false);\r\n  const [versionFlowId, setVersionFlowId] = useState<number | null>(null);\r\n  const [versions, setVersions] = useState<FlowVersionItem[]>([]);\r\n  const [form] = Form.useForm();\r\n\r\n  const t = useCallback(\r\n    (id: string, defaultMessage: string) => intl.formatMessage({ id, defaultMessage }),\r\n    [intl],\r\n  );\r\n\r\n  const fetchList = useCallback(async () => {\r\n    setLoading(true);\r\n    try {\r\n      const res = await listFlows({\r\n        page,\r\n        size: pageSize,\r\n        status: statusFilter,\r\n        name: nameKeyword || undefined,\r\n      });\r\n      setItems(res.items ?? []);\r\n      setTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(t('flowManagement.loadFailed', '加载流程列表失败'));\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [nameKeyword, page, pageSize, statusFilter, t]);\r\n\r\n  useEffect(() => {\r\n    void fetchList();\r\n  }, [fetchList]);\r\n\r\n  const openDesigner = (flowId: number) => {\r\n    history.push(flowDesignerRoute(flowId));\r\n  };\r\n\r\n  const handleCreate = async () => {\r\n    const values = await form.validateFields();\r\n    try {\r\n      const created = await createFlow({\r\n        name: values.name.trim(),\r\n        description: values.description?.trim(),\r\n      });\r\n      message.success(t('flowManagement.created', '流程已创建'));\r\n      setCreateOpen(false);\r\n      form.resetFields();\r\n      openDesigner(created.id);\r\n    } catch {\r\n      message.error(t('flowManagement.createFailed', '创建失败'));\r\n    }\r\n  };\r\n\r\n  const handleDelete = async (flowId: number) => {\r\n    try {\r\n      await deleteFlow(flowId);\r\n      message.success(t('flowManagement.deleted', '已删除'));\r\n      void fetchList();\r\n    } catch {\r\n      message.error(t('flowManagement.deleteFailed', '删除失败，请先解除 Agent 关联'));\r\n    }\r\n  };\r\n\r\n  const handlePublish = async (flowId: number) => {\r\n    try {\r\n      await publishFlow(flowId);\r\n      message.success(t('flowManagement.published', '发布成功'));\r\n      void fetchList();\r\n    } catch {\r\n      message.error(t('flowManagement.publishFailed', '发布失败，请检查流程 DSL'));\r\n    }\r\n  };\r\n\r\n  const handleRegisterMcp = async (flowId: number) => {\r\n    try {\r\n      const result = await registerFlowMcpTool(flowId);\r\n      message.success(\r\n        t('flowManagement.mcpRegistered', '已发布为 MCP 工具：{name}').replace(\r\n          '{name}',\r\n          result.mcpToolName,\r\n        ),\r\n      );\r\n      void fetchList();\r\n    } catch {\r\n      message.error(t('flowManagement.mcpRegisterFailed', 'MCP 工具注册失败'));\r\n    }\r\n  };\r\n\r\n  const openVersions = async (flowId: number) => {\r\n    setVersionFlowId(flowId);\r\n    setVersionOpen(true);\r\n    try {\r\n      const list = await listFlowVersions(flowId);\r\n      setVersions(list ?? []);\r\n    } catch {\r\n      message.error(t('flowManagement.versionLoadFailed', '版本历史加载失败'));\r\n    }\r\n  };\r\n\r\n  const handleRollback = async (versionNo: number) => {\r\n    if (versionFlowId === null) {\r\n      return;\r\n    }\r\n    try {\r\n      await rollbackFlow(versionFlowId, { versionNo });\r\n      message.success(t('flowManagement.rollbackDone', '已回滚并生成新版本'));\r\n      const list = await listFlowVersions(versionFlowId);\r\n      setVersions(list ?? []);\r\n      void fetchList();\r\n    } catch {\r\n      message.error(t('flowManagement.rollbackFailed', '回滚失败'));\r\n    }\r\n  };\r\n\r\n  const handleToggleEnabled = async (record: FlowSummary, checked: boolean) => {\r\n    try {\r\n      if (checked) {\r\n        await enableFlow(record.id);\r\n        message.success(t('flowManagement.enabledDone', '已启用'));\r\n      } else {\r\n        await disableFlow(record.id);\r\n        message.success(t('flowManagement.disabledDone', '已禁用'));\r\n      }\r\n      void fetchList();\r\n    } catch {\r\n      message.error(t('flowManagement.toggleFailed', '状态切换失败'));\r\n    }\r\n  };\r\n\r\n  const columns: ColumnsType<FlowSummary> = useMemo(\r\n    () => [\r\n      {\r\n        title: t('flowManagement.col.name', '名称'),\r\n        dataIndex: 'name',\r\n        key: 'name',\r\n        render: (name: string, record) => (\r\n          <div className={styles.nameCell}>\r\n            <span className={styles.namePrimary}>{name}</span>\r\n            {record.description ? (\r\n              <span className={styles.nameSecondary}>{record.description}</span>\r\n            ) : null}\r\n          </div>\r\n        ),\r\n      },\r\n      {\r\n        title: t('flowManagement.col.status', '状态'),\r\n        dataIndex: 'status',\r\n        key: 'status',\r\n        width: 120,\r\n        render: (status: FlowStatus) => (\r\n          <Tag className={statusTagClass(status)}>{status}</Tag>\r\n        ),\r\n      },\r\n      {\r\n        title: t('flowManagement.col.version', '版本'),\r\n        dataIndex: 'currentVersion',\r\n        key: 'currentVersion',\r\n        width: 90,\r\n        render: (v: number) => (v > 0 ? `v${v}` : '—'),\r\n      },\r\n      {\r\n        title: t('flowManagement.col.enabled', '启用'),\r\n        dataIndex: 'enabled',\r\n        key: 'enabled',\r\n        width: 100,\r\n        render: (enabled: boolean, record) =>\r\n          record.currentVersion > 0 ? (\r\n            <Switch\r\n              checked={enabled && record.status === 'published'}\r\n              disabled={record.status === 'draft'}\r\n              onChange={(checked) => void handleToggleEnabled(record, checked)}\r\n            />\r\n          ) : (\r\n            <Tag>{t('flowManagement.notPublished', '未发布')}</Tag>\r\n          ),\r\n      },\r\n      {\r\n        title: t('flowManagement.col.actions', '操作'),\r\n        key: 'actions',\r\n        width: 420,\r\n        render: (_, record) => (\r\n          <Space wrap size=\"small\">\r\n            <Button\r\n              size=\"small\"\r\n              type=\"link\"\r\n              icon={<EditOutlined />}\r\n              onClick={() => openDesigner(record.id)}\r\n            >\r\n              {t('flowManagement.design', '设计')}\r\n            </Button>\r\n            <Button size=\"small\" type=\"link\" onClick={() => void openVersions(record.id)}>\r\n              {t('flowManagement.versions', '版本历史')}\r\n            </Button>\r\n            <Button size=\"small\" type=\"link\" onClick={() => void handlePublish(record.id)}>\r\n              {t('flowManagement.publish', '发布')}\r\n            </Button>\r\n            {record.status === 'published' && record.enabled ? (\r\n              <Button size=\"small\" type=\"link\" onClick={() => void handleRegisterMcp(record.id)}>\r\n                {t('flowManagement.registerMcp', '发布为 MCP 工具')}\r\n              </Button>\r\n            ) : null}\r\n            <Popconfirm\r\n              title={t('flowManagement.deleteConfirm', '确认删除该流程？')}\r\n              onConfirm={() => void handleDelete(record.id)}\r\n            >\r\n              <Button size=\"small\" type=\"link\" danger>\r\n                {t('flowManagement.delete', '删除')}\r\n              </Button>\r\n            </Popconfirm>\r\n          </Space>\r\n        ),\r\n      },\r\n    ],\r\n    [t],\r\n  );\r\n\r\n  return (\r\n    <div className={styles.flowPage}>\r\n      <Typography.Title level={3} className={styles.pageHeader}>\r\n        {t('flowManagement.title', 'AI 流程管理')}\r\n      </Typography.Title>\r\n      <p className={styles.pageSubtitle}>\r\n        {t(\r\n          'flowManagement.subtitle',\r\n          '创建、发布与版本化编排流程。草稿保存后可在设计器中编辑节点与连线。',\r\n        )}\r\n      </p>\r\n\r\n      <div className={styles.toolbar}>\r\n        <div className={styles.filters}>\r\n          <Input.Search\r\n            allowClear\r\n            placeholder={t('flowManagement.search', '按名称搜索')}\r\n            style={{ width: 220 }}\r\n            onSearch={(value) => {\r\n              setNameKeyword(value.trim());\r\n              setPage(1);\r\n            }}\r\n          />\r\n          <Select\r\n            allowClear\r\n            placeholder={t('flowManagement.statusFilter', '状态筛选')}\r\n            style={{ width: 160 }}\r\n            options={STATUS_OPTIONS.map((item) => ({\r\n              label: item.label,\r\n              value: item.value,\r\n            }))}\r\n            onChange={(value) => {\r\n              setStatusFilter(value);\r\n              setPage(1);\r\n            }}\r\n          />\r\n        </div>\r\n        <Space>\r\n          <Button icon={<ReloadOutlined />} onClick={() => void fetchList()} />\r\n          <Button type=\"primary\" icon={<PlusOutlined />} onClick={() => setCreateOpen(true)}>\r\n            {t('flowManagement.create', '新建流程')}\r\n          </Button>\r\n        </Space>\r\n      </div>\r\n\r\n      <Table\r\n        rowKey=\"id\"\r\n        loading={loading}\r\n        columns={columns}\r\n        dataSource={items}\r\n        pagination={{\r\n          current: page,\r\n          pageSize,\r\n          total,\r\n          showSizeChanger: false,\r\n          onChange: setPage,\r\n          showTotal: (count) =>\r\n            intl.formatMessage({ id: 'flowManagement.tableTotal', defaultMessage: '共 {total} 条' }, { total: count }),\r\n        }}\r\n      />\r\n\r\n      <Modal\r\n        title={t('flowManagement.createTitle', '新建流程')}\r\n        open={createOpen}\r\n        onCancel={() => setCreateOpen(false)}\r\n        onOk={() => void handleCreate()}\r\n        okText={t('flowManagement.createAndDesign', '创建并进入设计器')}\r\n      >\r\n        <Form form={form} layout=\"vertical\">\r\n          <Form.Item\r\n            name=\"name\"\r\n            label={t('flowManagement.field.name', '流程名称')}\r\n            rules={[{ required: true, message: t('flowManagement.nameRequired', '请输入名称') }]}\r\n          >\r\n            <Input maxLength={128} placeholder=\"customer-faq-flow\" />\r\n          </Form.Item>\r\n          <Form.Item name=\"description\" label={t('flowManagement.field.description', '描述')}>\r\n            <Input.TextArea rows={3} maxLength={512} />\r\n          </Form.Item>\r\n        </Form>\r\n      </Modal>\r\n\r\n      <Modal\r\n        title={\r\n          <Space>\r\n            <ApartmentOutlined />\r\n            {t('flowManagement.versionTitle', '版本历史')}\r\n          </Space>\r\n        }\r\n        open={versionOpen}\r\n        onCancel={() => setVersionOpen(false)}\r\n        footer={null}\r\n        width={640}\r\n      >\r\n        <Table\r\n          rowKey=\"id\"\r\n          dataSource={versions}\r\n          pagination={false}\r\n          locale={{ emptyText: t('flowManagement.noVersions', '暂无发布版本') }}\r\n          columns={[\r\n            {\r\n              title: t('flowManagement.col.version', '版本'),\r\n              dataIndex: 'versionNo',\r\n              width: 80,\r\n              render: (v: number) => `v${v}`,\r\n            },\r\n            {\r\n              title: t('flowManagement.col.publishedAt', '发布时间'),\r\n              dataIndex: 'publishedAt',\r\n              width: 180,\r\n            },\r\n            {\r\n              title: t('flowManagement.col.publishedBy', '发布人'),\r\n              dataIndex: 'publishedBy',\r\n              width: 120,\r\n              render: (v: string | null) => v ?? '—',\r\n            },\r\n            {\r\n              title: t('flowManagement.col.actions', '操作'),\r\n              key: 'actions',\r\n              render: (_, record) => (\r\n                <Popconfirm\r\n                  title={t('flowManagement.rollbackConfirm', '回滚到此版本并生成新版本？')}\r\n                  onConfirm={() => void handleRollback(record.versionNo)}\r\n                >\r\n                  <Button size=\"small\">{t('flowManagement.rollback', '回滚')}</Button>\r\n                </Popconfirm>\r\n              ),\r\n            },\r\n          ]}\r\n        />\r\n      </Modal>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/flow-management/index.tsx"
+    },
+    "22": {
+      "path": "/agent-hub/flow-executions",
+      "file": "@/pages/flow-executions/index.tsx",
+      "parentId": "2",
+      "id": "22",
+      "absPath": "/agent-hub/flow-executions",
+      "__content": "import { useCallback, useEffect, useMemo, useState } from 'react';\r\nimport { history, useIntl } from '@umijs/max';\r\nimport { Button, Input, Table, Tag, Typography, message } from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport { EyeOutlined, ReloadOutlined } from '@ant-design/icons';\r\nimport { flowExecutionDetailRoute } from '@/constants/routes';\r\nimport { listFlowExecutions } from '@/services/flowService';\r\nimport type { FlowExecutionStatus, FlowExecutionSummary } from '@/types/flowExecution';\r\nimport styles from './index.less';\r\n\r\nfunction statusTagClass(status: FlowExecutionStatus): string {\r\n  if (status === 'success') {\r\n    return styles.statusSuccess;\r\n  }\r\n  if (status === 'failed') {\r\n    return styles.statusFailed;\r\n  }\r\n  if (status === 'running') {\r\n    return styles.statusRunning;\r\n  }\r\n  return styles.statusDefault;\r\n}\r\n\r\nfunction formatDuration(durationMs: number | null): string {\r\n  if (durationMs === null || durationMs === undefined) {\r\n    return '—';\r\n  }\r\n  if (durationMs < 1000) {\r\n    return `${durationMs} ms`;\r\n  }\r\n  return `${(durationMs / 1000).toFixed(2)} s`;\r\n}\r\n\r\nfunction formatTokenUsage(tokenUsage: Record<string, unknown>): string {\r\n  const total = tokenUsage?.total;\r\n  if (total === null || total === undefined) {\r\n    return '—';\r\n  }\r\n  return String(total);\r\n}\r\n\r\nexport default function FlowExecutionsPage() {\r\n  const intl = useIntl();\r\n  const [items, setItems] = useState<FlowExecutionSummary[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [loading, setLoading] = useState(false);\r\n  const [page, setPage] = useState(1);\r\n  const [pageSize] = useState(20);\r\n  const [flowIdFilter, setFlowIdFilter] = useState('');\r\n\r\n  const t = useCallback(\r\n    (id: string, defaultMessage: string) => intl.formatMessage({ id, defaultMessage }),\r\n    [intl],\r\n  );\r\n\r\n  const fetchList = useCallback(async () => {\r\n    setLoading(true);\r\n    try {\r\n      const flowId = flowIdFilter.trim() ? Number(flowIdFilter.trim()) : undefined;\r\n      const res = await listFlowExecutions({\r\n        page,\r\n        size: pageSize,\r\n        flowId: Number.isFinite(flowId) ? flowId : undefined,\r\n      });\r\n      setItems(res.items ?? []);\r\n      setTotal(res.total ?? 0);\r\n    } catch {\r\n      message.error(t('flowExecutions.loadFailed', '加载执行记录失败'));\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [flowIdFilter, page, pageSize, t]);\r\n\r\n  useEffect(() => {\r\n    void fetchList();\r\n  }, [fetchList]);\r\n\r\n  const columns: ColumnsType<FlowExecutionSummary> = useMemo(\r\n    () => [\r\n      {\r\n        title: t('flowExecutions.col.id', '执行 ID'),\r\n        dataIndex: 'id',\r\n        key: 'id',\r\n        width: 100,\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.flow', '流程'),\r\n        key: 'flow',\r\n        render: (_, record) => (\r\n          <div>\r\n            <div>{record.flowName}</div>\r\n            <Typography.Text type=\"secondary\" className={styles.mono}>\r\n              #{record.flowId} · v{record.flowVersion}\r\n            </Typography.Text>\r\n          </div>\r\n        ),\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.trigger', '触发方式'),\r\n        dataIndex: 'triggerType',\r\n        key: 'triggerType',\r\n        width: 100,\r\n        render: (value: string) => <Tag>{value}</Tag>,\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.status', '状态'),\r\n        dataIndex: 'status',\r\n        key: 'status',\r\n        width: 100,\r\n        render: (status: FlowExecutionStatus) => (\r\n          <Tag className={statusTagClass(status)}>{status}</Tag>\r\n        ),\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.duration', '耗时'),\r\n        dataIndex: 'durationMs',\r\n        key: 'durationMs',\r\n        width: 100,\r\n        render: (value: number | null) => formatDuration(value),\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.tokens', 'Token'),\r\n        key: 'tokenUsage',\r\n        width: 90,\r\n        render: (_, record) => formatTokenUsage(record.tokenUsage),\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.createdAt', '创建时间'),\r\n        dataIndex: 'createdAt',\r\n        key: 'createdAt',\r\n        width: 180,\r\n      },\r\n      {\r\n        title: t('flowExecutions.col.actions', '操作'),\r\n        key: 'actions',\r\n        width: 100,\r\n        render: (_, record) => (\r\n          <Button\r\n            size=\"small\"\r\n            type=\"link\"\r\n            icon={<EyeOutlined />}\r\n            onClick={() => history.push(flowExecutionDetailRoute(record.id))}\r\n          >\r\n            {t('flowExecutions.detail', '详情')}\r\n          </Button>\r\n        ),\r\n      },\r\n    ],\r\n    [t],\r\n  );\r\n\r\n  return (\r\n    <div className={styles.flowExecutionsPage}>\r\n      <Typography.Title level={3} className={styles.pageHeader}>\r\n        {t('flowExecutions.title', '流程执行记录')}\r\n      </Typography.Title>\r\n      <p className={styles.pageSubtitle}>\r\n        {t(\r\n          'flowExecutions.subtitle',\r\n          '审计每次流程运行的触发来源、耗时与节点轨迹。支持按 flowId 筛选。',\r\n        )}\r\n      </p>\r\n\r\n      <div className={styles.toolbar}>\r\n        <div className={styles.filters}>\r\n          <Input\r\n            allowClear\r\n            placeholder={t('flowExecutions.flowIdFilter', '按 flowId 筛选')}\r\n            style={{ width: 180 }}\r\n            value={flowIdFilter}\r\n            onChange={(event) => setFlowIdFilter(event.target.value)}\r\n            onPressEnter={() => {\r\n              setPage(1);\r\n              void fetchList();\r\n            }}\r\n          />\r\n          <Button\r\n            onClick={() => {\r\n              setPage(1);\r\n              void fetchList();\r\n            }}\r\n          >\r\n            {t('flowExecutions.search', '查询')}\r\n          </Button>\r\n        </div>\r\n        <Button icon={<ReloadOutlined />} onClick={() => void fetchList()} />\r\n      </div>\r\n\r\n      <Table\r\n        rowKey=\"id\"\r\n        loading={loading}\r\n        columns={columns}\r\n        dataSource={items}\r\n        pagination={{\r\n          current: page,\r\n          pageSize,\r\n          total,\r\n          showSizeChanger: false,\r\n          onChange: setPage,\r\n          showTotal: (count) =>\r\n            intl.formatMessage(\r\n              { id: 'flowExecutions.tableTotal', defaultMessage: '共 {total} 条' },\r\n              { total: count },\r\n            ),\r\n        }}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/flow-executions/index.tsx"
+    },
+    "23": {
+      "path": "/agent-hub/flow-executions/:executionId",
+      "file": "@/pages/flow-executions/detail.tsx",
+      "parentId": "2",
+      "id": "23",
+      "absPath": "/agent-hub/flow-executions/:executionId",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport { history, useIntl, useParams } from '@umijs/max';\r\nimport {\r\n  Button,\r\n  Card,\r\n  Descriptions,\r\n  Space,\r\n  Spin,\r\n  Tag,\r\n  Timeline,\r\n  Typography,\r\n  message,\r\n} from 'antd';\r\nimport { ArrowLeftOutlined } from '@ant-design/icons';\r\nimport { ROUTES } from '@/constants/routes';\r\nimport { getFlowExecution } from '@/services/flowService';\r\nimport type { FlowExecutionDetail, FlowExecutionNodeLog } from '@/types/flowExecution';\r\nimport styles from './index.less';\r\n\r\nfunction formatJson(value: unknown): string {\r\n  if (value === null || value === undefined) {\r\n    return '—';\r\n  }\r\n  try {\r\n    return JSON.stringify(value, null, 2);\r\n  } catch {\r\n    return String(value);\r\n  }\r\n}\r\n\r\nexport default function FlowExecutionDetailPage() {\r\n  const intl = useIntl();\r\n  const params = useParams<{ executionId: string }>();\r\n  const executionId = Number(params.executionId);\r\n  const [detail, setDetail] = useState<FlowExecutionDetail | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n\r\n  const t = useCallback(\r\n    (id: string, defaultMessage: string) => intl.formatMessage({ id, defaultMessage }),\r\n    [intl],\r\n  );\r\n\r\n  useEffect(() => {\r\n    if (!Number.isFinite(executionId)) {\r\n      message.error(t('flowExecutions.invalidId', '无效的执行 ID'));\r\n      history.push(ROUTES.FLOW_EXECUTIONS);\r\n      return;\r\n    }\r\n    setLoading(true);\r\n    getFlowExecution(executionId)\r\n      .then(setDetail)\r\n      .catch(() => {\r\n        message.error(t('flowExecutions.detailLoadFailed', '加载执行详情失败'));\r\n        history.push(ROUTES.FLOW_EXECUTIONS);\r\n      })\r\n      .finally(() => setLoading(false));\r\n  }, [executionId, t]);\r\n\r\n  if (loading || !detail) {\r\n    return (\r\n      <div className={styles.flowExecutionsPage}>\r\n        <Spin />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <div className={styles.flowExecutionsPage}>\r\n      <Space direction=\"vertical\" size=\"large\" style={{ width: '100%' }}>\r\n        <Space align=\"center\">\r\n          <Button icon={<ArrowLeftOutlined />} onClick={() => history.push(ROUTES.FLOW_EXECUTIONS)}>\r\n            {t('flowExecutions.back', '返回列表')}\r\n          </Button>\r\n          <Typography.Title level={3} style={{ margin: 0 }}>\r\n            {t('flowExecutions.detailTitle', '执行详情')} #{detail.id}\r\n          </Typography.Title>\r\n        </Space>\r\n\r\n        <Card title={t('flowExecutions.overview', '概览')} className={styles.detailSection}>\r\n          <Descriptions column={2} size=\"small\">\r\n            <Descriptions.Item label={t('flowExecutions.col.flow', '流程')}>\r\n              {detail.flowName} (#{detail.flowId} · v{detail.flowVersion})\r\n            </Descriptions.Item>\r\n            <Descriptions.Item label={t('flowExecutions.col.trigger', '触发方式')}>\r\n              <Tag>{detail.triggerType}</Tag>\r\n            </Descriptions.Item>\r\n            <Descriptions.Item label={t('flowExecutions.col.status', '状态')}>\r\n              <Tag>{detail.status}</Tag>\r\n            </Descriptions.Item>\r\n            <Descriptions.Item label={t('flowExecutions.col.duration', '耗时')}>\r\n              {detail.durationMs === null || detail.durationMs === undefined\r\n                ? '—'\r\n                : `${detail.durationMs} ms`}\r\n            </Descriptions.Item>\r\n            <Descriptions.Item label=\"traceId\">{detail.traceId ?? '—'}</Descriptions.Item>\r\n            <Descriptions.Item label={t('flowExecutions.col.createdAt', '创建时间')}>\r\n              {detail.createdAt}\r\n            </Descriptions.Item>\r\n          </Descriptions>\r\n        </Card>\r\n\r\n        <Card title={t('flowExecutions.inputParams', '输入参数')} className={styles.detailSection}>\r\n          <pre className={styles.mono}>{formatJson(detail.inputParams)}</pre>\r\n        </Card>\r\n\r\n        <Card title={t('flowExecutions.outputResult', '输出结果')} className={styles.detailSection}>\r\n          <pre className={styles.mono}>{formatJson(detail.outputResult)}</pre>\r\n        </Card>\r\n\r\n        <Card title={t('flowExecutions.nodeTrace', '节点轨迹')} className={styles.detailSection}>\r\n          <Timeline\r\n            items={detail.nodeLogs.map((log: FlowExecutionNodeLog, index) => ({\r\n              color: log.status === 'failed' ? 'red' : 'green',\r\n              children: (\r\n                <Card size=\"small\" className={styles.nodeLogCard}>\r\n                  <Typography.Text strong>\r\n                    {log.nodeId ?? `node-${index + 1}`}\r\n                  </Typography.Text>\r\n                  <Descriptions column={1} size=\"small\" style={{ marginTop: 8 }}>\r\n                    <Descriptions.Item label={t('flowExecutions.col.status', '状态')}>\r\n                      {log.status ?? '—'}\r\n                    </Descriptions.Item>\r\n                    <Descriptions.Item label={t('flowExecutions.col.duration', '耗时')}>\r\n                      {log.duration ?? log.durationMs ?? '—'} ms\r\n                    </Descriptions.Item>\r\n                    <Descriptions.Item label=\"input\">\r\n                      <pre className={styles.mono}>{formatJson(log.input)}</pre>\r\n                    </Descriptions.Item>\r\n                    <Descriptions.Item label=\"output\">\r\n                      <pre className={styles.mono}>{formatJson(log.output)}</pre>\r\n                    </Descriptions.Item>\r\n                    {log.error ? (\r\n                      <Descriptions.Item label=\"error\">\r\n                        <Typography.Text type=\"danger\">{log.error}</Typography.Text>\r\n                      </Descriptions.Item>\r\n                    ) : null}\r\n                  </Descriptions>\r\n                </Card>\r\n              ),\r\n            }))}\r\n          />\r\n        </Card>\r\n      </Space>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/flow-executions/detail.tsx"
+    },
+    "24": {
+      "path": "/agent-hub/flow-designer/:flowId",
+      "file": "@/pages/flow-designer/index.tsx",
+      "parentId": "2",
+      "id": "24",
+      "absPath": "/agent-hub/flow-designer/:flowId",
+      "__content": "import { useCallback, useEffect, useMemo, useState } from 'react';\r\nimport { Alert, Button, Space, Spin, Tag, Typography, message } from 'antd';\r\nimport { history, useIntl, useParams } from '@umijs/max';\r\nimport {\r\n  ReactFlowProvider,\r\n  useEdgesState,\r\n  useNodesState,\r\n  useReactFlow,\r\n  type Connection,\r\n  type Edge,\r\n  type Node,\r\n} from '@xyflow/react';\r\nimport { ArrowLeftOutlined, SaveOutlined } from '@ant-design/icons';\r\nimport { ROUTES } from '@/constants/routes';\r\nimport { getFlow, updateFlow } from '@/services/flowService';\r\nimport type { FlowDetail, FlowStatus } from '@/types/flowManagement';\r\nimport FlowCanvas, { addEdge } from './components/FlowCanvas';\r\nimport DebugPanel from './components/DebugPanel';\r\nimport NodeInspector from './components/NodeInspector';\r\nimport NodePalette from './components/NodePalette';\r\nimport type { FlowNodeCatalogItem } from './flowNodeCatalog';\r\nimport { validateFlowDag } from './utils/flowDagUtils';\r\nimport {\r\n  createDesignerNode,\r\n  emptyFlowDefinition,\r\n  fromFlowDefinition,\r\n  toFlowDefinition,\r\n  type FlowDesignerNodeData,\r\n} from './utils/flowDslMapper';\r\nimport type { FlowDebugNodeStatus } from './utils/flowDebugSse';\r\nimport styles from './index.less';\r\n\r\nfunction statusClass(status: FlowStatus): string {\r\n  if (status === 'published') {\r\n    return styles.statusPublished;\r\n  }\r\n  if (status === 'disabled') {\r\n    return styles.statusDisabled;\r\n  }\r\n  return styles.statusDraft;\r\n}\r\n\r\nfunction DesignerWorkspace({ flowId }: { flowId: number }) {\r\n  const intl = useIntl();\r\n  const { screenToFlowPosition } = useReactFlow();\r\n  const [flow, setFlow] = useState<FlowDetail | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n  const [saving, setSaving] = useState(false);\r\n  const [selectedNode, setSelectedNode] = useState<Node<FlowDesignerNodeData> | null>(null);\r\n  const [nodes, setNodes, onNodesChange] = useNodesState<Node<FlowDesignerNodeData>>([]);\r\n  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);\r\n\r\n  const readonly = flow?.status !== 'draft';\r\n\r\n  const t = useCallback(\r\n    (id: string, defaultMessage: string) => intl.formatMessage({ id, defaultMessage }),\r\n    [intl],\r\n  );\r\n\r\n  const loadFlow = useCallback(async () => {\r\n    setLoading(true);\r\n    try {\r\n      const detail = await getFlow(flowId);\r\n      setFlow(detail);\r\n      const definition =\r\n        detail.definition?.nodes?.length > 0\r\n          ? detail.definition\r\n          : emptyFlowDefinition();\r\n      const graph = fromFlowDefinition(definition);\r\n      setNodes(graph.nodes);\r\n      setEdges(graph.edges);\r\n    } catch {\r\n      message.error(t('flowDesigner.loadFailed', '加载流程失败'));\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [flowId, setEdges, setNodes, t]);\r\n\r\n  useEffect(() => {\r\n    void loadFlow();\r\n  }, [loadFlow]);\r\n\r\n  const hasStartNode = useMemo(\r\n    () => nodes.some((node) => node.data.flowType === 'start'),\r\n    [nodes],\r\n  );\r\n\r\n  const onPaletteDragStart = useCallback((event: React.DragEvent, item: FlowNodeCatalogItem) => {\r\n    event.dataTransfer.setData('application/reactflow', JSON.stringify(item));\r\n    event.dataTransfer.effectAllowed = 'move';\r\n  }, []);\r\n\r\n  const onConnect = useCallback(\r\n    (connection: Connection) => {\r\n      setEdges((eds) => addEdge(connection, eds));\r\n    },\r\n    [setEdges],\r\n  );\r\n\r\n  const onDrop = useCallback(\r\n    (event: React.DragEvent) => {\r\n      event.preventDefault();\r\n      if (readonly) {\r\n        return;\r\n      }\r\n      const raw = event.dataTransfer.getData('application/reactflow');\r\n      if (!raw) {\r\n        return;\r\n      }\r\n      const item = JSON.parse(raw) as FlowNodeCatalogItem;\r\n      if (item.type === 'start' && hasStartNode) {\r\n        message.warning(t('flowDesigner.singleStart', '只能有一个开始节点'));\r\n        return;\r\n      }\r\n      const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });\r\n      const newNode = createDesignerNode(item.type, position);\r\n      newNode.data.label = item.defaultLabel;\r\n      setNodes((nds) => nds.concat(newNode));\r\n    },\r\n    [hasStartNode, readonly, screenToFlowPosition, setNodes, t],\r\n  );\r\n\r\n  const handleNodeConfigChange = useCallback(\r\n    (nodeId: string, config: Record<string, unknown>, label?: string) => {\r\n      setNodes((nds) =>\r\n        nds.map((node) =>\r\n          node.id === nodeId\r\n            ? {\r\n                ...node,\r\n                data: {\r\n                  ...node.data,\r\n                  label: label ?? node.data.label,\r\n                  config,\r\n                },\r\n              }\r\n            : node,\r\n        ),\r\n      );\r\n      setSelectedNode((current) =>\r\n        current?.id === nodeId\r\n          ? {\r\n              ...current,\r\n              data: {\r\n                ...current.data,\r\n                label: label ?? current.data.label,\r\n                config,\r\n              },\r\n            }\r\n          : current,\r\n      );\r\n    },\r\n    [setNodes],\r\n  );\r\n\r\n  const handleNodeDebugStatusChange = useCallback(\r\n    (nodeId: string, status: FlowDebugNodeStatus) => {\r\n      setNodes((nds) =>\r\n        nds.map((node) =>\r\n          node.id === nodeId\r\n            ? {\r\n                ...node,\r\n                data: {\r\n                  ...node.data,\r\n                  debugStatus: status,\r\n                },\r\n              }\r\n            : node,\r\n        ),\r\n      );\r\n    },\r\n    [setNodes],\r\n  );\r\n\r\n  const handleResetNodeDebugStatus = useCallback(() => {\r\n    setNodes((nds) =>\r\n      nds.map((node) => ({\r\n        ...node,\r\n        data: {\r\n          ...node.data,\r\n          debugStatus: 'idle' as const,\r\n        },\r\n      })),\r\n    );\r\n  }, [setNodes]);\r\n\r\n  const prepareDebug = useCallback(async () => {\r\n    if (!flow || readonly) {\r\n      throw new Error(t('flowDesigner.readonlyHint', '已发布/已禁用流程为只读，请复制为新草稿后再编辑'));\r\n    }\r\n    const definition = toFlowDefinition(nodes, edges);\r\n    const validation = validateFlowDag(definition);\r\n    if (!validation.valid) {\r\n      throw new Error(validation.errors[0]);\r\n    }\r\n    const updated = await updateFlow(flowId, {\r\n      definition,\r\n      expectedUpdatedAt: flow.updatedAt,\r\n    });\r\n    setFlow(updated);\r\n  }, [edges, flow, flowId, nodes, readonly, t]);\r\n\r\n  const handleSave = async () => {\r\n    if (!flow || readonly) {\r\n      return;\r\n    }\r\n    const definition = toFlowDefinition(nodes, edges);\r\n    const validation = validateFlowDag(definition);\r\n    if (!validation.valid) {\r\n      message.error(validation.errors[0]);\r\n      return;\r\n    }\r\n    setSaving(true);\r\n    try {\r\n      const updated = await updateFlow(flowId, {\r\n        definition,\r\n        expectedUpdatedAt: flow.updatedAt,\r\n      });\r\n      setFlow(updated);\r\n      message.success(t('flowDesigner.saved', '草稿已保存'));\r\n    } catch {\r\n      message.error(t('flowDesigner.saveFailed', '保存失败'));\r\n    } finally {\r\n      setSaving(false);\r\n    }\r\n  };\r\n\r\n  if (loading) {\r\n    return (\r\n      <div className={styles.loadingWrap}>\r\n        <Spin size=\"large\" />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <div className={styles.designerPage}>\r\n      <header className={styles.header}>\r\n        <div>\r\n          <Typography.Title level={4} className={styles.title}>\r\n            {flow?.name ?? t('flowDesigner.title', '流程设计器')}\r\n          </Typography.Title>\r\n          <Space size={8}>\r\n            <Tag className={statusClass(flow?.status ?? 'draft')}>{flow?.status}</Tag>\r\n            <Typography.Text type=\"secondary\">ID {flowId}</Typography.Text>\r\n          </Space>\r\n        </div>\r\n        <Space>\r\n          <Button icon={<ArrowLeftOutlined />} onClick={() => history.push(ROUTES.FLOW_MANAGEMENT)}>\r\n            {t('flowDesigner.backToList', '返回列表')}\r\n          </Button>\r\n          <Button\r\n            type=\"primary\"\r\n            icon={<SaveOutlined />}\r\n            loading={saving}\r\n            disabled={readonly}\r\n            onClick={() => void handleSave()}\r\n          >\r\n            {t('flowDesigner.saveDraft', '保存草稿')}\r\n          </Button>\r\n        </Space>\r\n      </header>\r\n\r\n      {readonly && (\r\n        <Alert\r\n          type=\"info\"\r\n          showIcon\r\n          className={styles.readonlyBanner}\r\n          message={t('flowDesigner.readonlyHint', '已发布/已禁用流程为只读，请复制为新草稿后再编辑')}\r\n        />\r\n      )}\r\n\r\n      <div className={styles.workspace}>\r\n        <NodePalette\r\n          readonly={readonly}\r\n          hasStartNode={hasStartNode}\r\n          onDragStart={onPaletteDragStart}\r\n        />\r\n        <main className={styles.canvasArea}>\r\n          <div className={styles.canvasStack}>\r\n            <FlowCanvas\r\n              nodes={nodes}\r\n              edges={edges}\r\n              readonly={readonly}\r\n              onNodesChange={onNodesChange}\r\n              onEdgesChange={onEdgesChange}\r\n              onConnect={onConnect}\r\n              onDrop={onDrop}\r\n              onSelectionChange={setSelectedNode}\r\n            />\r\n          </div>\r\n          <DebugPanel\r\n            flowId={flowId}\r\n            onPrepareDebug={prepareDebug}\r\n            onNodeStatusChange={handleNodeDebugStatusChange}\r\n            onResetNodeStatus={handleResetNodeDebugStatus}\r\n          />\r\n        </main>\r\n        <NodeInspector\r\n          node={selectedNode}\r\n          readonly={readonly}\r\n          onChange={handleNodeConfigChange}\r\n        />\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default function FlowDesignerPage() {\r\n  const params = useParams<{ flowId: string }>();\r\n  const flowId = Number(params.flowId);\r\n\r\n  if (!Number.isFinite(flowId) || flowId <= 0) {\r\n    return <Typography.Text type=\"danger\">Invalid flow id</Typography.Text>;\r\n  }\r\n\r\n  return (\r\n    <ReactFlowProvider>\r\n      <DesignerWorkspace flowId={flowId} />\r\n    </ReactFlowProvider>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "D:/cache/workspace/ai_react/src/pages/flow-designer/index.tsx"
+    },
+    "25": {
       "path": "/settings",
       "file": "@/pages/settings/index.tsx",
       "parentId": "2",
-      "id": "21",
+      "id": "25",
       "absPath": "/settings",
       "__content": "export { default } from '@/components/settings/SettingsScreen';\r\n",
       "__isJSFile": true,

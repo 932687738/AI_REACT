@@ -67,6 +67,7 @@ export default {
   'chat.agentProgress.step.tool_call': 'Tool call',
   'chat.agentProgress.step.prep': 'Preparing',
   'chat.agentProgress.status.started': 'In progress',
+  'chat.agentProgress.status.running': 'In progress',
   'chat.agentProgress.status.completed': 'Done',
   'chat.agentProgress.status.failed': 'Failed',
   'chat.routing.kicker': 'Routing',

@@ -69,6 +69,7 @@ export default {
   'chat.agentProgress.step.tool_call': '工具调用',
   'chat.agentProgress.step.prep': '准备',
   'chat.agentProgress.status.started': '进行中',
+  'chat.agentProgress.status.running': '进行中',
   'chat.agentProgress.status.completed': '已完成',
   'chat.agentProgress.status.failed': '失败',
   'chat.routing.kicker': '路由结果',

@@ -9,6 +9,7 @@ export interface SuperAgentProgressEvent {
   thought?: string;
   toolName?: string;
   toolResultSummary?: string;
+  errorMessage?: string;
 }
 
 export interface SuperAgentTokenEvent {

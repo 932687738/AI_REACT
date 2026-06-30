@@ -11,10 +11,24 @@ import {
 } from '@/services/conversationPersist';
 import type { AgentProgressStep, ConversationMessage, KnowledgeChatMeta } from '@/openapi/typings';
 import type { SuperAgentArtifactEvent, SuperAgentMetaEvent, SuperAgentProgressEvent, ChatArtifactPayload } from '@/utils/SuperAgentSse';
-import { stripAgentStreamDecorations } from '@/utils/agentChatDisplay';
+import { extractProgressFromText, stripAgentStreamDecorations } from '@/utils/agentChatDisplay';
 import { stripKnowledgeMetaFromText } from '@/utils/KnowledgeCitation';
 import { conversationHistoryKey } from '@/hooks/useConversationHistory';
 import { deriveConversationTitle } from '@/utils/conversationHelpers';
+
+function appendAgentProgressStep(
+  prev: AgentProgressStep[],
+  step: AgentProgressStep,
+): AgentProgressStep[] {
+  const last = prev[prev.length - 1];
+  const duplicate =
+    last &&
+    last.step === step.step &&
+    last.status === step.status &&
+    last.toolName === step.toolName &&
+    last.errorMessage === step.errorMessage;
+  return duplicate ? prev : [...prev, step];
+}
 
 function mergeAssistantText(chatMode: ChatMode, prev: string, chunk: string): string {
   const merged = stripKnowledgeMetaFromText(`${prev}${chunk}`);
@@ -143,15 +157,23 @@ export function useChatStream(chatMode: ChatMode) {
           {
             onChunk: (chunk) => {
               setMessages((current) =>
-                current.map((item) =>
-                  item.id === assistantMessageId
-                    ? {
-                        ...item,
-                        text: mergeAssistantText(chatMode, item.text || '', chunk),
-                        pending: true,
-                      }
-                    : item,
-                ),
+                current.map((item) => {
+                  if (item.id !== assistantMessageId) {
+                    return item;
+                  }
+                  let agentProgress = item.agentProgress ?? [];
+                  if (chatMode === CHAT_MODE.AGENT) {
+                    for (const step of extractProgressFromText(chunk)) {
+                      agentProgress = appendAgentProgressStep(agentProgress, step);
+                    }
+                  }
+                  return {
+                    ...item,
+                    text: mergeAssistantText(chatMode, item.text || '', chunk),
+                    agentProgress,
+                    pending: true,
+                  };
+                }),
               );
             },
             onMeta: (meta) => {
@@ -211,22 +233,16 @@ export function useChatStream(chatMode: ChatMode) {
                       thought: event.thought,
                       toolName: event.toolName,
                       toolResultSummary: event.toolResultSummary,
+                      errorMessage: event.errorMessage,
                     };
                     setMessages((current) =>
                       current.map((item) => {
                         if (item.id !== assistantMessageId) {
                           return item;
                         }
-                        const prev = item.agentProgress ?? [];
-                        const last = prev[prev.length - 1];
-                        const duplicate =
-                          last &&
-                          last.step === step.step &&
-                          last.status === step.status &&
-                          last.toolName === step.toolName;
                         return {
                           ...item,
-                          agentProgress: duplicate ? prev : [...prev, step],
+                          agentProgress: appendAgentProgressStep(item.agentProgress ?? [], step),
                         };
                       }),
                     );
