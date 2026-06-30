@@ -1,0 +1,72 @@
+.flowPage {
+  min-height: 100%;
+  padding: 0 4px 24px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.pageHeader {
+  margin-bottom: 4px;
+}
+
+.pageSubtitle {
+  margin: 0 0 16px;
+  max-width: 52rem;
+  color: var(--ant-color-text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.statusDraft {
+  color: var(--ant-color-text-secondary);
+  border-color: var(--ant-color-border);
+}
+
+.statusPublished {
+  color: #1677ff;
+  border-color: #91caff;
+  background: #e6f4ff;
+}
+
+.statusDisabled {
+  color: #cf1322;
+  border-color: #ffa39e;
+  background: #fff1f0;
+}
+
+.nameCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.namePrimary {
+  font-weight: 600;
+  color: var(--ant-color-text);
+}
+
+.nameSecondary {
+  font-size: 12px;
+  color: var(--ant-color-text-tertiary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowPage * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

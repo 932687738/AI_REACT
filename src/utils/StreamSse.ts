@@ -106,7 +106,24 @@ export async function postStream(
   });
 
   if (!response.ok) {
-    throw new RequestError(`Request failed: ${response.status}`, response.status);
+    let errorMessage = `Request failed: ${response.status}`;
+    try {
+      const contentType = response.headers.get('content-type') ?? '';
+      if (contentType.includes('application/json')) {
+        const body = (await response.json()) as { message?: string; code?: string };
+        if (body.message) {
+          errorMessage = body.message;
+        }
+      } else {
+        const text = await response.text();
+        if (text.trim()) {
+          errorMessage = text.trim();
+        }
+      }
+    } catch {
+      // keep default message
+    }
+    throw new RequestError(errorMessage, response.status);
   }
 
   const contentType = response.headers.get('content-type') || '';

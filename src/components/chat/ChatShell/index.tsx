@@ -380,6 +380,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
             conversationId,
             message: messageText,
           });
+          if (preview.streamRoute === 'FLOW_ENGINE' && preview.flowId) {
+            message.info(`本轮路由至 AI 流程 #${preview.flowId}`);
+          }
           const routedAgent = preview.subAgentName
             ? resolveVariableAgentFromRegistry(preview.subAgentName, preview.variables)
             : null;

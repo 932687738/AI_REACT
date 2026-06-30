@@ -1,0 +1,58 @@
+.node {
+  min-width: 132px;
+  padding: 10px 12px 12px;
+  border: 1.5px solid var(--ant-color-border);
+  border-radius: 10px;
+  background: var(--ant-color-bg-container);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 6%);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.selected {
+  box-shadow: 0 0 0 2px rgb(22 119 255 / 18%), 0 4px 12px rgb(0 0 0 / 8%);
+}
+
+.debugRunning {
+  box-shadow: 0 0 0 2px rgb(22 119 255 / 35%), 0 0 12px rgb(22 119 255 / 25%);
+}
+
+.debugSuccess {
+  box-shadow: 0 0 0 2px rgb(56 158 13 / 30%);
+}
+
+.debugError {
+  box-shadow: 0 0 0 2px rgb(207 19 34 / 35%);
+  border-color: #ff4d4f !important;
+}
+
+.typeBadge {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.label {
+  color: var(--ant-color-text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.handle {
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--ant-color-bg-container);
+  background: var(--ant-color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node {
+    transition: none;
+  }
+}

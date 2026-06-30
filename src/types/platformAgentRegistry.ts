@@ -13,6 +13,7 @@ export interface PlatformAgentRegistryItem {
   displayName: string;
   status: string;
   version: string;
+  flowId?: number | null;
   variables?: AgentAppVariable[];
 }
 
@@ -44,7 +45,15 @@ export interface SuperAgentChatPrepPreview {
   streamRoute: string;
   subAgentName?: string | null;
   displayName?: string | null;
+  flowId?: number | null;
   variables?: AgentAppVariable[];
+}
+
+export interface AgentFlowBinding {
+  agentName: string;
+  flowId?: number | null;
+  flowName?: string | null;
+  flowStatus?: string | null;
 }
 
 export const AGENT_VARIABLE_MAX_VALUE_LENGTH = 1024;

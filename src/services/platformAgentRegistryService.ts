@@ -2,6 +2,7 @@ import { request } from '@/openapi/request';
 import { API_PATHS } from '@/constants/ApiPaths';
 import { platformHeaders, platformWriteRequestOptions } from '@/services/platformAdminCommon';
 import type {
+  AgentFlowBinding,
   AgentHealthResponse,
   PlatformAgentRegistryItem,
   PlatformAgentRegistryListResponse,
@@ -45,6 +46,22 @@ export async function updateAgentVariables(
     method: 'PUT',
     headers: platformHeaders(),
     data: input,
+    ...platformWriteRequestOptions,
+  });
+}
+
+export async function getAgentFlowBinding(name: string): Promise<AgentFlowBinding> {
+  return request<AgentFlowBinding>(API_PATHS.superAgents.agentFlow(name), {
+    method: 'GET',
+    headers: platformHeaders(),
+  });
+}
+
+export async function bindAgentFlow(name: string, flowId: number | null): Promise<AgentFlowBinding> {
+  return request<AgentFlowBinding>(API_PATHS.superAgents.agentFlow(name), {
+    method: 'PUT',
+    headers: platformHeaders(),
+    data: { flowId },
     ...platformWriteRequestOptions,
   });
 }

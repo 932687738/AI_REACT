@@ -1,5 +1,87 @@
 # Changelog
 
+## [2026-06-30] - 流程执行记录（add-ai-flow-orchestration §15）
+
+### Added
+
+- 执行记录页 `/agent-hub/flow-executions`（列表、flowId 筛选、分页）
+- 执行详情页 `/agent-hub/flow-executions/:executionId`（概览、输入/输出、节点轨迹 Timeline）
+- `listFlowExecutions` / `getFlowExecution` API 客户端
+- 侧栏「执行记录」入口
+
+### Backend (ai)
+
+- `GET /api/agent-hub/flow-executions` 分页列表（含 flowName/triggerType/durationMs/tokenUsage）
+- `GET /api/agent-hub/flow-executions/{id}` 详情（nodeLogs 含 input/output/duration/error）
+- `FlowExecutionQueryApplicationService` + `FlowExecutionController`
+- `FlowExecutionQueryServiceTest`
+
+## [2026-06-30] - 流程 MCP 工具注册（add-ai-flow-orchestration §14）
+
+### Added
+
+- 流程管理页「发布为 MCP 工具」按钮（已发布且启用时可见）
+- `flowService.registerFlowMcpTool` + `ApiPaths.agentHub.flowRegisterMcp`
+
+### Backend (ai)
+
+- `POST /api/agent-hub/flows/{id}/register-mcp-tool`
+- `FlowMcpToolRegistrar` + `FlowToolRegistrationPort` + `FlowDynamicToolCallbackProvider`
+- `FlowMcpToolBootstrap` 启动恢复已注册工具；`ToolCatalog.refreshExternalToolCallbacks`
+
+## [2026-06-30] - 流程 invoke/stream API（add-ai-flow-orchestration §13）
+
+### Backend (ai)
+
+- `POST /api/agent-hub/flows/{id}/invoke` 同步执行
+- `POST /api/agent-hub/flows/{id}/stream` SSE 执行
+- `FlowExecutionStreamTest` / `FlowControllerContractTest`
+
+## [2026-06-30] - Agent 关联 AI 流程（add-ai-flow-orchestration §12）
+
+### Added
+
+- `PlatformAgentRegistryManager` 流程绑定 Drawer + 列表 flowId 列
+- `platformAgentRegistryService.getAgentFlowBinding` / `bindAgentFlow`
+- prep 预览 `SuperAgentChatPrepPreview.flowId`
+
+### Backend (ai)
+
+- `AgentRegistryEntry.flowId` + MyBatis `flow_id` 映射
+- `GET/PUT /api/super-agents/agents/{name}/flow`
+- `SuperAgentStreamRoute.FLOW_ENGINE` + `PrepareSuperAgentChatNode` 路由后检查
+- `FlowExecutionBridge` / `FlowAccessGuardApplicationService` + `streamApp`
+
+## [2026-06-30] - AI 流程调试 SSE（add-ai-flow-orchestration §10）
+
+### Added
+
+- 设计器底部 `DebugPanel`：调试参数 JSON、SSE 事件日志、画布节点高亮（running/success/error）
+- `flowService.debugFlowStream` + `ApiPaths.agentHub.flowDebug`
+- `flowDebugSse.ts` SSE 事件解析
+
+### Backend (ai)
+
+- `POST /api/agent-hub/flows/{id}/debug` SSE（`flow_node_start/complete/error`、`flow_complete`）
+- `FlowExecutionApplicationService`、`FlowDebugRunner`、`FlowSseFormatter`
+- `FlowExecutionRepository.finalizeExecution` 落库 node_logs / duration_ms
+
+## [2026-06-30] - AI 流程管理（add-ai-flow-orchestration §1~§3）
+
+### Added
+
+- 流程管理页 `/agent-hub/flow-management`（列表、筛选、创建、发布、版本历史、回滚、启用/禁用 Switch）
+- 流程设计器 `/agent-hub/flow-designer/:flowId`（React Flow 画布、节点面板、Inspector、保存草稿）
+- `@xyflow/react` 依赖；`flowDagUtils` 客户端 DAG 校验
+- `flowService.ts` + `types/flowManagement.ts`；`ApiPaths.agentHub.flows*`
+- 侧栏入口「AI 流程」
+
+### Backend (ai)
+
+- `FlowController` 发布/版本/回滚/启用/禁用 API；`FlowGraphCompiler` + `FlowCompiledGraphRegistry`
+- `FlowDefinitionParser`；节点执行器（ai/knowledge/reply/classifier/branch/script/http/subflow）
+- `FlowVariableResolver` + `FlowNodeRetryPolicy`（模板变量 / 重试 + node_logs）
+
 ## [2026-06-29] - 聊天路由展示模型
 
 ### Added

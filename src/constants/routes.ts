@@ -16,11 +16,22 @@ export const ROUTES = {
   AGENT_HUB_UNCOVERED_INTENTS: '/agent-hub/uncovered-intents',
   AGENT_HUB_SUSPENDED_WORKFLOWS: '/agent-hub/suspended-workflows',
   AGENT_HUB_PROMPT_MANAGEMENT: '/agent-hub/prompt-management',
+  FLOW_MANAGEMENT: '/agent-hub/flow-management',
+  FLOW_DESIGNER: '/agent-hub/flow-designer',
+  FLOW_EXECUTIONS: '/agent-hub/flow-executions',
   SETTINGS: '/settings',
   SHARE: '/share',
 } as const;
 
 export type AppRoute = (typeof ROUTES)[keyof typeof ROUTES];
+
+export function flowDesignerRoute(flowId: number): string {
+  return `${ROUTES.FLOW_DESIGNER}/${flowId}`;
+}
+
+export function flowExecutionDetailRoute(executionId: number): string {
+  return `${ROUTES.FLOW_EXECUTIONS}/${executionId}`;
+}
 
 export function isChatRoute(pathname: string): boolean {
   return (
