@@ -30,6 +30,7 @@ import {
 } from '@/services/platformSkillService';
 import type {
   PlatformSkill,
+  PlatformCodeSkill,
   PlatformSkillStatus,
   PlatformSkillStatusTarget,
   PlatformSkillStep,
@@ -79,10 +80,12 @@ export default function PlatformSkillManager() {
   const [publishOpen, setPublishOpen] = useState(false);
   const [publishForm] = Form.useForm<PublishPlatformSkillInput>();
 
-  const { data: skills = [], isLoading, isError, refetch } = useQuery({
+  const { data: skillCatalog, isLoading, isError, refetch } = useQuery({
     queryKey: [...SKILLS_QUERY_KEY, admin.tenantId],
     queryFn: listPlatformSkills,
   });
+  const skills = skillCatalog?.dbSkills ?? [];
+  const codeSkills = skillCatalog?.codeSkills ?? [];
 
   const invalidate = () => {
     void queryClient.invalidateQueries({ queryKey: SKILLS_QUERY_KEY });
@@ -164,6 +167,29 @@ export default function PlatformSkillManager() {
     });
     setPublishOpen(true);
   };
+
+  const codeSkillColumns: ColumnsType<PlatformCodeSkill> = [
+    {
+      title: intl.formatMessage({ id: 'platformSkill.col.name' }),
+      dataIndex: 'name',
+      render: (name: string) => <strong>{name}</strong>,
+    },
+    {
+      title: intl.formatMessage({ id: 'platformSkill.col.kind' }),
+      dataIndex: 'kind',
+      width: 140,
+      render: () => (
+        <Tag color="geekblue">{intl.formatMessage({ id: 'platformSkill.kind.compiledGraph' })}</Tag>
+      ),
+    },
+    {
+      title: intl.formatMessage({ id: 'platformSkill.col.description' }),
+      dataIndex: 'description',
+      render: (description: string) => (
+        <span className={styles.descCell}>{description || '—'}</span>
+      ),
+    },
+  ];
 
   const columns: ColumnsType<PlatformSkill> = [
     {
@@ -277,6 +303,9 @@ export default function PlatformSkillManager() {
       ) : null}
 
       <div className={styles.tableCard}>
+        <Typography.Title level={5} className={styles.sectionTitle}>
+          {intl.formatMessage({ id: 'platformSkill.section.db' })}
+        </Typography.Title>
         <Table<PlatformSkill>
           rowKey={(row) => `${row.name}-${row.version}`}
           columns={columns}
@@ -285,6 +314,25 @@ export default function PlatformSkillManager() {
           pagination={{ pageSize: 10, showSizeChanger: false }}
           locale={{
             emptyText: intl.formatMessage({ id: 'platformSkill.empty' }),
+          }}
+        />
+      </div>
+
+      <div className={styles.tableCard}>
+        <Typography.Title level={5} className={styles.sectionTitle}>
+          {intl.formatMessage({ id: 'platformSkill.section.code' })}
+        </Typography.Title>
+        <Typography.Paragraph type="secondary" className={styles.sectionHint}>
+          {intl.formatMessage({ id: 'platformSkill.codeHint' })}
+        </Typography.Paragraph>
+        <Table<PlatformCodeSkill>
+          rowKey="name"
+          columns={codeSkillColumns}
+          dataSource={codeSkills}
+          loading={isLoading}
+          pagination={false}
+          locale={{
+            emptyText: intl.formatMessage({ id: 'platformSkill.codeEmpty' }),
           }}
         />
       </div>

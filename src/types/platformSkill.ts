@@ -15,8 +15,20 @@ export interface PlatformSkill {
   toolWhitelist: string[];
 }
 
+export interface PlatformCodeSkill {
+  name: string;
+  description: string;
+  kind: 'compiled-graph';
+}
+
 export interface PlatformSkillListResponse {
   items: PlatformSkill[];
+  codeSkills?: PlatformCodeSkill[];
+}
+
+export interface PlatformSkillCatalog {
+  dbSkills: PlatformSkill[];
+  codeSkills: PlatformCodeSkill[];
 }
 
 export interface PublishPlatformSkillInput {

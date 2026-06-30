@@ -17,6 +17,8 @@ export {
 
 export type {
   PlatformSkill,
+  PlatformCodeSkill,
+  PlatformSkillCatalog,
   PlatformSkillListResponse,
   PlatformSkillStatus,
   PlatformSkillStatusTarget,
@@ -29,17 +31,21 @@ import { request } from '@/openapi/request';
 import { API_PATHS } from '@/constants/ApiPaths';
 import type {
   PlatformSkill,
+  PlatformSkillCatalog,
   PlatformSkillListResponse,
   PlatformSkillStatusTarget,
   PublishPlatformSkillInput,
 } from '@/types/platformSkill';
 
-export async function listPlatformSkills(): Promise<PlatformSkill[]> {
+export async function listPlatformSkills(): Promise<PlatformSkillCatalog> {
   const res = await request<PlatformSkillListResponse>(API_PATHS.superAgents.skills, {
     method: 'GET',
     headers: platformHeaders(),
   });
-  return res?.items ?? [];
+  return {
+    dbSkills: res?.items ?? [],
+    codeSkills: res?.codeSkills ?? [],
+  };
 }
 
 export async function publishPlatformSkill(
