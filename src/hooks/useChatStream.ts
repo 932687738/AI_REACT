@@ -63,6 +63,7 @@ export function useChatStream(chatMode: ChatMode) {
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const sendingRef = useRef(false);
   const conversationRef = useRef(conversationId);
   const assistantMetaRef = useRef<ConversationMessage['meta']>();
   const assistantArtifactsRef = useRef<ChatArtifactPayload[]>([]);
@@ -120,9 +121,10 @@ export function useChatStream(chatMode: ChatMode) {
       options?: { sessionVariables?: Record<string, string> },
     ) => {
       const message = rawMessage.trim();
-      if (!message || isSending) {
+      if (!message || sendingRef.current) {
         return;
       }
+      sendingRef.current = true;
 
       const activeConversationId = conversationRef.current;
       const userMessageId = `user-${Date.now()}`;
@@ -314,10 +316,11 @@ export function useChatStream(chatMode: ChatMode) {
           ),
         );
       } finally {
+        sendingRef.current = false;
         setIsSending(false);
       }
     },
-    [chatMode, fallbackTitle, intl, isSending, language, messages, queryClient],
+    [chatMode, fallbackTitle, intl, language, messages, queryClient],
   );
 
   const clearMessages = useCallback(() => {

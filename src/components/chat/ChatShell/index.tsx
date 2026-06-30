@@ -112,6 +112,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const [variableAgentName, setVariableAgentName] = useState('');
   const [variableModalOpen, setVariableModalOpen] = useState(false);
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [isPreparing, setIsPreparing] = useState(false);
+  const submittingRef = useRef(false);
+  const isBusy = isSending || isPreparing;
 
   const reloadQuickCommands = useCallback(async (agentName: string) => {
     if (!agentName) {
@@ -360,7 +363,6 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
 
   const dispatchMessage = useCallback(
     async (message: string, sessionVariables?: Record<string, string>) => {
-      setInputValue('');
       await sendMessage(message, sessionVariables ? { sessionVariables } : undefined);
       scrollToBottom();
     },
@@ -370,49 +372,60 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
   const handleSubmit = useCallback(
     async (raw?: string) => {
       const messageText = (raw ?? inputValue).trim();
-      if (!messageText) {
+      if (!messageText || submittingRef.current || isSending) {
         return;
       }
-
-      if (chatMode === CHAT_MODE.AGENT) {
-        try {
-          const preview = await previewSuperAgentChatRoute({
-            conversationId,
-            message: messageText,
-          });
-          if (preview.streamRoute === 'FLOW_ENGINE' && preview.flowId) {
-            message.info(`本轮路由至 AI 流程 #${preview.flowId}`);
-          }
-          const routedAgent = preview.subAgentName
-            ? resolveVariableAgentFromRegistry(preview.subAgentName, preview.variables)
-            : null;
-          if (routedAgent?.variables?.length) {
-            setVariableAgent(routedAgent);
-            setVariableAgentName(routedAgent.name);
-            if (shouldPromptForVariables(routedAgent)) {
-              setPendingMessage(messageText);
-              setVariableModalOpen(true);
-              return;
-            }
-            const cached = mergeVariableDefaults(
-              routedAgent.variables,
-              getAgentSessionVariables(conversationId, routedAgent.name),
-            );
-            await dispatchMessage(messageText, cached);
-            return;
-          }
-        } catch {
-          // prep 失败时降级为无变量发送
-        }
+      submittingRef.current = true;
+      setIsPreparing(true);
+      if (raw === undefined) {
+        setInputValue('');
       }
 
-      await dispatchMessage(messageText);
+      try {
+        if (chatMode === CHAT_MODE.AGENT) {
+          try {
+            const preview = await previewSuperAgentChatRoute({
+              conversationId,
+              message: messageText,
+            });
+            if (preview.streamRoute === 'FLOW_ENGINE' && preview.flowId) {
+              message.info(`本轮路由至 AI 流程 #${preview.flowId}`);
+            }
+            const routedAgent = preview.subAgentName
+              ? resolveVariableAgentFromRegistry(preview.subAgentName, preview.variables)
+              : null;
+            if (routedAgent?.variables?.length) {
+              setVariableAgent(routedAgent);
+              setVariableAgentName(routedAgent.name);
+              if (shouldPromptForVariables(routedAgent)) {
+                setPendingMessage(messageText);
+                setVariableModalOpen(true);
+                return;
+              }
+              const cached = mergeVariableDefaults(
+                routedAgent.variables,
+                getAgentSessionVariables(conversationId, routedAgent.name),
+              );
+              await dispatchMessage(messageText, cached);
+              return;
+            }
+          } catch {
+            // prep 失败时降级为无变量发送
+          }
+        }
+
+        await dispatchMessage(messageText);
+      } finally {
+        submittingRef.current = false;
+        setIsPreparing(false);
+      }
     },
     [
       chatMode,
       conversationId,
       dispatchMessage,
       inputValue,
+      isSending,
       resolveVariableAgentFromRegistry,
       shouldPromptForVariables,
     ],
@@ -420,18 +433,25 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
 
   const handleVariableModalSubmit = useCallback(
     async (values: Record<string, string>) => {
-      if (!variableAgentName) {
+      if (!variableAgentName || submittingRef.current || isSending) {
         return;
       }
+      submittingRef.current = true;
+      setIsPreparing(true);
       setAgentSessionVariables(conversationId, variableAgentName, values);
       setVariableModalOpen(false);
       const messageText = pendingMessage;
       setPendingMessage(null);
-      if (messageText) {
-        await dispatchMessage(messageText, values);
+      try {
+        if (messageText) {
+          await dispatchMessage(messageText, values);
+        }
+      } finally {
+        submittingRef.current = false;
+        setIsPreparing(false);
       }
     },
-    [conversationId, dispatchMessage, pendingMessage, variableAgentName],
+    [conversationId, dispatchMessage, isSending, pendingMessage, variableAgentName],
   );
 
   return (
@@ -570,7 +590,9 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
         className={styles.composer}
         onSubmit={(event) => {
           event.preventDefault();
-          void handleSubmit();
+          if (!isBusy) {
+            void handleSubmit();
+          }
         }}
       >
         <TextArea
@@ -579,12 +601,14 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
           rows={3}
           value={inputValue}
           placeholder={intl.formatMessage({ id: placeholderId })}
-          disabled={isSending}
+          disabled={isBusy}
           onChange={(event) => setInputValue(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === 'Enter' && !event.shiftKey) {
               event.preventDefault();
-              void handleSubmit();
+              if (!isBusy) {
+                void handleSubmit();
+              }
             }
           }}
         />
@@ -611,7 +635,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                     key={cmd.id}
                     type="button"
                     className={styles.shortcut}
-                    disabled={isSending}
+                    disabled={isBusy}
                     onClick={() => void handleSubmit(cmd.content)}
                   >
                     {cmd.icon ? `${cmd.icon} ` : ''}{cmd.name}
@@ -624,7 +648,7 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
                   key={id}
                   type="button"
                   className={styles.shortcut}
-                  disabled={isSending}
+                  disabled={isBusy}
                   onClick={() => void handleSubmit(intl.formatMessage({ id }))}
                 >
                   {intl.formatMessage({ id })}
@@ -632,8 +656,8 @@ export default function ChatShell({ chatMode }: ChatShellProps) {
               ))
             )}
           </div>
-          <Button type="primary" htmlType="submit" loading={isSending} disabled={isSending}>
-            {isSending
+          <Button type="primary" htmlType="submit" loading={isBusy} disabled={isBusy}>
+            {isBusy
               ? intl.formatMessage({ id: 'chat.sending' })
               : intl.formatMessage({ id: 'chat.send' })}
           </Button>
