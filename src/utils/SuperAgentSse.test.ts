@@ -69,6 +69,13 @@ describe('SuperAgentSse artifact', () => {
     expect(meta?.routingModelName).toBe('qwen-turbo');
   });
 
+  it('parses plain meta memory recall counts', () => {
+    const raw = '[Meta] memoryLongCount=2\n[Meta] memoryShortCount=3\n';
+    const meta = parsePlainAgentMetaPayload(raw);
+    expect(meta?.memoryLongCount).toBe(2);
+    expect(meta?.memoryShortCount).toBe(3);
+  });
+
   it('parses routing model segment from assistant text', () => {
     const parsed = parseAgentAssistantText(
       '【路由】智能体：customer-service | Skill：无 | 工具：子 Agent 内置能力 | 模型：qwen-plus（路由：qwen-turbo）\n\n你好',

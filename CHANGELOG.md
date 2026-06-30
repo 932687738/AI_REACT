@@ -1,5 +1,13 @@
 # Changelog
 
+## [2026-06-30] - MCP 安全状态展示（P2-MCP）
+
+### Added
+
+- Agent Hub MCP 回调卡片展示 `highRisk` 高危 Tag 与 `permissionTag` 权限标签
+- `agentHubService.normalizeMcpCallback` 解析后端安全元数据
+- i18n：`agentHub.mcp.highRisk`、`agentHub.mcp.permissionTag`
+
 ## [2026-06-30] - 流程执行记录（add-ai-flow-orchestration §15）
 
 ### Added

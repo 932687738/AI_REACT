@@ -84,6 +84,8 @@ function normalizeMcpCallback(item: unknown, locale: string) {
     providerBean: String(row.providerBean || '').trim(),
     transport: String(row.transport || '').trim(),
     endpointSummary: String(row.endpointSummary || '').trim(),
+    highRisk: Boolean(row.highRisk),
+    permissionTag: String(row.permissionTag || '').trim(),
   });
 }
 

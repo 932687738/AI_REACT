@@ -184,7 +184,13 @@ export function useChatStream(chatMode: ChatMode) {
               }
               if ('type' in meta && meta.type === 'meta') {
                 const superMeta = meta as SuperAgentMetaEvent;
-                if (superMeta.text2sqlSessionId || superMeta.modelName || superMeta.routingModelName) {
+                if (
+                  superMeta.text2sqlSessionId
+                  || superMeta.modelName
+                  || superMeta.routingModelName
+                  || superMeta.memoryLongCount
+                  || superMeta.memoryShortCount
+                ) {
                   assistantMetaRef.current = {
                     ...(assistantMetaRef.current || {}),
                     ...(superMeta.text2sqlSessionId
@@ -193,6 +199,12 @@ export function useChatStream(chatMode: ChatMode) {
                     ...(superMeta.modelName ? { modelName: superMeta.modelName } : {}),
                     ...(superMeta.routingModelName
                       ? { routingModelName: superMeta.routingModelName }
+                      : {}),
+                    ...(superMeta.memoryLongCount
+                      ? { memoryLongCount: superMeta.memoryLongCount }
+                      : {}),
+                    ...(superMeta.memoryShortCount
+                      ? { memoryShortCount: superMeta.memoryShortCount }
                       : {}),
                   };
                   setMessages((current) =>

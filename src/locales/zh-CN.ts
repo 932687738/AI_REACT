@@ -84,6 +84,8 @@ export default {
   'chat.collaboration.label': '多 Agent 协作',
   'chat.collaboration.stepBadge': '{index}/{total}',
   'chat.compressionNotice.label': '上下文提示',
+  'chat.memory.recallSummary':
+    '已注入长期记忆 {longCount} 条、近期对话 {shortCount} 条',
   'chat.welcome.requirementDev.title': '开始一段需求开发对话',
   'chat.welcome.requirementDev.body': '描述你的开发需求，项目经理会先制定计划，再按阶段调度各专业子智能体完成交付。',
   'chat.placeholder.knowledge': '向知识库提问…',
@@ -347,6 +349,8 @@ export default {
   'agentHub.mcp.ready': '就绪',
   'agentHub.mcp.notReady': '待配置',
   'agentHub.mcp.noEndpoint': '未声明端点',
+  'agentHub.mcp.highRisk': '高危',
+  'agentHub.mcp.permissionTag': '权限',
   'platformAdmin.unauthorized': '管理密钥无效或未配置，请在连接设置中填写',
   'platformAgent.title': '平台 Agent 注册表',
   'platformAgent.subtitle': 'SuperAgents 持久化注册表（平台 API）；本地 Bean 快照见「智能体」菜单',

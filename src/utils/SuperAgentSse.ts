@@ -50,6 +50,8 @@ export interface SuperAgentMetaEvent {
   routingModelName?: string;
   modelProvider?: string;
   routingModelProvider?: string;
+  memoryLongCount?: number;
+  memoryShortCount?: number;
 }
 
 export type SuperAgentSseEvent =
@@ -80,9 +82,20 @@ export function parsePlainAgentMetaPayload(raw: string): SuperAgentMetaEvent | n
       meta.modelProvider = value;
     } else if (key === 'routingModelProvider') {
       meta.routingModelProvider = value;
+    } else if (key === 'memoryLongCount') {
+      meta.memoryLongCount = Number(value);
+    } else if (key === 'memoryShortCount') {
+      meta.memoryShortCount = Number(value);
     }
   }
-  if (meta.text2sqlSessionId || meta.modelName || meta.routingModelName || meta.modelProvider) {
+  if (
+    meta.text2sqlSessionId
+    || meta.modelName
+    || meta.routingModelName
+    || meta.modelProvider
+    || meta.memoryLongCount
+    || meta.memoryShortCount
+  ) {
     return meta;
   }
   return null;

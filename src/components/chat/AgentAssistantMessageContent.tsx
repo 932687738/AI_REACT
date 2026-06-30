@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useIntl } from '@umijs/max';
 import AgentCollaborationTimeline from '@/components/chat/AgentCollaborationTimeline';
+import MemoryRecallMeta from '@/components/chat/MemoryRecallMeta';
 import AgentProgressTimeline from '@/components/chat/AgentProgressTimeline';
 import AgentRoutingMeta from '@/components/chat/AgentRoutingMeta';
 import KnowledgeCitationPanel from '@/components/chat/KnowledgeCitationPanel';
@@ -60,9 +61,13 @@ export default function AgentAssistantMessageContent({
 
   const artifacts = (item.meta?.artifacts || []) as unknown as ChatArtifactPayload[];
 
+  const memoryLongCount = (item.meta as { memoryLongCount?: number } | undefined)?.memoryLongCount;
+  const memoryShortCount = (item.meta as { memoryShortCount?: number } | undefined)?.memoryShortCount;
+
   return (
     <>
       {routing ? <AgentRoutingMeta routing={routing} /> : null}
+      <MemoryRecallMeta longCount={memoryLongCount} shortCount={memoryShortCount} />
       {compressionNotice ? (
         <p className={styles.meta} role="note">
           {compressionNotice.replace(/^【提示】/, '')}
